@@ -1,15 +1,16 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ImageTransition : MonoBehaviour
 {
     public float transitionTime = 2f; // Tiempo en segundos entre cada transición
     public Transform parentTransform; // Transform del padre que contiene las imágenes
-    public Transform textParent;      // Transform del padre para los campos de texto
+    public  Transform textParent;      // Transform del padre para los campos de texto
 
     private Image[] childImages; // Arreglo para almacenar las imágenes hijas del objeto padre
-    private Text[] messageTexts; // Arreglo para almacenar los textos hijos del objeto padre
+    private TextMeshProUGUI[] messageTexts; // Arreglo para almacenar los textos hijos del objeto padre
     private int currentIndex = 0; // Índice de la imagen actual
 
     void Start()
@@ -58,16 +59,16 @@ public class ImageTransition : MonoBehaviour
         return imagesList.ToArray();
     }
 
-    private Text[] GetChildTexts()
+    private TextMeshProUGUI[] GetChildTexts()
     {
         // Usar una lista para manejar dinámicamente los textos encontrados
-        var textsList = new System.Collections.Generic.List<Text>();
+        var textsList = new System.Collections.Generic.List<TextMeshProUGUI>();
         int childCount = textParent.childCount;
 
         for (int i = 0; i < childCount; i++)
         {
             Transform child = textParent.GetChild(i);
-            Text text = child.GetComponent<Text>();
+            TextMeshProUGUI text = child.GetComponent<TextMeshProUGUI>();
 
             // Si es un texto, agregarla a la lista
             if (text != null)
