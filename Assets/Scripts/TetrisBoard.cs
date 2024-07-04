@@ -42,8 +42,8 @@ public class TetrisBoard : MonoBehaviour
     };
     private float moveTime = 0;
     private float moveSpeed = 0.06f;
-    // private float time = 0;
-    // private float dropSpeed = 0.4f;
+    private float time = 0;
+    private float dropSpeed = 0.4f;
     void Start() {
         block = new Block[W,H];
         Generate();
@@ -61,17 +61,18 @@ public class TetrisBoard : MonoBehaviour
         //     dropSpeed = 0.05f;
         // }
 
-        // time += Time.deltaTime;
-        // if (time > dropSpeed) {
-        //     if (Move(0, -1)) {
-        //         for (int i = 0; i < 4; i++) {
-        //             block[piece[i].x, -piece[i].y] = piece[i];
-        //         }
-        //         Generate();
-        //         Clear();
-        //     }
-        //     time = 0;
-        // }      
+        time += Time.deltaTime;
+        if (time > dropSpeed) {
+            // Move(0, -1);
+            if (!Move(0, -1)) {
+                for (int i = 0; i < 4; i++) {
+                    block[piece[i].x, -piece[i].y] = piece[i];
+                }
+                Generate();
+                // Clear();
+            }
+            time = 0;
+        }      
     }
 
     private void Generate() {
@@ -99,14 +100,14 @@ public class TetrisBoard : MonoBehaviour
         }
     }
 
-    private void Move(int dx, int dy) {
+    private bool Move(int dx, int dy) {
         Block[] origin = piece.Clone() as Block[];
         for (int i = 0; i < 4; i++) {
             piece[i].x += dx;
             piece[i].y += dy;
-                piece[i].ob.transform.position = new Vector2(piece[i].x, piece[i].y);
+                // piece[i].ob.transform.position = new Vector2(piece[i].x, piece[i].y);
         }
-        // return CheckAndSet(origin);
+        return CheckAndSet(origin);
     }
 
     private void Rotate() {
@@ -117,30 +118,32 @@ public class TetrisBoard : MonoBehaviour
             int y = piece[i].x - p.x;
             piece[i].x = p.x - x;
             piece[i].y = p.y + y;
+                piece[i].ob.transform.position = new Vector2(piece[i].x, piece[i].y);
+
         }
-        // CheckAndSet(origin);
+        CheckAndSet(origin);
     }
 
-    // private bool CheckAndSet(Block[] ori) {
-    //     bool set = true;
-    //     for (int i = 0; i < 4; i++) {
-    //         if (piece[i].x < 0 || piece[i].x >= W || piece[i].y <= -H) // out of bound
-    //         {
-    //             set = false;
-    //         } else if (block[piece[i].x, -piece[i].y].ob != null) // space occupied 
-    //         {
-    //             set = false;
-    //         }
-    //     }
-    //     if (set) {
-    //         for (int i = 0; i < 4; i++) {
-    //             piece[i].ob.transform.position = new Vector2(piece[i].x, piece[i].y);
-    //         }
-    //     } else {
-    //         piece = ori;
-    //     }
-    //     return set;
-    // }
+    private bool CheckAndSet(Block[] ori) {
+        bool set = true;
+        for (int i = 0; i < 4; i++) {
+            if (piece[i].x < 0 || piece[i].x >= W || piece[i].y <= -H) // out of bound
+            {
+                set = false;
+            } else if (block[piece[i].x, -piece[i].y].ob != null) // space occupied 
+            {
+                set = false;
+            }
+        }
+        if (set) {
+            for (int i = 0; i < 4; i++) {
+                piece[i].ob.transform.position = new Vector2(piece[i].x, piece[i].y);
+            }
+        } else {
+            piece = ori;
+        }
+        return set;
+    }
 
     // private void Clear() {
     //     List<Block> blockToClear = new List<Block>();
