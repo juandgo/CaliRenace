@@ -40,10 +40,10 @@ public class TetrisBoard : MonoBehaviour
         {3,5,6,7}, // J
         {2,3,4,5}, // O
     };
+    public float moveSpeed = 0.06f;
+    public float dropSpeed = 0.4f;
     private float moveTime = 0;
-    private float moveSpeed = 0.06f;
     private float time = 0;
-    private float dropSpeed = 0.4f;
     void Start() {
         block = new Block[W,H];
         Generate();
