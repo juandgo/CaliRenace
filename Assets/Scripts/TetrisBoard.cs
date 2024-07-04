@@ -56,10 +56,9 @@ public class TetrisBoard : MonoBehaviour
             HoldAndMove(1, 0);
         } else if (Input.GetKey(KeyCode.UpArrow)) {
             Rotate(); // rotate  
-        } 
-        // else if (Input.GetKey(KeyCode.DownArrow)) {
-        //     dropSpeed = 0.05f;
-        // }
+        } else if (Input.GetKey(KeyCode.DownArrow)) {
+            dropSpeed = 0.05f;
+        }
 
         time += Time.deltaTime;
         if (time > dropSpeed) {
@@ -69,16 +68,15 @@ public class TetrisBoard : MonoBehaviour
                     block[piece[i].x, -piece[i].y] = piece[i];
                 }
                 Generate();
-                // Clear();
+                Clear();
             }
             time = 0;
         }      
     }
 
     private void Generate() {
-        // dropSpeed = 0.05f;
-        int n = 5;
-        // int n = Random.Range(0, shapes.GetLength(0));
+        dropSpeed = 0.05f;
+        int n = Random.Range(0, shapes.GetLength(0));
         for (int i = 0; i < 4; i++) {
            piece[i].x = shapes[n, i] % 2; 
            piece[i].y = -shapes[n, i] / 2; 
@@ -145,35 +143,35 @@ public class TetrisBoard : MonoBehaviour
         return set;
     }
 
-    // private void Clear() {
-    //     List<Block> blockToClear = new List<Block>();
-    //     int k = H - 1;
-    //     int dy = 0;
-    //     for (int i = H - 1; i > 0; i--) {
-    //         blockToClear.Clear();
-    //         int count = 0;
-    //         for (int j = 0; j < W; j++) {
-    //             if (block[j, i].ob != null) {
-    //                 count++;
-    //             }
-    //             block[j, i].y += dy;
-    //             blockToClear.Add(block[j, i]);
-    //             block[j, k] = block[j, i];
-    //         }   
-    //         if (count < W) {
-    //             k--;
-    //         } else {
-    //             dy += -1;
-    //             for (int n = 0; n < blockToClear.Count; n++) {
-    //                 Destroy(blockToClear[n].ob);
-    //             }
-    //         }
-    //         for (int j = 0; j < W; j++) {
-    //             if (block[j, i].ob != null) {
-    //                 block[j, i].ob.transform.position = new Vector2(block[j, i].x, block[j, i].y);
-    //             }
-    //         }
-    //     }        
-    // }
+    private void Clear() {
+        List<Block> blockToClear = new List<Block>();
+        int k = H - 1;
+        int dy = 0;
+        for (int i = H - 1; i > 0; i--) {
+            blockToClear.Clear();
+            int count = 0;
+            for (int j = 0; j < W; j++) {
+                if (block[j, i].ob != null) {
+                    count++;
+                }
+                block[j, i].y += dy;
+                blockToClear.Add(block[j, i]);
+                block[j, k] = block[j, i];
+            }   
+            if (count < W) {
+                k--;
+            } else {
+                dy += -1;
+                for (int n = 0; n < blockToClear.Count; n++) {
+                    Destroy(blockToClear[n].ob);
+                }
+            }
+            for (int j = 0; j < W; j++) {
+                if (block[j, i].ob != null) {
+                    block[j, i].ob.transform.position = new Vector2(block[j, i].x, block[j, i].y);
+                }
+            }
+        }        
+    }
 }
 
