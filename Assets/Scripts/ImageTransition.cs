@@ -98,7 +98,8 @@ public class ImageTransition : MonoBehaviour
             // Si es la última imagen, cambiar de escena
             if (currentIndex == childImages.Length - 1)
             {
-                ChangeScene();
+                SceneManager.LoadScene(nextScene);
+                
             }
         }
     }
@@ -126,12 +127,6 @@ public class ImageTransition : MonoBehaviour
                 text.gameObject.SetActive(false);
         }
     }
-
-    void ChangeScene()
-    {
-        SceneManager.LoadScene(nextScene);
-    }
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -141,6 +136,10 @@ public class ImageTransition : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             PreviousImage();
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene(nextScene);
         }
     }
 
