@@ -2,16 +2,19 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ImageTransition : MonoBehaviour
 {
     public float transitionTime = 2f; // Tiempo en segundos entre cada transición
     public Transform parentTransform; // Transform del padre que contiene las imágenes
-    public  Transform textParent;      // Transform del padre para los campos de texto
+    public Transform textParent;      // Transform del padre para los campos de texto
+    public string nextScene;          // Nombre de la siguiente escena a cargar
 
     private Image[] childImages; // Arreglo para almacenar las imágenes hijas del objeto padre
     private TextMeshProUGUI[] messageTexts; // Arreglo para almacenar los textos hijos del objeto padre
     private int currentIndex = 0; // Índice de la imagen actual
+    private Coroutine transitionCoroutine; // Referencia a la rutina de transición
 
     void Start()
     {
@@ -35,7 +38,7 @@ public class ImageTransition : MonoBehaviour
         HideAllImagesTexts();
 
         // Iniciar la rutina de transición de imágenes y textos
-        StartCoroutine(TransitionImagesTexts());
+        transitionCoroutine = StartCoroutine(TransitionImagesTexts());
     }
 
     private Image[] GetChildImages()
@@ -91,6 +94,12 @@ public class ImageTransition : MonoBehaviour
 
             // Mostrar solo la imagen y texto actual
             ShowCurrentImage();
+
+            // Si es la última imagen, cambiar de escena
+            if (currentIndex == childImages.Length - 1)
+            {
+                ChangeScene();
+            }
         }
     }
 
@@ -116,5 +125,58 @@ public class ImageTransition : MonoBehaviour
             if (text != null)
                 text.gameObject.SetActive(false);
         }
+    }
+
+    void ChangeScene()
+    {
+        SceneManager.LoadScene(nextScene);
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            NextImage();
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            PreviousImage();
+        }
+    }
+
+    public void NextImage()
+    {
+        // Detener la rutina de transición actual
+        if (transitionCoroutine != null)
+        {
+            StopCoroutine(transitionCoroutine);
+        }
+
+        // Avanzar al siguiente índice circularmente
+        currentIndex = (currentIndex + 1) % childImages.Length;
+
+        // Mostrar solo la imagen y texto actual
+        ShowCurrentImage();
+
+        // Reiniciar la rutina de transición
+        transitionCoroutine = StartCoroutine(TransitionImagesTexts());
+    }
+
+    public void PreviousImage()
+    {
+        // Detener la rutina de transición actual
+        if (transitionCoroutine != null)
+        {
+            StopCoroutine(transitionCoroutine);
+        }
+
+        // Retroceder al índice anterior circularmente
+        currentIndex = (currentIndex - 1 + childImages.Length) % childImages.Length;
+
+        // Mostrar solo la imagen y texto actual
+        ShowCurrentImage();
+
+        // Reiniciar la rutina de transición
+        transitionCoroutine = StartCoroutine(TransitionImagesTexts());
     }
 }

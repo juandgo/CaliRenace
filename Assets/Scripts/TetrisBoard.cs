@@ -56,7 +56,8 @@ public class TetrisBoard : MonoBehaviour
     public float moveSpeed = 0.06f;
     public float time = 0;
     public float dropSpeed = 0.4f;
-
+    public int pointsPerLine = 100;
+    private int totalPoints = 0;
     void Start()
     {
         block = new Block[W, H];
@@ -192,6 +193,7 @@ public class TetrisBoard : MonoBehaviour
                 dy += -1;
                 for (int n = 0; n < blockToClear.Count; n++)
                     Destroy(blockToClear[n].ob);
+                LineCompleted(); // Llamar al método LineCompleted cuando se complete una línea                    
             }
 
             for (int j = 0; j < W; j++) //
@@ -200,5 +202,10 @@ public class TetrisBoard : MonoBehaviour
                     block[j, i].ob.transform.position = new Vector2(block[j, i].x, block[j, i].y);
             }
         }
+    }
+     void LineCompleted()
+    {
+        totalPoints += pointsPerLine;
+        Debug.Log($"HAS GANADO {totalPoints} PUNTOS");
     }
 }

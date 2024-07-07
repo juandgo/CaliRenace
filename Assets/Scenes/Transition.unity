@@ -2217,6 +2217,7 @@ MonoBehaviour:
   transitionTime: 2
   parentTransform: {fileID: 1361275289}
   textParent: {fileID: 1215315968}
+  nextScene: Tetris
 --- !u!4 &1772563997
 Transform:
   m_ObjectHideFlags: 0
