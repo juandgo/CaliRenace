@@ -499,6 +499,7 @@ MonoBehaviour:
   - {fileID: 1837984007369779985}
   - {fileID: 1837984007369779984}
   - {fileID: 1837984007369779983}
+  starCount: 3
   levelStatusText: {fileID: 1899229369}
   overPanel: {fileID: 663504686}
   lockColor: {r: 0, g: 0, b: 0, a: 0}
