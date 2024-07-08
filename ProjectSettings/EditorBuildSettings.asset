@@ -9,8 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels.unity
     guid: 1b18e954e99567a40a7162fe37150931
   - enabled: 1
-    path: Assets/Scenes/LevelScenes/Level1.unity
+    path: Assets/Scenes/Level1.unity
     guid: d1d1eb2a60fde2343af7d87d56642ff7
+  - enabled: 1
+    path: Assets/Scenes/LevelScenes/Level2.unity
+    guid: f6042de1bcc2b4b44a956435f87ff3a5
   - enabled: 1
     path: Assets/Scenes/Tetris.unity
     guid: 26179a2ae91d8964cb5b31c49a8bef27
