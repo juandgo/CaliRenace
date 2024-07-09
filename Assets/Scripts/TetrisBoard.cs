@@ -1,18 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-
+namespace LevelUnlockSystem
+{
 public class TetrisBoard : MonoBehaviour
 {
 
-    [SerializeField]
-    public GameObject blockPrefab;
+    [SerializeField] public GameObject blockPrefab;
 
-    [SerializeField]
-    public Sprite[] blockSprite;
+    [SerializeField] public Sprite[] blockSprite;
 
+    [SerializeField] private Image[] starsArray;  
+    [SerializeField] private GameObject panel;
+    [SerializeField] private Text levelStatusText;    
+    [SerializeField] private Color lockColor, unlockColor;  //ref to colors
     public struct Block
     {
         public int x;
@@ -206,6 +209,43 @@ public class TetrisBoard : MonoBehaviour
      void LineCompleted()
     {
         totalPoints += pointsPerLine;
-        Debug.Log($"HAS GANADO {totalPoints} PUNTOS");
+        if(pointsPerLine >=1){
+
+            Debug.Log($"HAS GANADO {totalPoints} PUNTOS");
+            
+            levelStatusText.text = "Level Complete"+ (LevelSystemManager.Instance.CurrentLevel + 1) + "";
+            LevelSystemManager.Instance.LevelComplete(3);   //send the information to LevelSystemManager    
+            SetStar(3);                                 //set the stars
+                    
+            panel.SetActive(true);
+            Time.timeScale = 0f;
+        }
+    }
+    private void SetStar(int starAchieved)
+        { Debug.Log(" stars "+starAchieved);
+            for (int i = 0; i < starsArray.Length; i++)             //loop through entire star array
+            {
+                Debug.Log(" # "+i);
+                /// <summary>
+                /// if i is less than starAchieved
+                /// Eg: if 2 stars are achieved we set the start at index 0 and 1 color to unlockColor, as array start from 0 element
+                /// </summary>
+                if (i < starAchieved)
+                {
+                    starsArray[i].color = unlockColor;              //set its color to unlockColor
+                    Debug.Log(" unlockColor "+unlockColor);
+                }
+                else
+                {
+                    starsArray[i].color = lockColor;                //else set its color to lockColor
+                    Debug.Log(" lockColor "+lockColor);
+
+                }
+            }
+        }
+    public void OkBtn()                                      //method called by ok button
+    {
+            SceneManager.LoadScene(0);
+    }
     }
 }

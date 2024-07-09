@@ -10,24 +10,28 @@ namespace LevelUnlockSystem
     public class GameUI1 : MonoBehaviour
     {
         [SerializeField] private Image[] starsArray;            //array of stars
-        [SerializeField] public int starCount;                  //number of stars achieved
+        [SerializeField] public int starCount = 3;                  //number of stars achieved
         [SerializeField] private Text levelStatusText;          //level status text
         [SerializeField] private GameObject overPanel;          //ref to over panel
         [SerializeField] private Color lockColor, unlockColor;  //ref to colors
 
-        void OnTriggerEnter2D(Collider2D other)
+        public void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("MainCar"))
             {
-                if (starCount > 0)                               //if star count is more than 0
-                {
+                    // Debug.Log("MainCar");
+
+                
+                // if (starCount > 0)                               //if star count is more than 0
+                // {
+                //     // Debug.Log("StarCount " + starCount + " set to unlockColor");
                     levelStatusText.text = "Level " + (LevelSystemManager.Instance.CurrentLevel + 1) + " Complete";
                     LevelSystemManager.Instance.LevelComplete(starCount);   //send the information to LevelSystemManager
-                }
-                else                                             //else only set the levelStatusText
-                {
-                    levelStatusText.text = "Level " + (LevelSystemManager.Instance.CurrentLevel + 1) + " Failed";
-                }
+                // }
+                // else                                             //else only set the levelStatusText
+                // {
+                //     levelStatusText.text = "Level " + (LevelSystemManager.Instance.CurrentLevel + 1) + " Failed";
+                // }
                 SetStar(starCount);                              //set the stars based on starCount
                 overPanel.SetActive(true);                       //activate the over panel
             }
@@ -53,10 +57,12 @@ namespace LevelUnlockSystem
                 if (i < starAchieved)
                 {
                     starsArray[i].color = unlockColor;              //set its color to unlockColor
+                    // Debug.Log("Star " + i + " set to unlockColor");
                 }
                 else
                 {
-                    starsArray[i].color = lockColor;                //else set its color to lockColor
+                    starsArray[i].color = lockColor;                // else set its color to lockColor
+                    // Debug.Log("Star " + i + " set to lockColor");
                 }
             }
         }
