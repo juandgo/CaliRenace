@@ -1,7 +1,7 @@
+using TMPro;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using UnityEngine.SceneManagement;
 
 public class ImageTransition : MonoBehaviour
@@ -36,7 +36,8 @@ public class ImageTransition : MonoBehaviour
 
         // Ocultar todas las imágenes y textos al inicio
         HideAllImagesTexts();
-
+        // Mostrar la primera imagen y texto inmediatamente
+        ShowCurrentImage();
         // Iniciar la rutina de transición de imágenes y textos
         transitionCoroutine = StartCoroutine(TransitionImagesTexts());
     }
