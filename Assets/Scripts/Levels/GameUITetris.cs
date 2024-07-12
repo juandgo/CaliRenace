@@ -12,6 +12,7 @@ namespace LevelUnlockSystem
         [SerializeField] public Sprite[] blockSprite;
         [SerializeField] private Image[] starsArray;  
         [SerializeField] private GameObject panel;
+        [SerializeField] private GameObject gameOverPanel; // Panel de "Game Over"
         [SerializeField] private TextMeshProUGUI[] levelStatusText; // Arreglo para almacenar los textos hijos del objeto padre
         [SerializeField] private Color lockColor, unlockColor;  //ref to colors
         public struct Block
@@ -101,6 +102,13 @@ namespace LevelUnlockSystem
                 piece[i].y = -shapes[n, i] / 2;
             }
 
+            // Verificar si hay algún bloque en la parte superior del área de juego
+            if (CheckGameOver())
+            {
+                GameOver();
+                return;
+            }
+
             Sprite sprite = blockSprite[Random.Range(0, blockSprite.Length)];
             for (int i = 0; i < 4; i++)
             {
@@ -109,6 +117,24 @@ namespace LevelUnlockSystem
                 sr.sprite = sprite;
             }
             Move(4, 0);
+        }
+
+        private bool CheckGameOver()
+        {
+            for (int i = 0; i < W; i++)
+            {
+                if (block[i, 0].ob != null)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void GameOver()
+        {
+            gameOverPanel.SetActive(true);
+            Time.timeScale = 0f;
         }
 
         public void Hold(int dx, int dy)
@@ -247,5 +273,6 @@ namespace LevelUnlockSystem
         {
             SceneManager.LoadScene(0);
         }
+
     }
 }
