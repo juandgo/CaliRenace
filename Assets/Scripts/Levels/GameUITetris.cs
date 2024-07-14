@@ -240,14 +240,18 @@ namespace LevelUnlockSystem
                     textElement.text = "Level Complete " + (LevelSystemManager.Instance.CurrentLevel + 1);
                 }
 
-                LevelSystemManager.Instance.LevelComplete(3);   //send the information to LevelSystemManager    
+                LevelSystemManager.Instance.LevelComplete(2);   //send the information to LevelSystemManager    
                 SetStar(3);                                 //set the stars
                         
                 panel.SetActive(true);
                 Time.timeScale = 0f;
             }
         }
-
+        public void OkBtn(string nextLevel) //method called by ok button
+        {   
+             Time.timeScale = 1f; // Restore the default time scale before changing the scene
+            SceneManager.LoadScene(nextLevel);
+        }
         private void SetStar(int starAchieved)
         {
             Debug.Log(" stars " + starAchieved);
@@ -268,13 +272,5 @@ namespace LevelUnlockSystem
                 }
             }
         }
-
-  
-        public void OkBtn(string nextLevel) //method called by ok button
-        {
-            // panel.SetActive(false);                       // Activate the over panel
-            SceneManager.LoadScene(nextLevel);
-        }
-
     }
 }
