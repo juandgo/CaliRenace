@@ -269,9 +269,11 @@ namespace LevelUnlockSystem
             }
         }
 
-        public void OkBtn() //method called by ok button
+  
+        public void OkBtn(string nextLevel) //method called by ok button
         {
-            SceneManager.LoadScene(0);
+            // panel.SetActive(false);                       // Activate the over panel
+            SceneManager.LoadScene(nextLevel);
         }
 
     }
