@@ -16,13 +16,13 @@ public class ImageSceneTransition : MonoBehaviour
     public void FadeIn(){
         isFadeOut = false;
         UpdateMaterial(1f);
-        AnimateProperty(1f, 0f);
+        AnimateProperty(3f, 0f);
     }
 
      public void FadeOut(){
         isFadeOut = true;
         UpdateMaterial(0f);
-        AnimateProperty(1f, 1f);
+        AnimateProperty(3f, 1f);
     }
 
     //iTween documentation
