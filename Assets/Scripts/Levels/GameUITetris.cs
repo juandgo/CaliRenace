@@ -10,7 +10,7 @@ namespace LevelUnlockSystem
     {
         [SerializeField] public GameObject blockPrefab;
         [SerializeField] public Sprite[] blockSprite;
-        [SerializeField] private Image[] starsArray;  
+        [SerializeField] private Image[] starsArray;
         [SerializeField] private GameObject panel;
         [SerializeField] private GameObject gameOverPanel; // Panel de "Game Over"
         [SerializeField] private TextMeshProUGUI[] levelStatusText; // Arreglo para almacenar los textos hijos del objeto padre
@@ -178,9 +178,9 @@ namespace LevelUnlockSystem
             bool set = true;
             for (int i = 0; i < 4; i++)
             {
-                if (piece[i].x < 0 || piece[i].x >= W || piece[i].y <= -H) 
+                if (piece[i].x < 0 || piece[i].x >= W || piece[i].y <= -H)
                     set = false;
-                else if (block[piece[i].x, -piece[i].y].ob != null) 
+                else if (block[piece[i].x, -piece[i].y].ob != null)
                     set = false;
             }
             if (set)
@@ -240,22 +240,18 @@ namespace LevelUnlockSystem
                     textElement.text = "Level Complete " + (LevelSystemManager.Instance.CurrentLevel + 1);
                 }
 
-                LevelSystemManager.Instance.LevelComplete(2);   //send the information to LevelSystemManager    
+                LevelSystemManager.Instance.LevelComplete(3);   //send the information to LevelSystemManager    
                 SetStar(3);                                 //set the stars
-                        
+
                 panel.SetActive(true);
                 Time.timeScale = 0f;
             }
         }
-        public void OkBtn(string nextLevel) //method called by ok button
-        {   
-             Time.timeScale = 1f; // Restore the default time scale before changing the scene
-            SceneManager.LoadScene(nextLevel);
-        }
+
         private void SetStar(int starAchieved)
         {
             Debug.Log(" stars " + starAchieved);
-            for (int i = 0; i > starsArray.Length-1; i++) //loop through entire star array
+            for (int i = 0; i > starsArray.Length - 1; i++) //loop through entire star array
             {
                 Debug.Log(" # " + i);
                 // if i is less than starAchieved
@@ -272,5 +268,12 @@ namespace LevelUnlockSystem
                 }
             }
         }
+
+        public void OkBtn() //method called by ok button
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("Levels");
+        }
+
     }
 }

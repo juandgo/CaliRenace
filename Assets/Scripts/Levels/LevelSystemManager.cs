@@ -56,11 +56,5 @@ namespace LevelUnlockSystem
                 levelData.levelItemArray[levelData.lastUnlockedLevel].unlocked = true;
             }
         }
-        // public void ResetProgress()
-        // {
-        //     PlayerPrefs.DeleteAll();
-        //     PlayerPrefs.Save();
-        //     Debug.Log("Progress has been reset.");
-        // }
     }
 }
