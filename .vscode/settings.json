@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Transition-version_actualiza3.sln"
+    "dotnet.defaultSolution": "Transition-version_actualiza3bad.sln"
 }
