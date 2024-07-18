@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SelectLevel.unity
     guid: 337bc72216397114c90fcbeb2c905cbe
   - enabled: 1
+    path: Assets/Scenes/Levels.unity
+    guid: 94dcb9053326fbd49b82864856d9d544
+  - enabled: 1
     path: Assets/Scenes/Level#.unity
     guid: 8aa6cd12d1b200043adfadfd5ecc89c2
   - enabled: 1
@@ -33,12 +36,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Level5.unity
     guid: ba811119dfd469e408e20732f307a6b1
   - enabled: 1
+    path: Assets/Scenes/Rompecabezas/Level6.unity
+    guid: 004f0ee33787a4b499ed9c2f0afef51e
+  - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 122e5cb55b40c4d42bf079091c9495b6
   - enabled: 1
     path: Assets/Scenes/Rewards.unity
     guid: fc5b52989f708034f97632546cff0338
   - enabled: 1
-    path: Assets/Scenes/Levels1.unity
-    guid: 1b18e954e99567a40a7162fe37150931
+    path: Assets/Scenes/Rompecabezas/Juego.unity
+    guid: b565749094333964697897719eee63c4
   m_configObjects: {}

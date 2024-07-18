@@ -33,13 +33,15 @@ public class MainPanel : MonoBehaviour
         SceneManager.LoadScene("LevelTransition");
         // SceneManager.LoadScene(levelName);
     }
-    public void PlayLevel(string levelName)
+    // public void PlayLevel(string levelName)
+    // {
+    //     SceneManager.LoadScene(levelName);
+    //     PlaySoundButton();
+    // }
+    public void Levels()
     {
-        SceneManager.LoadScene(levelName);
-    }
-    public void SelectLevel()
-    {
-        SceneManager.LoadScene("SelectLevel");
+        PlaySoundButton();
+        SceneManager.LoadScene("Levels");
     }
     //public void PlayLevel(int levelNumber)
     //{
@@ -49,6 +51,7 @@ public class MainPanel : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+        PlaySoundButton();
     }
     public void SetMute()
     {

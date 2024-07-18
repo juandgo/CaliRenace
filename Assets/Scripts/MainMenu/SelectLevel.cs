@@ -9,20 +9,21 @@ public class SelectLevel : MonoBehaviour
     public AudioMixer mixer;
     public AudioSource fxSource;
     public AudioClip clickSound;
-    private float lastVolume;
 
     public void PlayTransition()
     {
         SceneManager.LoadScene("LevelTransition");
         // SceneManager.LoadScene(levelName);
     }
-    public void PlayLevel(string levelName)
-    {
-        SceneManager.LoadScene(levelName);
-    }
+    // public void PlayLevel(string levelName)
+    // {
+    //     SceneManager.LoadScene(levelName);
+    //     PlaySoundButton();
+    // }
     public void MainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+        PlaySoundButton();
     }
 
     public void ExitGame()

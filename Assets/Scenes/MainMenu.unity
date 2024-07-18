@@ -2901,7 +2901,6 @@ GameObject:
   - component: {fileID: 284477567}
   - component: {fileID: 284477572}
   - component: {fileID: 284477573}
-  - component: {fileID: 284477574}
   - component: {fileID: 284477575}
   m_Layer: 5
   m_Name: Canvas
@@ -3026,7 +3025,6 @@ MonoBehaviour:
   blackBg: {fileID: 1847133043}
   acceptQuitGame: {fileID: 1251338225}
   logoAnimation: {fileID: 229973168}
-  clickSound: {fileID: 284477574}
 --- !u!114 &284477573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3051,102 +3049,6 @@ MonoBehaviour:
   helpPanel: {fileID: 163864036}
   profilePanel: {fileID: 677312062}
   editUserPanel: {fileID: 113853713}
---- !u!82 &284477574
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 284477566}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f4adc80396136094bac0dd2ff4ff9f16, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &284477575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3919,7 +3821,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 284477573}
         m_TargetAssemblyTypeName: MainPanel, Assembly-CSharp
-        m_MethodName: SelectLevel
+        m_MethodName: Levels
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6230,9 +6132,9 @@ MonoBehaviour:
       starAchieved: 0
     - unlocked: 1
       starAchieved: 0
-    - unlocked: 1
+    - unlocked: 0
       starAchieved: 0
-    - unlocked: 1
+    - unlocked: 0
       starAchieved: 0
 --- !u!1 &716157217
 GameObject:
@@ -6934,11 +6836,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 5781453426939924001, guid: bf45277a8a9b9ef478813a41d645d35c, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 632c288778f0a3b488738433558876ae, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 74224171dbc0e424988a729e1f67c2f7, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -8623,7 +8525,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: bf45277a8a9b9ef478813a41d645d35c, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 632c288778f0a3b488738433558876ae, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 74224171dbc0e424988a729e1f67c2f7, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -12507,13 +12409,13 @@ MonoBehaviour:
 '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 28fdb4d861a7d5c4b83cca3ce306968d, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 1713281053642650774, guid: 28fdb4d861a7d5c4b83cca3ce306968d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -13781,7 +13683,7 @@ GameObject:
   - component: {fileID: 1800388606}
   - component: {fileID: 1800388605}
   m_Layer: 5
-  m_Name: BtnSingOff
+  m_Name: BtnSingOut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16022,6 +15924,18 @@ MonoBehaviour:
       - m_Target: {fileID: 284477572}
         m_TargetAssemblyTypeName: AnimationsUI, Assembly-CSharp
         m_MethodName: ActivateExtraMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 284477573}
+        m_TargetAssemblyTypeName: MainPanel, Assembly-CSharp
+        m_MethodName: PlaySoundButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

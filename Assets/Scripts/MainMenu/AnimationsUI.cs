@@ -11,7 +11,6 @@ public class AnimationsUI : MonoBehaviour
     [SerializeField] private GameObject acceptQuitGame;
     [SerializeField] private RectTransform logoAnimation;
 
-    [SerializeField] private AudioSource clickSound;
 
     bool activate = true;
     private void Start()
@@ -35,13 +34,10 @@ public class AnimationsUI : MonoBehaviour
     public void ActivateExtraMenu(){
         if(activate){
             LeanTween.moveY(extraMenu.GetComponent<RectTransform>(), -400, 1f).setEase(LeanTweenType.easeOutElastic);
-            clickSound.Play();
             activate = false;
         }else{
             LeanTween.moveY(extraMenu.GetComponent<RectTransform>(), 337, 1f).setEase(LeanTweenType.easeOutElastic);
             activate = true;
-            clickSound.Play();
-
         }
     }
 

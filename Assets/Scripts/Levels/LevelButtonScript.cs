@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -15,6 +16,7 @@ namespace LevelUnlockSystem
         [SerializeField] private Color lockColor, unlockColor;      //color references
         [SerializeField] private Button btn;                        //ref to hold button component
         [SerializeField] private GameObject activeLevelIndicator;
+        [SerializeField] public AudioSource clickSound;
 
         private int levelIndex;                                     //int which hold the level Index this perticular button specify
 
@@ -77,7 +79,13 @@ namespace LevelUnlockSystem
         {
             LevelSystemManager.Instance.CurrentLevel = levelIndex - 1;  //set the CurrentLevel, we subtract 1 as level data array start from 0
             SceneManager.LoadScene("Level" + levelIndex);           //load the level
+            clickSound.Play();
         }
+
+        //     public void PlaySoundButton()
+        // {
+        //     fxSource.PlayOneShot(clickSound);
+        // }
 
     }
 }
