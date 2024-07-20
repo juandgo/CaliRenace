@@ -5,7 +5,7 @@ using UnityEngine;
 namespace LevelUnlockSystem
 {
     /// <summary>
-    /// This script save and load the LevelData
+    /// This script saves and loads the LevelData.
     /// </summary>
     public class SaveLoadData : MonoBehaviour
     {
@@ -26,25 +26,25 @@ namespace LevelUnlockSystem
             }
         }
 
-        //Method to initialize the SaveLoad Script
+        // Method to initialize the SaveLoad Script
         public void Initialize()
         {
-            //ClearData();
-            if (PlayerPrefs.GetInt("GameStartFirstTime") == 1)  //if PlayerPrefs of "GameStartFirstTime" value is 1, means we are playing the game again
+            // ClearData();
+            if (PlayerPrefs.GetInt("GameStartFirstTime") == 1)  // if PlayerPrefs of "GameStartFirstTime" value is 1, means we are playing the game again
             {
-                LoadData();                                     //so we load the data
+                LoadData();                                     // so we load the data
             }
-            else                                                //if its not 1, means we are playing the game 1st time
+            else                                                // if it's not 1, means we are playing the game 1st time
             {
-                SaveData();                                     //save the data 1st
-                PlayerPrefs.SetInt("GameStartFirstTime", 1);    //save the PlayerPrefs
+                SaveData();                                     // save the data 1st
+                PlayerPrefs.SetInt("GameStartFirstTime", 1);    // save the PlayerPrefs
             }
         }
 
-        //this is Unity method which is called when game is crashed or in background or quit
+        // This is a Unity method which is called when the game is paused, in background, or quit
         private void OnApplicationPause(bool pause)
         {
-            SaveData();                                 //great for saving the data. Note: In editor doesnt work correctly, but works great in Build
+            SaveData();                                 // great for saving the data. Note: In editor it doesn't work correctly, but works great in Build
         }
 
         /// <summary>
@@ -52,46 +52,59 @@ namespace LevelUnlockSystem
         /// </summary>
         public void SaveData()
         {
-            //convert the data to string
+            // Convert the data to string
             string levelDataString = JsonUtility.ToJson(LevelSystemManager.Instance.LevelData);
 
             try
             {
-                //save the string as json 
+                // Save the string as json 
                 System.IO.File.WriteAllText(Application.persistentDataPath + "/LevelData.json", levelDataString);
                 Debug.Log("Data Saved");
-
             }
             catch (System.Exception e)
             {
-                //if we get any error debug it
+                // If we get any error, debug it
                 Debug.Log("Error Saving Data:" + e);
                 throw;
             }
         }
 
-        //Method used to load the data
-        private void LoadData()
+        // Method used to load the data
+        public void LoadData()
         {
-            try
+            string filePath = Application.persistentDataPath + "/LevelData.json";
+            if (System.IO.File.Exists(filePath))
             {
-                //get the text data from json and stro it in string
-                string levelDataString = System.IO.File.ReadAllText(Application.persistentDataPath + "/LevelData.json");
-                LevelData levelData = JsonUtility.FromJson<LevelData>(levelDataString); //create LevelData from json
-                if (levelData != null)
+                try
                 {
-                    //set the LevelData of LevelSystemManager
-                    LevelSystemManager.Instance.LevelData.levelItemArray = levelData.levelItemArray;
-                    LevelSystemManager.Instance.LevelData.lastUnlockedLevel = levelData.lastUnlockedLevel;
+                    // Get the text data from json and store it in a string
+                    string levelDataString = System.IO.File.ReadAllText(filePath);
+                    if (!string.IsNullOrEmpty(levelDataString))
+                    {
+                        LevelData levelData = JsonUtility.FromJson<LevelData>(levelDataString); // Create LevelData from json
+                        if (levelData != null)
+                        {
+                            // Set the LevelData of LevelSystemManager
+                            LevelSystemManager.Instance.LevelData.levelItemArray = levelData.levelItemArray;
+                            LevelSystemManager.Instance.LevelData.lastUnlockedLevel = levelData.lastUnlockedLevel;
+                        }
+                        Debug.Log("Data Loaded");
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Loaded data string is null or empty.");
+                    }
                 }
-                Debug.Log("Data Loaded");
+                catch (System.Exception e)
+                {
+                    Debug.Log("Error Loading Data:" + e);
+                    throw;
+                }
             }
-            catch (System.Exception e)
+            else
             {
-                Debug.Log("Error Loading Data:" + e);
-                throw;
+                Debug.LogWarning("Save file not found.");
             }
-            
         }
 
         /// <summary>
@@ -100,25 +113,39 @@ namespace LevelUnlockSystem
         public void ClearData()
         {
             Debug.Log("Data Cleared");
-            LevelData levelData = new LevelData();
+
+            // Clear the level data directly
+            var levelData = LevelSystemManager.Instance.LevelData;
+            levelData.lastUnlockedLevel = 0;
+            for (int i = 0; i < levelData.levelItemArray.Length; i++)
+            {
+                levelData.levelItemArray[i].unlocked = false;
+                levelData.levelItemArray[i].starAchieved = 0;
+            }
+
+            // Save the cleared data
             SaveData();
-            PlayerPrefs.SetInt("GameStartFirstTime", 1);
+            PlayerPrefs.SetInt("GameStartFirstTime", 0); // Reset PlayerPrefs for first-time start
         }
-
-
     }
 
     [System.Serializable]
     public class LevelData
     {
-        public int lastUnlockedLevel = 0;   //has referece to lastUnlockedLevel
-        public LevelItem[] levelItemArray;       //reference to level data
+        public int lastUnlockedLevel = 0;   // has reference to lastUnlockedLevel
+        public LevelItem[] levelItemArray;  // reference to level data
     }
 
     [System.Serializable]
-    public class LevelItem                  //level item
+    public class LevelItem                  // level item
     {
         public bool unlocked;
         public int starAchieved;
+
+        public void Reset()
+        {
+            unlocked = false;
+            starAchieved = 0;
+        }
     }
 }

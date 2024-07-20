@@ -9,14 +9,12 @@ public class BtnBackMenu : MonoBehaviour
     public AudioMixer mixer;
     public AudioSource fxSource;
     public AudioClip clickSound;
-    public void MainMenu()
+    public void MainMenu(string level)
     {
-        Debug.Log("Ir al menu de inicio");
-        SceneManager.LoadScene(1);
+        Debug.Log("Select level");
+        SceneManager.LoadScene(level);
         PlaySoundButton();
     }
-
-
     public void ChangeVolumeMaster(float v)
     {
         mixer.SetFloat("VolMaster", v);
