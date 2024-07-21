@@ -7,11 +7,12 @@ using TMPro;
 
 public class UnityLoginRegister : MonoBehaviour
 {
-    public string baseUrl = "http://localhost/www/UnityLoginLogoutRegister/";
+    private string baseUrl = "http://localhost/www/UnityLoginLogoutRegister/";
 
     [Header("Crear Cuenta")]
     public TMP_InputField username;
     public TMP_InputField email;
+    public TMP_Dropdown sexDropdown;
     public TMP_InputField password;
     public TMP_InputField confirmPassword;
     public TextMeshProUGUI info;
@@ -28,6 +29,33 @@ public class UnityLoginRegister : MonoBehaviour
 
     private string ukey = "accountUsername";
 
+    void Start()
+    {
+        if (sexDropdown == null)
+        {
+            sexDropdown = GameObject.Find("SexDropdown").GetComponent<TMP_Dropdown>();
+        }
+
+        // Registra un listener para cuando el valor del dropdown cambie
+        sexDropdown.onValueChanged.AddListener(delegate
+        {
+            DropdownValueChanged(sexDropdown);
+        });
+
+        // Deshabilitar el primer índice (opción)
+    }
+
+    void DropdownValueChanged(TMP_Dropdown dropdown)
+    {
+        int index = dropdown.value;
+        if (index != 0)
+        {
+            string selectedText = dropdown.options[dropdown.value].text;
+            Debug.Log("Selected: " + selectedText);
+        }
+
+    }
+
     private void UpdateInfoTexts(string newText)
     {
         info.text = newText;
@@ -38,6 +66,8 @@ public class UnityLoginRegister : MonoBehaviour
     {
         string user = username.text;
         string em = email.text;
+        string sex = sexDropdown.options[sexDropdown.value].text;
+        Debug.Log(sex);
         string pass = password.text;
         string confirmPass = confirmPassword.text;
 
@@ -46,8 +76,15 @@ public class UnityLoginRegister : MonoBehaviour
             UpdateInfoTexts("Las contraseñas no coinciden.");
             return;
         }
+        if (sex == "Seleccione")
+        {
+            UpdateInfoTexts("¿Cúal es su sexo?");
+            return;
+        }
 
-        StartCoroutine(RegisterNewAccount(user, pass, em));
+        StartCoroutine(RegisterNewAccount(user, pass, em
+        , sex
+        ));
     }
 
     public void AccountLogin()
@@ -57,12 +94,15 @@ public class UnityLoginRegister : MonoBehaviour
         StartCoroutine(LoginAccount(user, pass));
     }
 
-    IEnumerator RegisterNewAccount(string user, string pass, string em)
+    IEnumerator RegisterNewAccount(string user, string pass, string em
+    , string sex
+    )
     {
         WWWForm form = new WWWForm();
         form.AddField("username", user);
         form.AddField("password", pass);
         form.AddField("email", em);
+        form.AddField("sex", sex);
 
         using (UnityWebRequest www = UnityWebRequest.Post(baseUrl + "index.php", form))
         {
@@ -76,7 +116,7 @@ public class UnityLoginRegister : MonoBehaviour
             }
             else
             {
-                
+
                 string responseText = www.downloadHandler.text;
                 UpdateInfoTexts(responseText);
                 if (responseText == "1")
@@ -97,8 +137,15 @@ public class UnityLoginRegister : MonoBehaviour
                 else if (responseText == "3")
                 {
                     UpdateInfoTexts("Este usuario no está disponible. Por favor cree otro usuario.");
-                }else{
+                }
+                else if (responseText == "4")
+                {
                     UpdateInfoTexts("Correo electrónico no válido.");
+                }
+                else if (responseText == "4")
+                {
+
+                    UpdateInfoTexts("Error desconocido.");
                 }
             }
         }

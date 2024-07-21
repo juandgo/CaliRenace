@@ -9,6 +9,7 @@ public class UserInfo : MonoBehaviour
     private string username;
     public TextMeshProUGUI usernameText;
     public TextMeshProUGUI emailText;
+    public TextMeshProUGUI sexText;
 
     private string getUserInfoUrl = "http://localhost/www/UnityLoginLogoutRegister/index.php";
 
@@ -45,8 +46,9 @@ public class UserInfo : MonoBehaviour
 
                 if (user != null)
                 {
-                    usernameText.text = "Username: " + user.username;
-                    emailText.text = "Email: " + user.email;
+                    usernameText.text = "Usuario: " + user.username;
+                    emailText.text = "Correo: " + user.email;
+                    sexText.text = "Sexo: " + user.sex;
                 }
                 else
                 {
@@ -61,5 +63,6 @@ public class UserInfo : MonoBehaviour
     {
         public string username;
         public string email;
+        public string sex;
     }
 }
