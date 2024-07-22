@@ -2,12 +2,11 @@
 
 include("config.php");
 
-function registerUser($username, $password, $email) {
+function registerUser($username, $password, $email, $sex) {
     global $connection;
-    
+
     // Validar el correo electrónico
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        // echo "Correo electrónico no válido.";
         echo 4;
         return;
     }
@@ -21,21 +20,19 @@ function registerUser($username, $password, $email) {
         // Encriptar la contraseña
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         // Insertar el usuario con la contraseña encriptada
-        $stmt = $connection->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)");
+        $stmt = $connection->prepare("INSERT INTO users (username, email, password, sex) VALUES (:username, :email, :password, :sex)");
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':password', $hashedPassword);
+        $stmt->bindParam(':sex', $sex);
 
         if ($stmt->execute()) {
-            // echo "Usuario " . $username . " registrado exitosamente.";
-            echo 1;
+            echo 1; // Registro exitoso
         } else {
-            // echo "Error al registrar la cuenta.";
-            echo 2;
+            echo 2; // Error al registrar
         }
     } else {
-        // echo "Este usuario no está disponible. Por favor cree otro usuario.";
-        echo 3;
+        echo 3; // Usuario ya existe
     }
 }
 
@@ -50,9 +47,7 @@ function loginUser($username, $password) {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         // Verificar la contraseña encriptada
         if (password_verify($password, $user['password'])) {
-            echo 1; // Inicio exitoso
-            session_start();
-            $_SESSION['username'] = $username;
+            echo json_encode(['userId' => $user['user_id'], 'status' => 1]); // Inicio exitoso con ID de usuario
         } else {
             echo 2; // Contraseña incorrecta
         }
@@ -68,11 +63,11 @@ function logoutUser() {
     echo "Sesión cerrada";
 }
 
-function getUserInfo($username) {
+function getUserInfo($userId) {
     global $connection;
 
-    $stmt = $connection->prepare("SELECT * FROM users WHERE username = :username");
-    $stmt->bindParam(':username', $username);
+    $stmt = $connection->prepare("SELECT * FROM users WHERE user_id = :user_id");
+    $stmt->bindParam(':user_id', $userId);
     $stmt->execute();
 
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -84,13 +79,49 @@ function getUserInfo($username) {
     }
 }
 
+function updateUser($userId, $username, $password, $email, $sex) {
+    global $connection;
+
+    // Validar el correo electrónico
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo 4;
+        return;
+    }
+
+    // Verificar si el usuario existe
+    $stmt = $connection->prepare("SELECT * FROM users WHERE user_id = :user_id");
+    $stmt->bindParam(':user_id', $userId);
+    $stmt->execute();
+
+    if ($stmt->rowCount() > 0) {
+        // Encriptar la contraseña
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        // Actualizar el usuario con la nueva información
+        $stmt = $connection->prepare("UPDATE users SET username = :username, email = :email, password = :password, sex = :sex WHERE user_id = :user_id");
+        $stmt->bindParam(':user_id', $userId);
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':password', $hashedPassword);
+        $stmt->bindParam(':sex', $sex);
+
+        if ($stmt->execute()) {
+            echo 1; // Actualización exitosa
+        } else {
+            echo 2; // Error al actualizar
+        }
+    } else {
+        echo 3; // Usuario no encontrado
+    }
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["email"])) {
+    if (isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["email"]) && isset($_POST["sex"])) {
         $username = $_POST["username"];
         $password = $_POST["password"];
         $email = $_POST["email"];
-        if (!empty($username) && !empty($password) && !empty($email)) {
-            registerUser($username, $password, $email);
+        $sex = $_POST["sex"];
+        if (!empty($username) && !empty($password) && !empty($email) && !empty($sex)) {
+            registerUser($username, $password, $email, $sex);
         } else {
             echo "Todos los campos son requeridos.";
         }
@@ -104,13 +135,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } elseif (isset($_POST["logout"])) {
         logoutUser();
+    } elseif (isset($_POST["updateUserId"]) && isset($_POST["updateUsername"]) && isset($_POST["updatePassword"]) && isset($_POST["updateEmail"]) && isset($_POST["updateSex"])) {
+        $userId = $_POST["updateUserId"];
+        $username = $_POST["updateUsername"];
+        $password = $_POST["updatePassword"];
+        $email = $_POST["updateEmail"];
+        $sex = $_POST["updateSex"];
+        if (!empty($userId) && !empty($username) && !empty($password) && !empty($email) && !empty($sex)) {
+            updateUser($userId, $username, $password, $email, $sex);
+        } else {
+            echo "Todos los campos son requeridos.";
+        }
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if (isset($_GET['username'])) {
-        $username = $_GET['username'];
-        getUserInfo($username);
+    if (isset($_GET['user_id'])) {
+        $userId = $_GET['user_id'];
+        getUserInfo($userId);
     } else {
-        echo json_encode(['error' => 'Username not provided']);
+        echo json_encode(['error' => 'User ID not provided']);
     }
 } else {
     echo "Método no permitido";
