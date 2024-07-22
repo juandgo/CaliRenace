@@ -28,6 +28,7 @@ public class UnityLoginRegister : MonoBehaviour
     public GameObject title;
 
     private string ukey = "accountUsername";
+    private string userIdKey = "accountUserId"; // Añadido para el ID del usuario
 
     void Start()
     {
@@ -41,8 +42,6 @@ public class UnityLoginRegister : MonoBehaviour
         {
             DropdownValueChanged(sexDropdown);
         });
-
-        // Deshabilitar el primer índice (opción)
     }
 
     void DropdownValueChanged(TMP_Dropdown dropdown)
@@ -53,7 +52,6 @@ public class UnityLoginRegister : MonoBehaviour
             string selectedText = dropdown.options[dropdown.value].text;
             Debug.Log("Selected: " + selectedText);
         }
-
     }
 
     private void UpdateInfoTexts(string newText)
@@ -82,9 +80,7 @@ public class UnityLoginRegister : MonoBehaviour
             return;
         }
 
-        StartCoroutine(RegisterNewAccount(user, pass, em
-        , sex
-        ));
+        StartCoroutine(RegisterNewAccount(user, pass, em, sex));
     }
 
     public void AccountLogin()
@@ -94,9 +90,7 @@ public class UnityLoginRegister : MonoBehaviour
         StartCoroutine(LoginAccount(user, pass));
     }
 
-    IEnumerator RegisterNewAccount(string user, string pass, string em
-    , string sex
-    )
+    IEnumerator RegisterNewAccount(string user, string pass, string em, string sex)
     {
         WWWForm form = new WWWForm();
         form.AddField("username", user);
@@ -116,9 +110,9 @@ public class UnityLoginRegister : MonoBehaviour
             }
             else
             {
-
                 string responseText = www.downloadHandler.text;
                 UpdateInfoTexts(responseText);
+
                 if (responseText == "1")
                 {
                     UpdateInfoTexts("Usuario " + user + " registrado exitosamente.");
@@ -142,9 +136,8 @@ public class UnityLoginRegister : MonoBehaviour
                 {
                     UpdateInfoTexts("Correo electrónico no válido.");
                 }
-                else if (responseText == "4")
+                else
                 {
-
                     UpdateInfoTexts("Error desconocido.");
                 }
             }
@@ -172,9 +165,13 @@ public class UnityLoginRegister : MonoBehaviour
                 string responseText = www.downloadHandler.text;
                 Debug.Log("Response: " + responseText);
 
-                if (responseText == "1")
+                if (responseText.StartsWith("{")) // Asumir respuesta JSON si es exitosa
                 {
+                    User user = JsonUtility.FromJson<User>(responseText);
                     PlayerPrefs.SetString(ukey, username);
+                    PlayerPrefs.SetInt(userIdKey, user.userId);
+                    PlayerPrefs.Save();
+                    
                     UpdateInfoTexts("Inicio de sesión exitoso del usuario " + username);
                     SceneManager.LoadScene("MainMenu");
                 }
@@ -192,5 +189,12 @@ public class UnityLoginRegister : MonoBehaviour
                 }
             }
         }
+    }
+
+    [System.Serializable]
+    public class User
+    {
+        public int userId;
+        public string username;
     }
 }

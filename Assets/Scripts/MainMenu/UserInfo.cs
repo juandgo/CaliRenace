@@ -7,6 +7,7 @@ using TMPro;
 public class UserInfo : MonoBehaviour
 {
     private string username;
+    private int userId;
     public TextMeshProUGUI usernameText;
     public TextMeshProUGUI emailText;
     public TextMeshProUGUI sexText;
@@ -18,33 +19,27 @@ public class UserInfo : MonoBehaviour
     public TMP_InputField newPasswordInput;
     public TMP_InputField confirmNewPasswordInput;
     public TextMeshProUGUI textInfo;
-    
-
-    // public Button updateButton; // Descomentado y añadido
 
     private string getUserInfoUrl = "http://localhost/www/UnityLoginLogoutRegister/index.php";
     private string updateUserUrl = "http://localhost/www/UnityLoginLogoutRegister/index.php";
 
     void Start()
     {
-        username = PlayerPrefs.GetString("accountUsername", "Guest");
+        userId = PlayerPrefs.GetInt("accountUserId", -1);
 
-        if (!string.IsNullOrEmpty(username) && username != "Guest")
+        if (userId != -1)
         {
-            StartCoroutine(GetUserInfo(username));
+            StartCoroutine(GetUserInfo(userId));
         }
         else
         {
-            Debug.LogError("No se encontró el nombre de usuario guardado.");
+            Debug.LogError("No se encontró el ID de usuario guardado.");
         }
-
-        // Añadir listener al botón de actualización
-        // updateButton.onClick.AddListener(OnUpdateButtonClick);
     }
 
-    IEnumerator GetUserInfo(string username)
+    IEnumerator GetUserInfo(int userId)
     {
-        string url = getUserInfoUrl + "?username=" + username;
+        string url = getUserInfoUrl + "?user_id=" + userId;
 
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
@@ -62,9 +57,11 @@ public class UserInfo : MonoBehaviour
                 if (user != null)
                 {
                     username = user.username;
-                    usernameText.text = "Usuario: " + user.username;
                     emailText.text = "Correo: " + user.email;
                     sexText.text = "Sexo: " + user.sex;
+                    usernameText.text = "Usuario: " + user.username;
+                    Debug.Log("id: " + userId);
+                    Debug.Log("username: " + username);
                 }
                 else
                 {
@@ -76,9 +73,7 @@ public class UserInfo : MonoBehaviour
 
     public void OnUpdateButtonClick()
     {
-        
-        string newUsername = username;
-        // string newUsername = newUsernameInput.text;
+        string newUsername = newUsernameInput.text;
         string newPass = newPasswordInput.text;
         string confirmNewPass = confirmNewPasswordInput.text;
         string newEmail = newEmailInput.text;
@@ -102,12 +97,13 @@ public class UserInfo : MonoBehaviour
             return;
         }
 
-        StartCoroutine(UpdateUser(newUsername, newPass, newEmail, sex));
+        StartCoroutine(UpdateUser(userId, newUsername, newPass, newEmail, sex));
     }
 
-    IEnumerator UpdateUser(string username, string password, string email, string sex)
+    IEnumerator UpdateUser(int userId, string username, string password, string email, string sex)
     {
         WWWForm form = new WWWForm();
+        form.AddField("updateUserId", userId);
         form.AddField("updateUsername", username);
         form.AddField("updatePassword", password);
         form.AddField("updateEmail", email);
@@ -144,6 +140,7 @@ public class UserInfo : MonoBehaviour
     [System.Serializable]
     public class User
     {
+        public int userId;
         public string username;
         public string email;
         public string sex;
