@@ -20,8 +20,8 @@ public class UserInfo : MonoBehaviour
     public TMP_InputField confirmNewPasswordInput;
     public TextMeshProUGUI textInfo;
 
-    private string getUserInfoUrl = "http://localhost/www/UnityLoginLogoutRegister/index.php";
-    private string updateUserUrl = "http://localhost/www/UnityLoginLogoutRegister/index.php";
+    private string urlData = "http://localhost/www/UnityLoginLogoutRegister/index.php";
+    // private string updateUserUrl = "http://localhost/www/UnityLoginLogoutRegister/index.php";
 
     void Start()
     {
@@ -39,7 +39,7 @@ public class UserInfo : MonoBehaviour
 
     IEnumerator GetUserInfo(int userId)
     {
-        string url = getUserInfoUrl + "?user_id=" + userId;
+        string url = urlData + "?user_id=" + userId;
 
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
@@ -60,6 +60,12 @@ public class UserInfo : MonoBehaviour
                     emailText.text = "Correo: " + user.email;
                     sexText.text = "Sexo: " + user.sex;
                     usernameText.text = "Usuario: " + user.username;
+
+                    // Asignar valores actuales a los InputField
+                    newUsernameInput.text = user.username;
+                    newEmailInput.text = user.email;
+                    sexDropdown.value = sexDropdown.options.FindIndex(option => option.text == user.sex);
+
                     Debug.Log("id: " + userId);
                     Debug.Log("username: " + username);
                 }
@@ -109,7 +115,7 @@ public class UserInfo : MonoBehaviour
         form.AddField("updateEmail", email);
         form.AddField("updateSex", sex);
 
-        using (UnityWebRequest webRequest = UnityWebRequest.Post(updateUserUrl, form))
+        using (UnityWebRequest webRequest = UnityWebRequest.Post(urlData, form))
         {
             yield return webRequest.SendWebRequest();
 
@@ -124,6 +130,7 @@ public class UserInfo : MonoBehaviour
                 if (response == "1")
                 {
                     textInfo.text = "Usuario actualizado exitosamente.";
+                    StartCoroutine(GetUserInfo(userId)); // Refresca la información del usuario
                 }
                 else if (response == "2")
                 {
