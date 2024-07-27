@@ -7,11 +7,12 @@ using TMPro;
 
 public class UnityLoginRegister : MonoBehaviour
 {
-    public string baseUrl = "http://localhost/www/UnityLoginLogoutRegister/";
+    private string baseUrl = "http://localhost/www/UnityLoginLogoutRegister/";
 
     [Header("Crear Cuenta")]
     public TMP_InputField username;
     public TMP_InputField email;
+    public TMP_Dropdown sexDropdown;
     public TMP_InputField password;
     public TMP_InputField confirmPassword;
     public TextMeshProUGUI info;
@@ -27,6 +28,31 @@ public class UnityLoginRegister : MonoBehaviour
     public GameObject title;
 
     private string ukey = "accountUsername";
+    private string userIdKey = "accountUserId"; // Añadido para el ID del usuario
+
+    void Start()
+    {
+        if (sexDropdown == null)
+        {
+            sexDropdown = GameObject.Find("SexDropdown").GetComponent<TMP_Dropdown>();
+        }
+
+        // Registra un listener para cuando el valor del dropdown cambie
+        sexDropdown.onValueChanged.AddListener(delegate
+        {
+            DropdownValueChanged(sexDropdown);
+        });
+    }
+
+    void DropdownValueChanged(TMP_Dropdown dropdown)
+    {
+        int index = dropdown.value;
+        if (index != 0)
+        {
+            string selectedText = dropdown.options[dropdown.value].text;
+            Debug.Log("Selected: " + selectedText);
+        }
+    }
 
     private void UpdateInfoTexts(string newText)
     {
@@ -38,6 +64,8 @@ public class UnityLoginRegister : MonoBehaviour
     {
         string user = username.text;
         string em = email.text;
+        string sex = sexDropdown.options[sexDropdown.value].text;
+        Debug.Log(sex);
         string pass = password.text;
         string confirmPass = confirmPassword.text;
 
@@ -46,8 +74,13 @@ public class UnityLoginRegister : MonoBehaviour
             UpdateInfoTexts("Las contraseñas no coinciden.");
             return;
         }
+        if (sex == "Seleccione")
+        {
+            UpdateInfoTexts("¿Cúal es su sexo?");
+            return;
+        }
 
-        StartCoroutine(RegisterNewAccount(user, pass, em));
+        StartCoroutine(RegisterNewAccount(user, pass, em, sex));
     }
 
     public void AccountLogin()
@@ -57,12 +90,13 @@ public class UnityLoginRegister : MonoBehaviour
         StartCoroutine(LoginAccount(user, pass));
     }
 
-    IEnumerator RegisterNewAccount(string user, string pass, string em)
+    IEnumerator RegisterNewAccount(string user, string pass, string em, string sex)
     {
         WWWForm form = new WWWForm();
         form.AddField("username", user);
         form.AddField("password", pass);
         form.AddField("email", em);
+        form.AddField("sex", sex);
 
         using (UnityWebRequest www = UnityWebRequest.Post(baseUrl + "index.php", form))
         {
@@ -76,9 +110,9 @@ public class UnityLoginRegister : MonoBehaviour
             }
             else
             {
-                
                 string responseText = www.downloadHandler.text;
                 UpdateInfoTexts(responseText);
+
                 if (responseText == "1")
                 {
                     UpdateInfoTexts("Usuario " + user + " registrado exitosamente.");
@@ -97,8 +131,14 @@ public class UnityLoginRegister : MonoBehaviour
                 else if (responseText == "3")
                 {
                     UpdateInfoTexts("Este usuario no está disponible. Por favor cree otro usuario.");
-                }else{
+                }
+                else if (responseText == "4")
+                {
                     UpdateInfoTexts("Correo electrónico no válido.");
+                }
+                else
+                {
+                    UpdateInfoTexts("Error desconocido.");
                 }
             }
         }
@@ -125,9 +165,13 @@ public class UnityLoginRegister : MonoBehaviour
                 string responseText = www.downloadHandler.text;
                 Debug.Log("Response: " + responseText);
 
-                if (responseText == "1")
+                if (responseText.StartsWith("{")) // Asumir respuesta JSON si es exitosa
                 {
+                    User user = JsonUtility.FromJson<User>(responseText);
                     PlayerPrefs.SetString(ukey, username);
+                    PlayerPrefs.SetInt(userIdKey, user.userId);
+                    PlayerPrefs.Save();
+                    
                     UpdateInfoTexts("Inicio de sesión exitoso del usuario " + username);
                     SceneManager.LoadScene("MainMenu");
                 }
@@ -145,5 +189,12 @@ public class UnityLoginRegister : MonoBehaviour
                 }
             }
         }
+    }
+
+    [System.Serializable]
+    public class User
+    {
+        public int userId;
+        public string username;
     }
 }

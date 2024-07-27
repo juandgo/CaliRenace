@@ -19,17 +19,23 @@ public class Level2 : MonoBehaviour
         
     }
 
-    public void BackToMainMenu(string levelName)
+    // public void BackToMainMenu(string levelName)
+    // {
+        // Destruir datos específicos de esta escena antes de cargar la nueva
+    //     CleanupSceneData();
+
+    //     // Mostrar mensaje en la consola
+    //     Debug.Log("Ir al menú de inicio");
+
+    //     // Cargar la nueva escena
+    //     SceneManager.LoadScene(levelName);
+    // }
+    public void MainMenu()
     {
-        
         // Destruir datos específicos de esta escena antes de cargar la nueva
         CleanupSceneData();
-
-        // Mostrar mensaje en la consola
-        Debug.Log("Ir al menú de inicio");
-
         // Cargar la nueva escena
-        SceneManager.LoadScene(levelName);
+        SceneManager.LoadScene("Levels");
     }
 
     private void CleanupSceneData()
