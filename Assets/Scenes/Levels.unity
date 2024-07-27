@@ -1518,8 +1518,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelData:
-    lastUnlockedLevel: 0
+    lastUnlockedLevel: 4
     levelItemArray:
+    - unlocked: 1
+      starAchieved: 0
+    - unlocked: 1
+      starAchieved: 0
+    - unlocked: 1
+      starAchieved: 0
+    - unlocked: 1
+      starAchieved: 0
     - unlocked: 1
       starAchieved: 0
 --- !u!1 &1921230599
