@@ -8,7 +8,6 @@ using System;
 
 public class Level1 : MonoBehaviour
 {
-    [SerializeField] private GameObject btnPause;
     [SerializeField] private GameObject pauseMenu;
     private bool pausedGame = false;
 
@@ -25,12 +24,9 @@ public class Level1 : MonoBehaviour
     public TextMeshProUGUI textMeshLevel;
     private float score;
     private string level = "1";
-
-    private UnityLoginRegister unityLginRegisterInstance;
     
     private void Start()
     {
-        unityLginRegisterInstance = gameObject.AddComponent<UnityLoginRegister>();
         // username = unityLginRegisterInstance.GetName();
         playerLife = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         playerLife.deathPlayer += ActivateMenu;
@@ -58,7 +54,6 @@ public class Level1 : MonoBehaviour
     {
         pausedGame = true;
         Time.timeScale = 0f;
-        btnPause.SetActive(false);
         pauseMenu.SetActive(true);
     }
 
@@ -66,7 +61,6 @@ public class Level1 : MonoBehaviour
     {
         pausedGame = false;
         Time.timeScale = 1f;
-        btnPause.SetActive(true);
         pauseMenu.SetActive(false);
     }
 
