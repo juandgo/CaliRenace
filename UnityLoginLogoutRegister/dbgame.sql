@@ -3,7 +3,12 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+<<<<<<< HEAD
 -- Generation Time: Jul 21, 2024 at 07:43 PM
+=======
+
+-- Generation Time: Aug 04, 2024 at 11:21 PM
+>>>>>>> ce4489223d4042d546f5bc383eb9ef01233b0c52
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -54,6 +59,7 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
+<<<<<<< HEAD
 INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `created_at`, `updated_at`) VALUES
 (1, 'Juan97', 'juan@gmail.com', '$2y$10$Z.CMLkd9njrFkaP5cf9G/u6sH3Opmf6JxrOp.FYRrpo7ErbVpOmWe', '2024-07-02 04:05:06', '2024-07-07 03:27:02'),
 (2, 'cam', 'cam', '$2y$10$hq4brudOq5WUJ5vfYhJPnOJGBAUehpJwyxWstdc5vAXNCdD7CyVDK', '2024-07-02 04:29:54', '2024-07-02 04:29:54'),
@@ -72,6 +78,18 @@ INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `created_at`, `
 (15, 'juan', 'juan@co.oc', '$2y$10$fYMUSSK6rL5QBLw6OxOFU.vwRpa1ytiXEDt0jmTefYM/RTXcVDZD2', '2024-07-16 03:31:23', '2024-07-16 03:31:23'),
 (16, 'pepe', 'pe@gmail.com', '$2y$10$6wm8M.6XyzWhzS/B6ujGj.6w79CiXJT/2AX3kSIeKFj1s8Il3Bzwa', '2024-07-16 03:33:46', '2024-07-16 03:33:46'),
 (17, 'pop', 'pop@mail.com', '$2y$10$bgFHtJGvIGBgiSkuCH4ZOOahpBFJhjQ9R17PRFaFaqe9niem8MMOm', '2024-07-16 03:35:06', '2024-07-16 03:35:06');
+=======
+INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `created_at`, `updated_at`, `sex`) VALUES
+(22, 'sara', 'sara@sara.com', '$2y$10$15Xz/uQR.VKB7CL3Uc77B.f60VoljbnJaQwtAC4NJvGuHgO1XL2Qm', '2024-07-21 22:41:48', '2024-07-21 22:41:48', NULL),
+(24, 'juanca', 'juanca@gmail.com', '$2y$10$gu3LC4TS6R2ik3vJqy/K5ejmd/7QPH203sMm0AuDF6uXranru/vLy', '2024-07-21 22:46:47', '2024-07-27 19:21:14', 'Masculino'),
+(25, 'fran', 'fran@fram.com', '$2y$10$14IVOjM8KR5wH.9dQlCdkOvEyEYKtLTQq5wUtKg8xB06u365Ev13K', '2024-07-21 22:57:00', '2024-07-21 22:57:00', 'Masculino'),
+(26, 'dan', 'dan@dan.com', '$2y$10$9Qg/kmjU7kcHrhdX4.94n.SjtqLdXnVL1fn3lsjd.aGlOUom0OoZ2', '2024-07-21 22:57:50', '2024-07-21 22:57:50', 'Seleccione'),
+(27, 'camila', 'cami@gmail.com', '$2y$10$bnIcdwS3LO1OgdwupdAgm.j/IEy4ir1kaB32jhBSc9mwOJ.tx0u/C', '2024-07-21 23:01:08', '2024-07-21 23:01:08', 'Femenino'),
+(30, 'pop', 'pop@g.co', '$2y$10$JciZln4qJzvQZeHeXxRJROZuXuBwMcHedW9AlASYP3K05/mzomCfe', '2024-07-22 05:00:32', '2024-07-22 05:00:32', 'Masculino'),
+(31, 'asdf', 'asdf@asdf.com', '$2y$10$VOhHaxqRilDcUoH/Sva9weWJBKs5B7KDurNKIwdRDHUyX7voRBy7m', '2024-07-22 05:01:49', '2024-07-22 05:01:49', 'Femenino'),
+(32, 'pedrita', 'pedra3@hotmail.com', '$2y$10$7DHDVr7pKX26F53QykK7L.wGsZmoltkvgfrtj1BVgAP9NWZf2i8z2', '2024-07-22 05:07:41', '2024-07-22 05:11:53', 'Femenino'),
+(33, 'pepe', 'pepe@gmail.com', '$2y$10$jILbcyfBGsacxKOPV1lE4ukVz7AbQdWuX596McQJRCbXWzNA9KQMO', '2024-07-22 11:26:54', '2024-07-22 11:29:33', 'Masculino'),
+>>>>>>> ce4489223d4042d546f5bc383eb9ef01233b0c52
 
 -- --------------------------------------------------------
 
@@ -126,7 +144,12 @@ ALTER TABLE `levels`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
+<<<<<<< HEAD
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+=======
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+>>>>>>> ce4489223d4042d546f5bc383eb9ef01233b0c52
 
 --
 -- AUTO_INCREMENT for table `user_levels`

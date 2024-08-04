@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.Networking;
 using System;
+using System.Threading;
 
 public class Level1 : MonoBehaviour
 {
@@ -52,6 +53,7 @@ public class Level1 : MonoBehaviour
 
     public void Pause()
     {
+        PlaySoundButton();
         pausedGame = true;
         Time.timeScale = 0f;
         pauseMenu.SetActive(true);
@@ -59,6 +61,7 @@ public class Level1 : MonoBehaviour
 
     public void Resume()
     {
+        PlaySoundButton();
         pausedGame = false;
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
@@ -66,13 +69,17 @@ public class Level1 : MonoBehaviour
 
     public void Restart()
     {
+        PlaySoundButton();
         pausedGame = false;
         Time.timeScale = 1f;
+        // Introduce un delay de 2 segundos
+        Thread.Sleep(1000);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void MainMenu()
     {
+        PlaySoundButton();
         Time.timeScale = 1f;
         Debug.Log("Ir al menu de inicio");
         SceneManager.LoadSceneAsync("MainMenu");
