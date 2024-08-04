@@ -1,66 +1,52 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 
-/// <summary>
-/// This script holds the level data scriptable object and its Singleton and doesn't get deleted on scene change.
-/// </summary>
-namespace LevelUnlockSystem
+namespace LevelUnlock
 {
+    
     public class LevelSystemManager : MonoBehaviour
     {
-        private static LevelSystemManager instance;                             // Instance variable
-        public static LevelSystemManager Instance { get => instance; }          // Instance getter
+        public static LevelSystemManager Instance { get; private set; }
+        public int CurrentLevel { get; set; }
+        public Button[] levelButtons;
 
-        [Tooltip("Set the default Level data so when game start 1st time, this data will be saved")]
         [SerializeField] private LevelData levelData;
 
-        public LevelData LevelData { get => levelData; }   // Getter
-
-        private int currentLevel;                                               // Keep track of the current level player is playing
-        public int CurrentLevel { get => currentLevel; set => currentLevel = value; }   // Getter and setter for currentLevel
-
+        public LevelData LevelData{ get => levelData; }
         private void Awake()
         {
-            if (instance == null)                                               // If instance is null
+            if (Instance == null)
             {
-                instance = this;                                                // Set this as instance
-                DontDestroyOnLoad(gameObject);                                  // Make it DontDestroyOnLoad
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
             }
             else
             {
-                Destroy(gameObject);                                            // Else destroy it
+                Destroy(gameObject);
             }
         }
 
-        private void Start()
+        void Start()
         {
-            if (SaveLoadData.Instance == null)
+            int userId = PlayerPrefs.GetInt("accountUserId", -1);
+            if (userId != -1)
             {
-                Debug.LogError("SaveLoadData instance is not initialized.");
+                SaveLoadData.Instance.LoadData(userId);
+                StartCoroutine(WaitForDataAndUpdateUI());
             }
             else
             {
-                SaveLoadData.Instance.Initialize();
+                Debug.LogError("User ID not found. Cannot load level data.");
             }
         }
 
-        private void Update()
+        private IEnumerator WaitForDataAndUpdateUI()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                SaveLoadData.Instance.SaveData();
-            }
+            yield return new WaitForSeconds(2f); // Adjust this wait time as needed
+            Debug.Log("Updating UI with loaded data.");
+            LevelUIManager.Instance.InitializeUI();
         }
 
-        public void LevelComplete(int starAchieved)                             // Method called when player wins the level
-        {
-            levelData.levelItemArray[currentLevel].starAchieved = starAchieved;    // Save the stars achieved by the player in the level
-            if (levelData.lastUnlockedLevel < (currentLevel + 1))
-            {
-                levelData.lastUnlockedLevel = currentLevel + 1;           // Change the lastUnlockedLevel to next level
-                                                                          // And make the next level unlock true
-                levelData.levelItemArray[levelData.lastUnlockedLevel].unlocked = true;
-            }
-        }
     }
 }

@@ -787,15 +787,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 56246331f5d2645828863936ffbb3d31, type: 3}
   - {fileID: 21300000, guid: d5ecb39ba641347e8a1e2f79832afeb5, type: 3}
   - {fileID: 21300000, guid: efbe34676cd1648f4a0d35ffc5951c11, type: 3}
-  starsArray:
-  - {fileID: 660545843}
-  - {fileID: 358376288}
-  - {fileID: 1738337614}
   panel: {fileID: 1350322597}
   gameOverPanel: {fileID: 1100197397}
-  levelStatusText: []
   lockColor: {r: 0, g: 0, b: 0, a: 0}
-  unlockColor: {r: 0, g: 0, b: 0, a: 0}
+  unlockColor: {r: 0, g: 0, b: 0, a: 0.41568628}
+  levelId: 2
+  score: 3
   W: 10
   H: 20
   moveTime: 0

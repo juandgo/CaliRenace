@@ -24,18 +24,18 @@ namespace LevelUnlockSystem
                     // Cambiar el texto de todos los elementos en levelStatusText
                     foreach (var textElement in levelStatusText)
                     {
-                        textElement.text = "Level " + (LevelSystemManager.Instance.CurrentLevel + 1) + " Complete";
+                        // textElement.text = "Level " + (LevelSystemManager.Instance.CurrentLevel + 1) + " Complete";
                     }
-                    LevelSystemManager.Instance.LevelComplete(starCount);   // send the information to LevelSystemManager
+                    // LevelSystemManager.Instance.LevelComplete(starCount);   // send the information to LevelSystemManager
                 }
                 else                                             // else only set the levelStatusText
                 {
                     foreach (var textElement in levelStatusText)
                     {
-                        textElement.text = "Level " + (LevelSystemManager.Instance.CurrentLevel + 1) + " Failed";
+                        // textElement.text = "Level " + (LevelSystemManager.Instance.CurrentLevel + 1) + " Failed";
                     }
                 }
-                SetStar(starCount);                              //set the stars based on starCount
+                // SetStar(starCount);                              //set the stars based on starCount
                 overPanel.SetActive(true);                       //activate the over panel
             }
         }
@@ -45,23 +45,23 @@ namespace LevelUnlockSystem
             SceneManager.LoadScene("Levels");
         }
 
-        private void SetStar(int starAchieved)
-        {
-            for (int i = 0; i < starsArray.Length-1; i++)             //loop through entire star array
-            {
-                Debug.Log("Star " + i+" array "+starsArray.Length);
+        // private void SetStar(int starAchieved)
+        // {
+        //     for (int i = 0; i < starsArray.Length-1; i++)             //loop through entire star array
+        //     {
+        //         Debug.Log("Star " + i+" array "+starsArray.Length);
 
-                if (i < starAchieved)
-                {
-                    starsArray[i].color = unlockColor;              //set its color to unlockColor
-                    // Debug.Log("Star " + i + " set to unlockColor");
-                }
-                else
-                {
-                    starsArray[i].color = lockColor;                // else set its color to lockColor
-                    // Debug.Log("Star " + i + " set to lockColor");
-                }
-            }
-        }
+        //         if (i < starAchieved)
+        //         {
+        //             starsArray[i].color = unlockColor;              //set its color to unlockColor
+        //             // Debug.Log("Star " + i + " set to unlockColor");
+        //         }
+        //         else
+        //         {
+        //             starsArray[i].color = lockColor;                // else set its color to lockColor
+        //             // Debug.Log("Star " + i + " set to lockColor");
+        //         }
+        //     }
+        // }
     }
 }

@@ -1,41 +1,60 @@
 using System.Collections;
-using System.Collections.Generic;
-using LevelUnlockSystem;
-using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
+using LevelUnlock;
+using UnityEngine;
 
 public class NextLevel : MonoBehaviour
 {
-    // [SerializeField] private GameObject lockObj, unlockObj;     //ref to lock and unlock gameobject 
-    private LevelSystemManager levelSystemManager;
-    public string nextLevel;
-    [SerializeField] private AudioSource sound;
+    public int levelId;  // ID del nivel completado
+    public int score;  // Puntaje obtenido en el nivel
+    private int userId;  // ID del usuario
+
+    private void Start()
+    {
+        // Obtén el nivel actual desde el servidor al inicio si es necesario
+        // SaveLoadData.Instance.LoadData(userId);
+        // Obtén el userId de PlayerPrefs
+        userId = PlayerPrefs.GetInt("accountUserId", -1);
+        if (userId == -1)
+        {
+            Debug.LogError("No se encontró el ID de usuario guardado.");
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        // Check if the collided object has the tag "Player"
         if (collider.CompareTag("Player"))
         {
-            // Start the coroutine to wait for the sound to finish
-            StartCoroutine(WaitForSoundAndLoadLevel());
+            // Guarda el nivel completado antes de cambiar de escena
+            if (SaveLoadData.Instance != null)
+            {
+                SaveLoadData.Instance.SaveData(userId, 2, "1", score);
+            }
+            else
+            {
+                Debug.Log("failure");
+
+            }
+            // Cambia la escena al menú principal
+            SceneManager.LoadScene("levels");
+            // PlaySoundButton();
         }
     }
 
-    private IEnumerator WaitForSoundAndLoadLevel()
-    {
-        // Play the sound
-        sound.Play();
+    // private IEnumerator WaitForSoundAndLoadLevel()
+    // {
+    //     AudioSource audioSource = GetComponent<AudioSource>();
+    //     if (audioSource != null)
+    //     {
+    //         audioSource.Play();
+    //         yield return new WaitForSeconds(audioSource.clip.length);
+    //     }
 
-        // Wait until the sound has finished playing
-        while (sound.isPlaying)
-        {
-            yield return null;
-        }
+    //     // Asegúrate de tener el nivel actual cargado
+    //     if (SaveLoadData.Instance != null)
+    //     {
 
-        // Load the next level
-        SceneManager.LoadScene(nextLevel);
-        // lockObj.SetActive(false);                           //deactivate lockObj
-        // unlockObj.SetActive(true);  
-        // levelSystemManager.LevelComplete(1);
-    }
+    //     }
+    // }
 }

@@ -66,8 +66,7 @@ public class UserInfo : MonoBehaviour
                     newEmailInput.text = user.email;
                     sexDropdown.value = sexDropdown.options.FindIndex(option => option.text == user.sex);
 
-                    Debug.Log("id: " + userId);
-                    Debug.Log("username: " + username);
+                    // Debug.Log("id: " + userId + " username: " + username);
                 }
                 else
                 {
