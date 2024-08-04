@@ -11,9 +11,9 @@ public class TimeController : MonoBehaviour
 
     private bool activatedTime = false;
 
-    private void Start(){
-        activateTimer();
-    }
+    // private void Start(){
+    //     activateTimer();
+    // }
 
     private void Update(){
         if( activatedTime ){
