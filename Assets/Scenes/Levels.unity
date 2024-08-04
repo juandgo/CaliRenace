@@ -1347,7 +1347,7 @@ GameObject:
   - component: {fileID: 1465218553}
   - component: {fileID: 1465218552}
   m_Layer: 0
-  m_Name: LevelUIManager
+  m_Name: LevelManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1520,16 +1520,22 @@ MonoBehaviour:
   levelData:
     lastUnlockedLevel: 4
     levelItemArray:
-    - unlocked: 1
-      starAchieved: 0
-    - unlocked: 1
-      starAchieved: 0
-    - unlocked: 1
-      starAchieved: 0
-    - unlocked: 1
-      starAchieved: 0
-    - unlocked: 1
-      starAchieved: 0
+    - level_id: 
+      completion_status: 1
+      score: 
+    - level_id: 
+      completion_status: 1
+      score: 
+    - level_id: 
+      completion_status: 0
+      score: 
+    - level_id: 
+      completion_status: 0
+      score: 
+    - level_id: 
+      completion_status: 0
+      score: 
+  levelButtons: []
 --- !u!1 &1921230599
 GameObject:
   m_ObjectHideFlags: 0

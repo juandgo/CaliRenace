@@ -3,9 +3,10 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 28, 2024 at 07:37 PM
+
+-- Generation Time: Aug 04, 2024 at 11:21 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,6 +34,17 @@ CREATE TABLE `levels` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `levels`
+--
+
+INSERT INTO `levels` (`level_id`, `level_name`, `created_at`, `updated_at`) VALUES
+(1, 'Level1', '2024-07-28 22:58:03', '2024-07-28 22:58:03'),
+(2, 'Level2', '2024-07-28 22:58:03', '2024-07-28 22:58:03'),
+(3, 'Level3', '2024-08-03 20:55:49', '2024-08-03 20:55:49'),
+(4, 'Level4', '2024-08-03 20:55:49', '2024-08-03 20:55:49'),
+(5, 'Level5', '2024-08-03 20:55:49', '2024-08-03 20:55:49');
 
 -- --------------------------------------------------------
 
@@ -64,7 +76,6 @@ INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `created_at`, `
 (31, 'asdf', 'asdf@asdf.com', '$2y$10$VOhHaxqRilDcUoH/Sva9weWJBKs5B7KDurNKIwdRDHUyX7voRBy7m', '2024-07-22 05:01:49', '2024-07-22 05:01:49', 'Femenino'),
 (32, 'pedrita', 'pedra3@hotmail.com', '$2y$10$7DHDVr7pKX26F53QykK7L.wGsZmoltkvgfrtj1BVgAP9NWZf2i8z2', '2024-07-22 05:07:41', '2024-07-22 05:11:53', 'Femenino'),
 (33, 'pepe', 'pepe@gmail.com', '$2y$10$jILbcyfBGsacxKOPV1lE4ukVz7AbQdWuX596McQJRCbXWzNA9KQMO', '2024-07-22 11:26:54', '2024-07-22 11:29:33', 'Masculino'),
-(34, 'carla', 'carla@gmail.com', '$2y$10$i4P70YxzcQhMzlTalIXrf.HoieJfuo1M/u2AIL4xsLogApq3s6FlK', '2024-07-27 19:04:08', '2024-07-27 22:48:15', 'Femenino');
 
 -- --------------------------------------------------------
 
@@ -76,10 +87,23 @@ CREATE TABLE `user_levels` (
   `user_level_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `level_id` int(11) NOT NULL,
-  `completion_status` varchar(20) NOT NULL,
+  `completion_status` tinyint(1) DEFAULT NULL,
   `score` int(11) NOT NULL,
   `completed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_levels`
+--
+
+INSERT INTO `user_levels` (`user_level_id`, `user_id`, `level_id`, `completion_status`, `score`, `completed_at`) VALUES
+(143, 37, 1, 1, 3, '2024-08-04 21:03:55'),
+(144, 37, 2, 1, 3, '2024-08-04 21:03:55'),
+(145, 37, 3, 1, 0, '2024-08-04 21:04:19'),
+(146, 37, 4, 1, 0, '2024-08-04 21:04:44'),
+(147, 36, 1, 1, 3, '2024-08-04 21:10:19'),
+(148, 36, 2, 1, 3, '2024-08-04 21:10:19'),
+(149, 36, 3, 1, 0, '2024-08-04 21:10:45');
 
 --
 -- Indexes for dumped tables
@@ -113,7 +137,7 @@ ALTER TABLE `user_levels`
 -- AUTO_INCREMENT for table `levels`
 --
 ALTER TABLE `levels`
-  MODIFY `level_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `level_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -121,11 +145,12 @@ ALTER TABLE `levels`
 ALTER TABLE `users`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
+
 --
 -- AUTO_INCREMENT for table `user_levels`
 --
 ALTER TABLE `user_levels`
-  MODIFY `user_level_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_level_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
 
 --
 -- Constraints for dumped tables

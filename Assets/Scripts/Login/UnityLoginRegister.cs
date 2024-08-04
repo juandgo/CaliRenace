@@ -4,6 +4,8 @@ using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using TMPro;
+using UnityEngine.EventSystems;
+using System.Linq;
 
 public class UnityLoginRegister : MonoBehaviour
 {
@@ -42,6 +44,30 @@ public class UnityLoginRegister : MonoBehaviour
         {
             DropdownValueChanged(sexDropdown);
         });
+    }
+    
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            Selectable next = null;
+            if (EventSystem.current.currentSelectedGameObject != null)
+            {
+                Selectable current = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>();
+                if (current != null)
+                {
+                    next = current.FindSelectableOnDown();
+                }
+            }
+
+            if (next != null)
+            {
+                InputField inputField = next.GetComponent<InputField>();
+                if (inputField != null) inputField.OnPointerClick(new PointerEventData(EventSystem.current));  // If it's an input field, also set the text caret
+
+                EventSystem.current.SetSelectedGameObject(next.gameObject, new BaseEventData(EventSystem.current));
+            }
+        }
     }
 
     void DropdownValueChanged(TMP_Dropdown dropdown)
@@ -89,6 +115,7 @@ public class UnityLoginRegister : MonoBehaviour
         string pass = passwordLog.text;
         StartCoroutine(LoginAccount(user, pass));
     }
+    
 
     IEnumerator RegisterNewAccount(string user, string pass, string em, string sex)
     {
@@ -190,6 +217,7 @@ public class UnityLoginRegister : MonoBehaviour
             }
         }
     }
+
 
     [System.Serializable]
     public class User

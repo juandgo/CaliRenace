@@ -1303,6 +1303,8 @@ MonoBehaviour:
   mixer: {fileID: 24100000, guid: bf45277a8a9b9ef478813a41d645d35c, type: 2}
   fxSource: {fileID: 775181995}
   clickSound: {fileID: 8300000, guid: f4adc80396136094bac0dd2ff4ff9f16, type: 3}
+  levelId: 0
+  score: 3
 --- !u!1 &968911348
 GameObject:
   m_ObjectHideFlags: 0
