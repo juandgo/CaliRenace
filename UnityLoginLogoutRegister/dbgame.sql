@@ -3,6 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+
 -- Generation Time: Aug 04, 2024 at 11:21 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
@@ -75,10 +76,6 @@ INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `created_at`, `
 (31, 'asdf', 'asdf@asdf.com', '$2y$10$VOhHaxqRilDcUoH/Sva9weWJBKs5B7KDurNKIwdRDHUyX7voRBy7m', '2024-07-22 05:01:49', '2024-07-22 05:01:49', 'Femenino'),
 (32, 'pedrita', 'pedra3@hotmail.com', '$2y$10$7DHDVr7pKX26F53QykK7L.wGsZmoltkvgfrtj1BVgAP9NWZf2i8z2', '2024-07-22 05:07:41', '2024-07-22 05:11:53', 'Femenino'),
 (33, 'pepe', 'pepe@gmail.com', '$2y$10$jILbcyfBGsacxKOPV1lE4ukVz7AbQdWuX596McQJRCbXWzNA9KQMO', '2024-07-22 11:26:54', '2024-07-22 11:29:33', 'Masculino'),
-(34, 'carla', 'carla@gmail.com', '$2y$10$i4P70YxzcQhMzlTalIXrf.HoieJfuo1M/u2AIL4xsLogApq3s6FlK', '2024-07-27 19:04:08', '2024-07-27 22:48:15', 'Femenino'),
-(35, 'pepa', 'pepa@gmail.com', '$2y$10$m8x1r/v1uW4ubEStzz6xk.yu9xotvr78V0Vlzz47zdJXsYFQyQ4yy', '2024-07-28 17:43:47', '2024-07-28 17:43:47', 'Femenino'),
-(36, 'jose', 'jose@gmail.com', '$2y$10$6QoAeZrJQ.aRDs0SVFw39OGDW2Zgyjmmq8CPFAO/B6c.OOMgboL9e', '2024-07-28 17:47:02', '2024-07-28 17:47:02', 'Masculino'),
-(37, 'juan97', 'juan@gmail.com', '$2y$10$2PMeXGX4sSRtdAv9cxmm5OiXeEkCOb4DGaVRHd7LR5IfjaQJy5LU6', '2024-08-04 21:03:26', '2024-08-04 21:05:58', 'Masculino');
 
 -- --------------------------------------------------------
 
@@ -146,7 +143,8 @@ ALTER TABLE `levels`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
 
 --
 -- AUTO_INCREMENT for table `user_levels`
