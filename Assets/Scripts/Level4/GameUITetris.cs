@@ -243,11 +243,11 @@ public class GameUITetris : MonoBehaviour
             if (SaveLoadData.Instance != null)
             {
                 // Debug.Log($"USER ID {userId}");
-                SaveLoadData.Instance.SaveData(userId, 1, "1", 3);
+                SaveLoadData.Instance.SaveData(userId, 3, "1", 3);
             }
             else
             {
-                Debug.Log("SaveLoadData.Instance is null");
+                Debug.Log("Failure");
             }
             Debug.Log($"HAS GANADO {totalPoints} PUNTOS");
 

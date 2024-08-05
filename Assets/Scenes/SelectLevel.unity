@@ -1096,11 +1096,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292b5db67e5cac24cbec1cb97787146d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelButtons: []
   levelData:
     lastUnlockedLevel: 1
     levelItemArray:
-    - unlocked: 1
-      starAchieved: 3
+    - level_id: 
+      level_name: 
+      completion_status: 
+      score: 
 --- !u!1 &819259673
 GameObject:
   m_ObjectHideFlags: 0

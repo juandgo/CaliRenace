@@ -2,6 +2,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using LevelUnlock;
+
 
 namespace LevelUnlockSystem
 {
@@ -12,12 +14,24 @@ namespace LevelUnlockSystem
         [SerializeField] private TextMeshProUGUI[] levelStatusText; // Arreglo para almacenar los textos hijos del objeto padre
         [SerializeField] private Color lockColor, unlockColor;  //ref to colors
         public int starCount = 3;                //number of stars achieved
+        public int levelId;
+        public int score;
+        private int userId;
 
+        void Start()
+        {
+            // Obtén el userId de PlayerPrefs
+            userId = PlayerPrefs.GetInt("accountUserId", -1);
+            if (userId == -1)
+            {
+                Debug.LogError("No se encontró el ID de usuario guardado.");
+            }
+        }
         public void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("MainCar"))
             {
-                    // Debug.Log("MainCar");
+                // Debug.Log("MainCar");
                 if (starCount > 0)                               // if star count is more than 0
                 {
                     Debug.Log("StarCount " + starCount + " set to unlockColor");
@@ -40,8 +54,17 @@ namespace LevelUnlockSystem
             }
         }
 
-        public void OkBtn()                                      //method called by ok button
+        public void OkBtn()//JD
         {
+            if (SaveLoadData.Instance != null)
+            {
+                // Debug.Log($"USER ID {userId}");
+                SaveLoadData.Instance.SaveData(userId, 4, "1", 3);
+            }
+            else
+            {
+                Debug.Log("SaveLoadData.Instance is null");
+            }
             SceneManager.LoadScene("Levels");
         }
 

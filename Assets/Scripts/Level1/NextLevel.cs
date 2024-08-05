@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class NextLevel : MonoBehaviour
 {
+    [SerializeField] private GameObject panel;
+    [SerializeField] private GameObject gameOverPanel; 
+
     public int levelId;  // ID del nivel completado
     public int score;  // Puntaje obtenido en el nivel
     private int userId;  // ID del usuario
@@ -29,7 +32,7 @@ public class NextLevel : MonoBehaviour
             // Guarda el nivel completado antes de cambiar de escena
             if (SaveLoadData.Instance != null)
             {
-                SaveLoadData.Instance.SaveData(userId, 2, "1", score);
+                SaveLoadData.Instance.SaveData(userId, 1, "1", 3);
             }
             else
             {
@@ -37,11 +40,18 @@ public class NextLevel : MonoBehaviour
 
             }
             // Cambia la escena al menú principal
-            SceneManager.LoadScene("levels");
+        // SceneManager.LoadScene("Levels");
+
+            panel.SetActive(true);
+            Time.timeScale = 0f;
             // PlaySoundButton();
         }
     }
-
+    public void OkBtn()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Levels");
+    }
     // private IEnumerator WaitForSoundAndLoadLevel()
     // {
     //     AudioSource audioSource = GetComponent<AudioSource>();

@@ -2,34 +2,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using UnityEngine;
 using UnityEngine.SceneManagement;
+using LevelUnlock;
+using UnityEngine;
 
-public class GameManager : MonoBehaviour {
+
+public class GameManager : MonoBehaviour
+{
 
     #region Variables
 
-    private             Question[]          _questions              = null;
-    public              Question[]          Questions               { get { return _questions; } }
+    private Question[] _questions = null;
+    public Question[] Questions { get { return _questions; } }
 
-    [SerializeField]    GameEvents          events                  = null;
+    [SerializeField] GameEvents events = null;
 
-    [SerializeField]    Animator            timerAnimtor            = null;
-    [SerializeField]    TextMeshProUGUI     timerText               = null;
-    [SerializeField]    Color               timerHalfWayOutColor    = Color.yellow;
-    [SerializeField]    Color               timerAlmostOutColor     = Color.red;
-    private             Color               timerDefaultColor       = Color.white;
+    [SerializeField] Animator timerAnimtor = null;
+    [SerializeField] TextMeshProUGUI timerText = null;
+    [SerializeField] Color timerHalfWayOutColor = Color.yellow;
+    [SerializeField] Color timerAlmostOutColor = Color.red;
+    private Color timerDefaultColor = Color.white;
 
-    private             List<AnswerData>    PickedAnswers           = new List<AnswerData>();
-    private             List<int>           FinishedQuestions       = new List<int>();
-    private             int                 currentQuestion         = 0;
+    private List<AnswerData> PickedAnswers = new List<AnswerData>();
+    private List<int> FinishedQuestions = new List<int>();
+    private int currentQuestion = 0;
 
-    private             int                 timerStateParaHash      = 0;
+    private int timerStateParaHash = 0;
 
-    private             IEnumerator         IE_WaitTillNextRound    = null;
-    private             IEnumerator         IE_StartTimer           = null;
+    private IEnumerator IE_WaitTillNextRound = null;
+    private IEnumerator IE_StartTimer = null;
 
-    private             bool                IsFinished
+    public int levelId;
+    public int score;
+    private int userId;
+
+    private bool IsFinished
     {
         get
         {
@@ -68,6 +75,12 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     void Start()
     {
+        // Obtén el userId de PlayerPrefs
+        userId = PlayerPrefs.GetInt("accountUserId", -1);
+        if (userId == -1)
+        {
+            Debug.LogError("No se encontró el ID de usuario guardado.");
+        }
         events.StartupHighscore = PlayerPrefs.GetInt(GameUtility.SavePrefKey);
 
         timerDefaultColor = timerText.color;
@@ -134,7 +147,8 @@ public class GameManager : MonoBehaviour {
         if (events.UpdateQuestionUI != null)
         {
             events.UpdateQuestionUI(question);
-        } else { Debug.LogWarning("Ups! Something went wrong while trying to display new Question UI Data. GameEvents.UpdateQuestionUI is null. Issue occured in GameManager.Display() method."); }
+        }
+        else { Debug.LogWarning("Ups! Something went wrong while trying to display new Question UI Data. GameEvents.UpdateQuestionUI is null. Issue occured in GameManager.Display() method."); }
 
         if (question.UseTimer)
         {
@@ -158,10 +172,10 @@ public class GameManager : MonoBehaviour {
             SetHighscore();
         }
 
-        var type 
-            = (IsFinished) 
-            ? UIManager.ResolutionScreenType.Finish 
-            : (isCorrect) ? UIManager.ResolutionScreenType.Correct 
+        var type
+            = (IsFinished)
+            ? UIManager.ResolutionScreenType.Finish
+            : (isCorrect) ? UIManager.ResolutionScreenType.Correct
             : UIManager.ResolutionScreenType.Incorrect;
 
         if (events.DisplayResolutionScreen != null)
@@ -287,13 +301,29 @@ public class GameManager : MonoBehaviour {
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-    /// <summary>
-    /// Function that is called to quit the application.
-    /// </summary>
-    public void QuitGame()
+
+    public void NextGame()//JD
     {
-        Application.Quit();
+        if (SaveLoadData.Instance != null)
+        {
+            // Debug.Log($"USER ID {userId}");
+            SaveLoadData.Instance.SaveData(userId, 2, "1", 3);
+        }
+        else
+        {
+            Debug.Log("SaveLoadData.Instance is null");
+        }
+        // Cambia la escena al menú principal
+        SceneManager.LoadScene("levels");
+        // PlaySoundButton();
     }
+    // /// <summary>
+    // /// Function that is called to quit the application.
+    // /// </summary>
+    // public void QuitGame()
+    // {
+    //     Application.Quit();
+    // }
 
     /// <summary>
     /// Function that is called to set new highscore if game score is higher.
