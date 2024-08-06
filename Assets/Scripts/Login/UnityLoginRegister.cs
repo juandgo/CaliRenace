@@ -6,6 +6,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine.EventSystems;
 using System.Linq;
+using LevelUnlock; // Asegúrate de incluir el namespace correcto
 
 public class UnityLoginRegister : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class UnityLoginRegister : MonoBehaviour
     private string ukey = "accountUsername";
     private string userIdKey = "accountUserId"; // Añadido para el ID del usuario
 
+    private LevelSystemManager levelSystemManager; // Referencia a LevelSystemManager
+
     void Start()
     {
         if (sexDropdown == null)
@@ -44,6 +47,9 @@ public class UnityLoginRegister : MonoBehaviour
         {
             DropdownValueChanged(sexDropdown);
         });
+
+        // Buscar el objeto LevelSystemManager en la escena
+        levelSystemManager = FindObjectOfType<LevelSystemManager>();
     }
     
     void Update()
@@ -198,8 +204,15 @@ public class UnityLoginRegister : MonoBehaviour
                     PlayerPrefs.SetString(ukey, username);
                     PlayerPrefs.SetInt(userIdKey, user.userId);
                     PlayerPrefs.Save();
-                    
+
                     UpdateInfoTexts("Inicio de sesión exitoso del usuario " + username);
+                    
+                    // Llamar al método para cargar los datos del usuario
+                    if (levelSystemManager != null)
+                    {
+                        levelSystemManager.ReloadDataForNewUser(user.userId);
+                    }
+
                     SceneManager.LoadScene("MainMenu");
                 }
                 else if (responseText == "2")
@@ -217,7 +230,6 @@ public class UnityLoginRegister : MonoBehaviour
             }
         }
     }
-
 
     [System.Serializable]
     public class User

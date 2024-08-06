@@ -1,12 +1,10 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
-using System.Linq;  // Add this directive
+using System.Linq;
 
 namespace LevelUnlock
 {
-
     public class SaveLoadData : MonoBehaviour
     {
         private static SaveLoadData instance;
@@ -27,7 +25,6 @@ namespace LevelUnlock
             }
         }
 
-        // Method to initialize the SaveLoad Script
         public void Initialize(int userId)
         {
             if (PlayerPrefs.GetInt("GameStartFirstTime") == 1)
@@ -41,31 +38,22 @@ namespace LevelUnlock
             }
         }
 
-        // COMENTADO PORQUE GENERA PROBLEMAS
-        // This is a Unity method which is called when the game is paused, in background, or quit
-        // private void OnApplicationPause(bool pause)
-        // {
-        //     if (pause)
-        //     {
-        //         int userId = PlayerPrefs.GetInt("accountUserId", -1);
-        //         if (userId != -1)
-        //         {
-        //             SaveData(userId, LevelSystemManager.Instance.CurrentLevel, "0", 0);
-        //         }
-        //     }
-        // }
+        private void OnApplicationQuit()
+        {
+            ClearData();
+        }
 
         public void SaveData(int userId, int levelId, string completionStatus, int score)
         {
             StartCoroutine(SaveDataCoroutine(userId, levelId, completionStatus, score));
         }
 
-        IEnumerator SaveDataCoroutine(int userId, int levelId, string completionStatus, int score)
+        private IEnumerator SaveDataCoroutine(int userId, int levelId, string completionStatus, int score)
         {
             WWWForm form = new WWWForm();
-            levelId = levelId +1;
+            levelId = levelId + 1;
 
-            Debug.Log("PRUEBA "+levelId);
+            Debug.Log("PRUEBA " + levelId);
             form.AddField("action", "save");
             form.AddField("userId", userId);
             form.AddField("levelId", levelId);
@@ -112,7 +100,8 @@ namespace LevelUnlock
         {
             StartCoroutine(LoadDataCoroutine(userId));
         }
-        public IEnumerator LoadDataCoroutine(int userId)
+
+        private IEnumerator LoadDataCoroutine(int userId)
         {
             WWWForm form = new WWWForm();
             form.AddField("action", "load");
@@ -128,7 +117,6 @@ namespace LevelUnlock
             else
             {
                 string jsonResponse = www.downloadHandler.text;
-
 
                 // Wrap the JSON array in an object if necessary
                 jsonResponse = "{\"levels\":" + jsonResponse + "}";
@@ -172,10 +160,16 @@ namespace LevelUnlock
                 levelData.levelItemArray[i].score = "0";
             }
 
-            SaveData(PlayerPrefs.GetInt("accountUserId", -1), 1, "0", 0); // Reset data
+            int userId = PlayerPrefs.GetInt("accountUserId", -1);
+            if (userId != -1)
+            {
+                SaveData(userId, 1, "0", 0); // Reset data
+            }
+
             PlayerPrefs.SetInt("GameStartFirstTime", 0);
+            PlayerPrefs.DeleteKey("accountUserId"); // Optional: Clear the user ID if session is tied to the user
         }
-        // En SaveLoadData.cs
+
         public int GetCurrentLevel()
         {
             return LevelSystemManager.Instance.CurrentLevel;
@@ -190,7 +184,6 @@ namespace LevelUnlock
     [System.Serializable]
     public class LevelData
     {
-        // public int lastUnlockedLevel = 1;   // Reference to lastUnlockedLevel
         public int lastUnlockedLevel;           // Reference to lastUnlockedLevel
         public LevelItem[] levelItemArray;    // Reference to level data
     }
@@ -202,17 +195,11 @@ namespace LevelUnlock
         public string level_name;
         public string completion_status;
         public string score;
-        // public void Reset()
-        // {
-        //     completion_status = false;
-        //     score = "0";
-        // }
     }
+
     [System.Serializable]
     public class LevelDataWrapper
     {
         public LevelItem[] levels;
     }
-
-
 }

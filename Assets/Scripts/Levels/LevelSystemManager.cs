@@ -4,7 +4,6 @@ using System.Collections;
 
 namespace LevelUnlock
 {
-    
     public class LevelSystemManager : MonoBehaviour
     {
         public static LevelSystemManager Instance { get; private set; }
@@ -13,7 +12,8 @@ namespace LevelUnlock
 
         [SerializeField] private LevelData levelData;
 
-        public LevelData LevelData{ get => levelData; }
+        public LevelData LevelData { get => levelData; }
+
         private void Awake()
         {
             if (Instance == null)
@@ -41,12 +41,17 @@ namespace LevelUnlock
             }
         }
 
+        public void ReloadDataForNewUser(int userId)
+        {
+            SaveLoadData.Instance.LoadData(userId);
+            StartCoroutine(WaitForDataAndUpdateUI());
+        }
+
         private IEnumerator WaitForDataAndUpdateUI()
         {
             yield return new WaitForSeconds(2f); // Adjust this wait time as needed
             Debug.Log("Updating UI with loaded data.");
             LevelUIManager.Instance.InitializeUI();
         }
-
     }
 }

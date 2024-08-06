@@ -28,7 +28,6 @@ function getLastUnlockedLevel($connection, $userId)
 
 function saveData($connection, $userId, $levelId, $completionStatus, $score)
 {
-    // echo "UserID $userId + , $levelId, $completionStatus, $score ";
     // Verifica que el usuario exista
     $stmt = $connection->prepare("SELECT * FROM users WHERE user_id = :userId");
     $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
@@ -39,7 +38,6 @@ function saveData($connection, $userId, $levelId, $completionStatus, $score)
     }
 
     // Verifica que el nivel exista
-    // $levelId=$levelId+1;
     $stmt = $connection->prepare("SELECT * FROM levels WHERE level_id = :levelId");
     $stmt->bindParam(':levelId', $levelId, PDO::PARAM_INT);
     $stmt->execute();
@@ -73,7 +71,7 @@ function saveData($connection, $userId, $levelId, $completionStatus, $score)
 
     $query->execute();
 
-    // Si el nivel actual se completa, inserta el próximo nivel
+    // Si el nivel actual se completa, verifica e inserta el próximo nivel
     if ($completionStatus == 1) { // Si el nivel se completa
         $next_level = $levelId + 1;
 
@@ -91,11 +89,10 @@ function saveData($connection, $userId, $levelId, $completionStatus, $score)
 
             if ($stmt->rowCount() == 0) {
                 // Inserta un nuevo registro para el próximo nivel
-                $insert_next_level = $connection->prepare("INSERT INTO user_levels (user_id, level_id, completion_status, score) VALUES (:userId, :nextLevel, 1, 0)");
+                $insert_next_level = $connection->prepare("INSERT INTO user_levels (user_id, level_id, completion_status, score) VALUES (:userId, :nextLevel, 0, 0)");
                 $insert_next_level->bindParam(':userId', $userId, PDO::PARAM_INT);
                 $insert_next_level->bindParam(':nextLevel', $next_level, PDO::PARAM_INT);
                 $insert_next_level->execute();
-                // echo "Unlocked new level $next_level for user $userId\n";
             }
         }
     }
@@ -104,6 +101,7 @@ function saveData($connection, $userId, $levelId, $completionStatus, $score)
     $connection->commit();
     loadData($connection, $userId);
 }
+
 
 function loadData($connection, $userId)
 {
