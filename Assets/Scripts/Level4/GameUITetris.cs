@@ -11,7 +11,7 @@ public class GameUITetris : MonoBehaviour
     [SerializeField] private GameObject panel;
     [SerializeField] private GameObject gameOverPanel; 
     [SerializeField] private Color lockColor, unlockColor;  
-    public int levelId;  
+    private int levelId=4;  
     public int score;  
     private int userId;  
 
@@ -243,7 +243,7 @@ public class GameUITetris : MonoBehaviour
             if (SaveLoadData.Instance != null)
             {
                 // Debug.Log($"USER ID {userId}");
-                SaveLoadData.Instance.SaveData(userId, 3, "1", 3);
+                SaveLoadData.Instance.SaveData(userId, levelId, "1", 3);
             }
             else
             {

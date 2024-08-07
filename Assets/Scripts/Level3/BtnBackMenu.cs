@@ -10,7 +10,7 @@ public class BtnBackMenu : MonoBehaviour
     public AudioSource fxSource;
     public AudioClip clickSound;
 
-    public int levelId;  // ID del nivel completado
+    private int levelId=3;  // ID del nivel completado
     public int score;  // Puntaje obtenido en el nivel
     private int userId;  // ID del usuario
 

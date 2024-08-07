@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator IE_WaitTillNextRound = null;
     private IEnumerator IE_StartTimer = null;
 
-    public int levelId;
+    public int levelId=2;
     public int score;
     private int userId;
 
@@ -307,7 +307,7 @@ public class GameManager : MonoBehaviour
         if (SaveLoadData.Instance != null)
         {
             // Debug.Log($"USER ID {userId}");
-            SaveLoadData.Instance.SaveData(userId, 2, "1", 3);
+            SaveLoadData.Instance.SaveData(userId, levelId=2, "1", 3);
         }
         else
         {

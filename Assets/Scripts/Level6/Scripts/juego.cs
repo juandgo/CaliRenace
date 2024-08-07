@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI; // Importar el namespace para UI
+using LevelUnlock;
 
 public class juego : MonoBehaviour
 {
@@ -11,7 +12,9 @@ public class juego : MonoBehaviour
     public GameObject MenuGanar;
     public GameObject PiezaSeleccionada;
     public Image NivelImage; // Referencia al componente Image
-
+    public int levelId=6;
+    public int score;
+    private int userId;
     int capa = 1;
     public int PiezasEncajadas = 0;
 
@@ -19,6 +22,11 @@ public class juego : MonoBehaviour
     {
         int nivelActual = PlayerPrefs.GetInt("Nivel");
 
+          userId = PlayerPrefs.GetInt("accountUserId", -1);
+        if (userId == -1)
+        {
+            Debug.LogError("No se encontró el ID de usuario guardado.");
+        }
         // Configurar la imagen del nivel en el componente Image
         if (NivelImage != null && Niveles.Length > 0 && nivelActual < Niveles.Length)
         {
@@ -82,17 +90,19 @@ public class juego : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("Nivel") < Niveles.Length - 1)
         {
-            PlayerPrefs.SetInt("Nivel", PlayerPrefs.GetInt("Nivel") + 1);
+            SaveLoadData.Instance.SaveData(userId, levelId, "1", 3);
+            // PlayerPrefs.SetInt("Nivel", PlayerPrefs.GetInt("Nivel") + 1);
         }
         else
         {
             PlayerPrefs.SetInt("Nivel", 0);
         }
-        SceneManager.LoadScene("Juego");
+        // SceneManager.LoadScene("Juego");
     }
 
     public void MenuPrincipal()
     {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("Levels");
+        // SceneManager.LoadScene("Menu");
     }
 }

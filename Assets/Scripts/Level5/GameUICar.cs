@@ -13,8 +13,8 @@ namespace LevelUnlockSystem
         [SerializeField] private GameObject overPanel;          //ref to over panel
         [SerializeField] private TextMeshProUGUI[] levelStatusText; // Arreglo para almacenar los textos hijos del objeto padre
         [SerializeField] private Color lockColor, unlockColor;  //ref to colors
-        public int starCount = 3;                //number of stars achieved
-        public int levelId;
+        // public int starCount = 3;                //number of stars achieved
+        public int levelId=5;
         public int score;
         private int userId;
 
@@ -32,23 +32,23 @@ namespace LevelUnlockSystem
             if (other.CompareTag("MainCar"))
             {
                 // Debug.Log("MainCar");
-                if (starCount > 0)                               // if star count is more than 0
-                {
-                    Debug.Log("StarCount " + starCount + " set to unlockColor");
-                    // Cambiar el texto de todos los elementos en levelStatusText
-                    foreach (var textElement in levelStatusText)
-                    {
-                        // textElement.text = "Level " + (LevelSystemManager.Instance.CurrentLevel + 1) + " Complete";
-                    }
-                    // LevelSystemManager.Instance.LevelComplete(starCount);   // send the information to LevelSystemManager
-                }
-                else                                             // else only set the levelStatusText
-                {
-                    foreach (var textElement in levelStatusText)
-                    {
-                        // textElement.text = "Level " + (LevelSystemManager.Instance.CurrentLevel + 1) + " Failed";
-                    }
-                }
+                // if (starCount > 0)                               // if star count is more than 0
+                // {
+                //     // Debug.Log("StarCount " + starCount + " set to unlockColor");
+                //     // Cambiar el texto de todos los elementos en levelStatusText
+                //     foreach (var textElement in levelStatusText)
+                //     {
+                //         // textElement.text = "Level " + (LevelSystemManager.Instance.CurrentLevel + 1) + " Complete";
+                //     }
+                //     // LevelSystemManager.Instance.LevelComplete(starCount);   // send the information to LevelSystemManager
+                // }
+                // else                                             // else only set the levelStatusText
+                // {
+                //     foreach (var textElement in levelStatusText)
+                //     {
+                //         // textElement.text = "Level " + (LevelSystemManager.Instance.CurrentLevel + 1) + " Failed";
+                //     }
+                // }
                 // SetStar(starCount);                              //set the stars based on starCount
                 overPanel.SetActive(true);                       //activate the over panel
             }
@@ -59,7 +59,7 @@ namespace LevelUnlockSystem
             if (SaveLoadData.Instance != null)
             {
                 // Debug.Log($"USER ID {userId}");
-                SaveLoadData.Instance.SaveData(userId, 4, "1", 3);
+                SaveLoadData.Instance.SaveData(userId, levelId, "1", 3);
             }
             else
             {

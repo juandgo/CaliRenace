@@ -9,7 +9,7 @@ public class NextLevel : MonoBehaviour
     [SerializeField] private GameObject panel;
     [SerializeField] private GameObject gameOverPanel; 
 
-    public int levelId;  // ID del nivel completado
+    private int levelId=1;  // ID del nivel completado
     public int score;  // Puntaje obtenido en el nivel
     private int userId;  // ID del usuario
 
@@ -32,7 +32,7 @@ public class NextLevel : MonoBehaviour
             // Guarda el nivel completado antes de cambiar de escena
             if (SaveLoadData.Instance != null)
             {
-                SaveLoadData.Instance.SaveData(userId, 1, "1", 3);
+                SaveLoadData.Instance.SaveData(userId, levelId, "1", 3);
             }
             else
             {

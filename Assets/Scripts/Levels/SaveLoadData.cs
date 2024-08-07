@@ -51,9 +51,10 @@ namespace LevelUnlock
         private IEnumerator SaveDataCoroutine(int userId, int levelId, string completionStatus, int score)
         {
             WWWForm form = new WWWForm();
-            levelId = levelId + 1;
+            // levelId = levelId + 1;
+            // Debug.Log($"completionStatus: {completionStatus}");
 
-            Debug.Log("PRUEBA " + levelId);
+            Debug.Log("levelId:  " + levelId);
             form.AddField("action", "save");
             form.AddField("userId", userId);
             form.AddField("levelId", levelId);
@@ -87,7 +88,7 @@ namespace LevelUnlock
                     int nextLevelToUnlock = lastCompletedLevel + 1;
                     LevelSystemManager.Instance.LevelData.lastUnlockedLevel = nextLevelToUnlock;
 
-                    Debug.Log("Data Loaded and Updated. Next level to unlock: " + nextLevelToUnlock);
+                    // Debug.Log("Data Loaded and Updated. Next level to unlock: " + nextLevelToUnlock);
                 }
                 else
                 {
@@ -139,7 +140,7 @@ namespace LevelUnlock
                     int nextLevelToUnlock = lastCompletedLevel + 1;
                     LevelSystemManager.Instance.LevelData.lastUnlockedLevel = nextLevelToUnlock;
 
-                    Debug.Log("Data Loaded and Updated. Next level to unlock: " + nextLevelToUnlock);
+                    // Debug.Log("Data Loaded and Updated. Next level to unlock: " + nextLevelToUnlock);
                 }
                 else
                 {
