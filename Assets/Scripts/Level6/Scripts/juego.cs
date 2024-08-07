@@ -102,6 +102,15 @@ public class juego : MonoBehaviour
 
     public void MenuPrincipal()
     {
+        if (PlayerPrefs.GetInt("Nivel") < Niveles.Length - 1)
+        {
+            SaveLoadData.Instance.SaveData(userId, levelId, "1", 3);
+            // PlayerPrefs.SetInt("Nivel", PlayerPrefs.GetInt("Nivel") + 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Nivel", 0);
+        }
         SceneManager.LoadScene("Levels");
         // SceneManager.LoadScene("Menu");
     }
