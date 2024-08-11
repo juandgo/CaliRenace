@@ -9,7 +9,7 @@ public class NextLevel : MonoBehaviour
     [SerializeField] private GameObject panel;
     [SerializeField] private GameObject gameOverPanel; 
 
-    private int levelId=8;  // ID del nivel completado
+    private int levelId=8;  // ID del nivel completado JD
     public int score;  // Puntaje obtenido en el nivel
     private int userId;  // ID del usuario
 
