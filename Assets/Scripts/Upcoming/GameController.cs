@@ -5,21 +5,23 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    Vector2 startPos;
+    Vector2 checkpointPos;
     Rigidbody2D playerRb;
     private void Awake(){
         playerRb = GetComponent<Rigidbody2D>();
     }
     void Start()
     {
-      startPos = transform.position;  
+      checkpointPos = transform.position;  
     }
     private void OnTriggerEnter2D(Collider2D collision){
         if(collision.CompareTag("Obstaculo")){
             Die();
         }
     }
-
+    public void UpdateCheckpoint(Vector2 pos){
+        checkpointPos = pos;
+    }
     private void Die()
     {
        StartCoroutine(Respawn(0.5f));
@@ -30,7 +32,7 @@ public class GameController : MonoBehaviour
         playerRb.velocity =new Vector2(0,0);
         transform.localScale = new Vector3(0,0,0);
         yield return new WaitForSeconds(duration);
-        transform.position = startPos;
+        transform.position = checkpointPos;
         transform.localScale = new Vector3(1,1,1);
         playerRb.simulated =true;
     }
