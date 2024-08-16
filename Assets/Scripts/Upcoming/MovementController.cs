@@ -19,7 +19,7 @@ public class MovementController : MonoBehaviour
 
     public bool isOnPlatform;  // Asegúrate de que esto sea público
     public Rigidbody2D platformRb;  // Asegúrate de que esto sea público
-
+    public ParticleController plarticleController;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -53,6 +53,7 @@ public class MovementController : MonoBehaviour
 
     public void Flip()
     {
+        plarticleController.PlayTouchParticle(wallCheckpoint.position);
         transform.Rotate(0, 180, 0);
         UpdateRelativeTransform();
     }
