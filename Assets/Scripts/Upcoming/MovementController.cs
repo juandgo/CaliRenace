@@ -5,88 +5,136 @@ using UnityEngine.InputSystem;
 
 public class MovementController : MonoBehaviour
 {
-    Rigidbody2D rb;
+    Rigidbody2D theRB;
+
     [SerializeField] int speed;
-    float speedMultiplier;
-    [Range(1, 10)]
+
+    [Range(1f, 10f)]
     [SerializeField] float acceleration;
-    bool btnPressed;
 
-    bool isWallTouch;
-    public LayerMask wallLayer;
-    public Transform wallCheckpoint;
-    Vector2 relativeTransform;
+    [SerializeField] float gravity;
 
-    public bool isOnPlatform;  // Asegúrate de que esto sea público
-    public Rigidbody2D platformRb;  // Asegúrate de que esto sea público
-    public ParticleController plarticleController;
+    private float speedMultiplier;
+
+    private bool btnPressed;
+
+    private bool isTouchingWall;
+
+    public LayerMask whatIsWall;
+    public Transform wallCheckPoint;
+
+    private Vector2 relativeTransform;
+
+    public bool isOnPlatform;
+    public Rigidbody2D platformRB;
+
+    public ParticleController particleController;
+
+    public Transform groundCheckPoint;
+    private bool isOnGround;
+    private bool wasOnGround;
+
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        theRB = GetComponent<Rigidbody2D>();
+
+        theRB.gravityScale = gravity;
     }
 
-    void Start()
+    private void Start()
     {
         UpdateRelativeTransform();
+
+        //reset isTouchingWall
+        isTouchingWall = false;
     }
 
     private void FixedUpdate()
     {
+
         UpdateSpeedMultiplier();
+
         float targetSpeed = speed * speedMultiplier * relativeTransform.x;
 
-        if (isOnPlatform)
+        if(isOnPlatform)
         {
-            rb.velocity = new Vector2(targetSpeed + platformRb.velocity.x, rb.velocity.y);
+            theRB.velocity = new Vector2(targetSpeed + platformRB.velocity.x, theRB.velocity.y);
         }
         else
         {
-            rb.velocity = new Vector2(targetSpeed, rb.velocity.y);
+            theRB.velocity = new Vector2(targetSpeed, theRB.velocity.y);
         }
 
-        isWallTouch = Physics2D.OverlapBox(wallCheckpoint.position, new Vector2(0.06f, 0.55f), 0, wallLayer);
-        if (isWallTouch)
+
+        isTouchingWall = Physics2D.OverlapBox(wallCheckPoint.position, new Vector2(0.03f, 0.3f), 0f, whatIsWall);
+
+        if (isTouchingWall)
         {
             Flip();
         }
+
+        GroundCheck();
     }
 
     public void Flip()
     {
-        plarticleController.PlayTouchParticle(wallCheckpoint.position);
-        transform.Rotate(0, 180, 0);
+        particleController.PlayTouchParticle(wallCheckPoint.position);
+        transform.Rotate(0f, 180f, 0f);
         UpdateRelativeTransform();
+        //Debug.Log("FLIPPED");
     }
 
-    void UpdateRelativeTransform()
+    public void GroundCheck()
     {
-        relativeTransform = transform.right;
+        //checking if on the ground
+        isOnGround = Physics2D.OverlapBox(groundCheckPoint.position, new Vector2(0.03f, 0.3f), 0f, whatIsWall);
+
+        //Player was JUST in the air but is now back on the ground
+        if (!wasOnGround && isOnGround)
+        {
+            particleController.PlayFallParticle(groundCheckPoint.position);
+        }
+
+        wasOnGround = isOnGround;
     }
 
-    public void Move(InputAction.CallbackContext value)
+    public void UpdateRelativeTransform()
     {
-        if (value.started)
+        relativeTransform = transform.InverseTransformVector(Vector2.one);
+    }
+
+    public void Move(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
         {
             btnPressed = true;
-            speedMultiplier = 1;
         }
-        else if (value.canceled)
+
+        else if (ctx.canceled)
         {
-            btnPressed = false;
+            btnPressed  = false;
         }
+
     }
 
-    public void UpdateSpeedMultiplier()
+    private void UpdateSpeedMultiplier()
     {
-        if (btnPressed && speedMultiplier < 1)
+        if (btnPressed && speedMultiplier < 1f)
         {
             speedMultiplier += Time.deltaTime * acceleration;
         }
-        else if (!btnPressed && speedMultiplier > 0)
+
+        else if(!btnPressed && speedMultiplier > 0f)
+
         {
             speedMultiplier -= Time.deltaTime * acceleration;
-            if (speedMultiplier < 0)
-                speedMultiplier = 0;
+
+            if(speedMultiplier < 0f)
+            {
+                speedMultiplier = 0f;
+            }
         }
     }
+
+
 }

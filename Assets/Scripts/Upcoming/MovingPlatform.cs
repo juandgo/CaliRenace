@@ -84,7 +84,7 @@ public class MovingPlatform : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             movementController.isOnPlatform = true;
-            movementController.platformRb = rb;
+            movementController.platformRB = rb;
             playerRb.gravityScale *= 50;
         }
     }

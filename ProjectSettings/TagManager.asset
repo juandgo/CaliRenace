@@ -46,12 +46,24 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Backgorund
+    uniqueID: 3265648601
+    locked: 0
+  - name: Particle
+    uniqueID: 748099033
+    locked: 0
+  - name: Obstacle
+    uniqueID: 3268367035
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Slots
-    uniqueID: 3265648601
+  - name: Ground
+    uniqueID: 3303222879
     locked: 0
-  - name: Objects
-    uniqueID: 3268367035
+  - name: Player
+    uniqueID: 3903526705
+    locked: 0
+  - name: Front
+    uniqueID: 2772018701
     locked: 0
