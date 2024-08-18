@@ -11,10 +11,4 @@ public class Level3 : MonoBehaviour
     {
         textMeshLevel.text = "Nivel: " + level;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
