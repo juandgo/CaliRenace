@@ -12,6 +12,7 @@ TagManager:
   - Strawberry
   - Apple
   - Ground
+  - Audio
   layers:
   - Default
   - TransparentFX
@@ -64,6 +65,6 @@ TagManager:
   - name: Player
     uniqueID: 3903526705
     locked: 0
-  - name: Front
+  - name: 
     uniqueID: 2772018701
     locked: 0

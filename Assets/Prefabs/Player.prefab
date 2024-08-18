@@ -24901,7 +24901,7 @@ MonoBehaviour:
   - {x: 0.36132812, y: -0.36132812, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 34558
+  m_InstanceId: 36148
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.36132812, y: 0.36132812, z: 0}
@@ -24935,8 +24935,8 @@ Animation:
   serializedVersion: 3
   m_Animation: {fileID: 0}
   m_Animations:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 7400000, guid: 9fc2c9e4fcc04e6428bbd80360259e29, type: 2}
+  - {fileID: 7400000, guid: c119d180f242ee04482adb14946501a3, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0

@@ -56,7 +56,7 @@ public class MovementController : MonoBehaviour
 
         float targetSpeed = speed * speedMultiplier * relativeTransform.x;
 
-        if(isOnPlatform)
+        if (isOnPlatform)
         {
             theRB.velocity = new Vector2(targetSpeed + platformRB.velocity.x, theRB.velocity.y);
         }
@@ -100,9 +100,16 @@ public class MovementController : MonoBehaviour
 
     public void UpdateRelativeTransform()
     {
+
         relativeTransform = transform.InverseTransformVector(Vector2.one);
     }
+    public void HandleDeath()
+    {
+        // Llama al método para reproducir partículas y sonido de muerte
+        particleController.PlayDeathParticle(transform.position);
 
+        // Aquí puedes agregar lógica adicional, como deshabilitar el movimiento, reiniciar el nivel, etc.
+    }
     public void Move(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
@@ -112,7 +119,7 @@ public class MovementController : MonoBehaviour
 
         else if (ctx.canceled)
         {
-            btnPressed  = false;
+            btnPressed = false;
         }
 
     }
@@ -124,12 +131,12 @@ public class MovementController : MonoBehaviour
             speedMultiplier += Time.deltaTime * acceleration;
         }
 
-        else if(!btnPressed && speedMultiplier > 0f)
+        else if (!btnPressed && speedMultiplier > 0f)
 
         {
             speedMultiplier -= Time.deltaTime * acceleration;
 
-            if(speedMultiplier < 0f)
+            if (speedMultiplier < 0f)
             {
                 speedMultiplier = 0f;
             }

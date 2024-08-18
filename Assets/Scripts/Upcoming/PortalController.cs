@@ -14,12 +14,13 @@ public class PortalController : MonoBehaviour
 
     private Rigidbody2D playerRB;
 
-
+    AudioManagerBox audioManager;
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         anim = player.GetComponent<Animation>();
         playerRB = player.GetComponent<Rigidbody2D>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManagerBox>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -27,7 +28,7 @@ public class PortalController : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
 
-            if(Vector2.Distance(player.transform.position, transform.position) > 0.3)
+            if(Vector2.Distance(player.transform.position, transform.position) > 0.3f)
             {
                 StartCoroutine(PortalIn());
             }
@@ -39,13 +40,13 @@ public class PortalController : MonoBehaviour
     {
 
         //play portal in SFX here
-        // AudioManager.instance.PlaySFX(8);
+        audioManager.PlaySFX(audioManager.portalIn); //bounce shroom
 
         // disable RB as soon as player touched portal
         playerRB.simulated = false;
 
         //play the portal in animation
-        anim.Play("Portal_IN");
+        anim.Play("Portal In");
 
         //trigger move into portal
         StartCoroutine(MoveIntoPortal());
@@ -62,7 +63,8 @@ public class PortalController : MonoBehaviour
         //play portal out SFX here
 
         // play the portal out animation
-        anim.Play("Portal_OUT");
+        anim.Play("Portal Out");
+        audioManager.PlaySFX(audioManager.portalOut);
 
         //wait
         yield return new WaitForSeconds(0.5f);

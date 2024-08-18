@@ -8,26 +8,23 @@ public class GameController : MonoBehaviour
 {
     Vector2 checkpointPos;
     private SpriteRenderer spriteRenderer;
-
-    Rigidbody2D playerRb;
+    private Rigidbody2D playerRb;
     public ParticleController particleController;
-
     private MovementController movementController;
-
     private ShadowCaster2D shadowCaster;
-
     private BoxCollider2D boxCollider;
     [SerializeField] private float waitToRespawn;
     [SerializeField] private FlashImage _flashImage = null;
     [SerializeField] private Color _flashColor = Color.white;
     [SerializeField] private float _flashTime, _flashMinAlpha, _flashMmaxAlpha;
+    [SerializeField] private AudioSource deathSound; // AudioSource component for the death sound
 
     private void Awake()
     {
-        //find the Sprite Rendered on this gameobject
+        // Find the Sprite Renderer on this GameObject
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        //Find the RigidBody2D on this game object        
+        // Find the Rigidbody2D on this GameObject        
         playerRb = GetComponent<Rigidbody2D>();
         movementController = GetComponent<MovementController>();
 
@@ -35,44 +32,55 @@ public class GameController : MonoBehaviour
 
         boxCollider = GetComponent<BoxCollider2D>();
     }
+
     void Start()
     {
         checkpointPos = transform.position;
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Obstaculo"))
         {
+            // Play death particle and sound
+            particleController.PlayDeathParticle(transform.position);
+            if (deathSound != null)
+            {
+                deathSound.Play(); // Play death sound
+            }
             Die();
         }
     }
+
     public void UpdateCheckpoint(Vector2 pos)
     {
         checkpointPos = pos;
     }
+
     private void Die()
     {
         _flashImage.Flash(_flashTime, _flashMinAlpha, _flashMmaxAlpha, _flashColor);
         // particleController.PlayDeathParticle(ParticleController.Particles.die, transform.position);
         StartCoroutine(Respawn(waitToRespawn));
-        //    StartCoroutine(Respawn(0.5f));
     }
 
     IEnumerator Respawn(float duration)
     {
         playerRb.simulated = false;
-        playerRb.velocity = new Vector2(0, 0);
-        transform.localScale = new Vector3(0, 0, 0);
+        playerRb.velocity = Vector2.zero;
+        transform.localScale = Vector3.zero;
+
         yield return new WaitForSeconds(duration);
+
+        // Stop the death sound after the respawn delay
+        if (deathSound != null && deathSound.isPlaying)
+        {
+            deathSound.Stop();
+        }
+
         transform.position = checkpointPos;
         transform.localScale = new Vector3(1, 1, 1);
         playerRb.simulated = true;
     }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+ 
 }

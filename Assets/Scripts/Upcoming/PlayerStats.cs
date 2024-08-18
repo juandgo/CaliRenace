@@ -1,28 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using static Cinemachine.DocumentationSortingAttribute;
+// using System.Collections;
+// using System.Collections.Generic;
+// using UnityEngine;
+// using static Cinemachine.DocumentationSortingAttribute;
 
-public class PlayerStats : MonoBehaviour
-{
-    public static PlayerStats instance;
+// public class PlayerStats : MonoBehaviour
+// {
+//     public static PlayerStats instance;
 
-    public int gemCount;
+//     public int gemCount;
 
-    private void Awake()
-    {
-        instance = this;
-    }
+//     private void Awake()
+//     {
+//         instance = this;
+//     }
 
-    private void Start()
-    {
-        SaveData theSave = SaveSystem.instance.activeSave;
+//     private void Start()
+//     {
+//         SaveData theSave = SaveSystem.instance.activeSave;
 
-        gemCount = theSave.gemCount;
-    }
+//         gemCount = theSave.gemCount;
+//     }
 
-    public void UpdateGemCount()
-    {
+//     public void UpdateGemCount()
+//     {
         
-    }
-}
+//     }
+// }
