@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.Utilities;
 
-public class PortalController : MonoBehaviour
+public class PortalControllerBox : MonoBehaviour
 {
 
     [SerializeField] private Transform destination; //other portal
@@ -46,7 +46,7 @@ public class PortalController : MonoBehaviour
         playerRB.simulated = false;
 
         //play the portal in animation
-        // anim.Play("Portal In");
+        anim.Play("Portal In");
 
         //trigger move into portal
         StartCoroutine(MoveIntoPortal());
@@ -63,7 +63,7 @@ public class PortalController : MonoBehaviour
         //play portal out SFX here
 
         // play the portal out animation
-        // anim.Play("Portal Out");
+        anim.Play("Portal Out");
         audioManager.PlaySFX(audioManager.portalOut);
 
         //wait
