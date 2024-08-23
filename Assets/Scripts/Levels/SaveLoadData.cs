@@ -2,6 +2,8 @@
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Linq;
+using UnityEngine.SceneManagement;
+using Newtonsoft.Json.Linq;
 
 namespace LevelUnlock
 {
@@ -122,6 +124,21 @@ namespace LevelUnlock
                 // Wrap the JSON array in an object if necessary
                 jsonResponse = "{\"levels\":" + jsonResponse + "}";
                 Debug.Log("LOAD: " + jsonResponse);
+
+                // Parse JSON to dynamic object
+                var jsonObject = JObject.Parse(jsonResponse);
+
+                // Access the array of levels
+                var levels = jsonObject["levels"] as JArray;
+
+                // Access the first level's properties
+                var firstLevel = levels[0];
+
+                if ((int)firstLevel["level_id"] == 1 && (int)firstLevel["completion_status"] == 0)
+                {
+                    Debug.Log(firstLevel["level_id"]+" que pasa "+firstLevel["completion_status"]);
+                    SceneManager.LoadScene("Level0");
+                }
                 LevelDataWrapper wrapper = JsonUtility.FromJson<LevelDataWrapper>(jsonResponse);
 
                 if (wrapper != null && wrapper.levels != null)

@@ -140,6 +140,7 @@ public class ImageTransition : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            // SceneManager.LoadScene("Level1");
             SceneManager.LoadScene(nextScene);
         }
     }

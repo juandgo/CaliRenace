@@ -7,9 +7,9 @@ using UnityEngine;
 public class NextLevel : MonoBehaviour
 {
     [SerializeField] private GameObject panel;
-    [SerializeField] private GameObject gameOverPanel; 
-
-    public int levelId=1;  // ID del nivel completado
+    [SerializeField] private GameObject gameOverPanel;
+    // [SerializeField] private AudioSource winSound;
+    public int levelId = 1;  // ID del nivel completado
     public int score;  // Puntaje obtenido en el nivel
     private int userId;  // ID del usuario
 
@@ -33,6 +33,8 @@ public class NextLevel : MonoBehaviour
             if (SaveLoadData.Instance != null)
             {
                 SaveLoadData.Instance.SaveData(userId, levelId, "1", 3);
+                //WIN
+                // winSound.Play();
             }
             else
             {
@@ -40,7 +42,7 @@ public class NextLevel : MonoBehaviour
 
             }
             // Cambia la escena al menú principal
-        // SceneManager.LoadScene("Levels");
+            // SceneManager.LoadScene("Levels");
 
             panel.SetActive(true);
             Time.timeScale = 0f;
