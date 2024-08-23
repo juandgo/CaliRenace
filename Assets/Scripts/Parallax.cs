@@ -1,18 +1,28 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
-    public float animationSpeed = 1f;
-    private MeshRenderer meshRenderer;
+    public Transform mainCam;
+    public Transform middleBG;
+    public Transform sideBG;
 
-    private void Awake()
+    public float length = 38.4f;
+
+    // Update is called once per frame
+    void Update()
     {
-        meshRenderer = GetComponent<MeshRenderer>();
-    }
+        if (mainCam.position.x > middleBG.position.x)
+            sideBG.position = middleBG.position + Vector3.right * length;
 
-    private void Update()
-    {
-        meshRenderer.material.mainTextureOffset += new Vector2(animationSpeed * Time.deltaTime, 0);
-    }
+        if(mainCam.position.x < middleBG.position.x)
+            sideBG.position = middleBG.position + Vector3.left * length;
 
+        if (mainCam.position.x > sideBG.position.x || mainCam.position.x < sideBG.position.x)
+        {
+            Transform z = middleBG;
+            middleBG = sideBG;
+            sideBG = z;
+        }
+
+    }
 }
