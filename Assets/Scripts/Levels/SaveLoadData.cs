@@ -125,20 +125,20 @@ namespace LevelUnlock
                 jsonResponse = "{\"levels\":" + jsonResponse + "}";
                 Debug.Log("LOAD: " + jsonResponse);
 
-                // Parse JSON to dynamic object
-                var jsonObject = JObject.Parse(jsonResponse);
+                    // Parse JSON to dynamic object
+                    var jsonObject = JObject.Parse(jsonResponse);
 
-                // Access the array of levels
-                var levels = jsonObject["levels"] as JArray;
+                    // Access the array of levels
+                    var levels = jsonObject["levels"] as JArray;
 
-                // Access the first level's properties
-                var firstLevel = levels[0];
+                    // Access the first level's properties
+                    var firstLevel = levels[0];
 
-                if ((int)firstLevel["level_id"] == 1 && (int)firstLevel["completion_status"] == 0)
-                {
-                    Debug.Log(firstLevel["level_id"]+" que pasa "+firstLevel["completion_status"]);
-                    SceneManager.LoadScene("Level0");
-                }
+                    if ((int)firstLevel["level_id"] == 1 && (int)firstLevel["completion_status"] == 0)
+                    {
+                        Debug.Log(firstLevel["level_id"]+" que pasa "+firstLevel["completion_status"]);
+                        SceneManager.LoadScene("Opening");
+                    }
                 LevelDataWrapper wrapper = JsonUtility.FromJson<LevelDataWrapper>(jsonResponse);
 
                 if (wrapper != null && wrapper.levels != null)

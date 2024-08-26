@@ -17,6 +17,7 @@ namespace LevelUnlock
         [SerializeField] public AudioSource clickSound;
 
         private int levelIndex;                                     // Holds the level index this particular button specifies
+        private string completionStatus;
 
         private void Start()
         {
@@ -26,15 +27,9 @@ namespace LevelUnlock
         public void SetLevelButton(LevelItem value, int index, bool activeLevel)
         {
             // Check if this is the second level (index 1)
-            if (index == 0)
-            {
-                // Force the second level to be unlocked
-                value.completion_status = "1";
-            }
-
-            string completionStatus = value.completion_status; // Convert string to bool
+            completionStatus = value.completion_status; // Convert string to bool
             // Debug.Log("completionStatus: "+ completionStatus);
-            if (completionStatus == "1") // Use the converted bool
+            if (completionStatus == "1" || index == 0) // Use the converted bool
             {
                 activeLevelIndicator.SetActive(activeLevel);
                 levelIndex = index + 1;                             // Set levelIndex, Note: We add 1 because array starts from 0 and level index starts from 1
@@ -54,7 +49,17 @@ namespace LevelUnlock
         private void OnClick()                                      // Method called by button
         {
             LevelSystemManager.Instance.CurrentLevel = levelIndex - 1;  // Set the CurrentLevel, we subtract 1 as level data array starts from 0
-            SceneManager.LoadScene("Level" + levelIndex);           // Load the level
+
+            if ((int)levelIndex == 1 && (string)completionStatus == "0")
+            {
+                    Debug.Log("completion_status: Level0");
+
+                SceneManager.LoadScene("Level0");
+            } else {
+                    Debug.Log("completion_status: Level1");
+
+                SceneManager.LoadScene("Level" + levelIndex);           // Load the level
+            }
             clickSound.Play();                                      // Play click sound
         }
     }
