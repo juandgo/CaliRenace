@@ -2,6 +2,7 @@
 using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Newtonsoft.Json.Linq; // Necesitarás el paquete Newtonsoft.Json para esto
 
 public class MainPanel : MonoBehaviour
 {
@@ -40,14 +41,32 @@ public class MainPanel : MonoBehaviour
     // }
     public void Levels()
     {
-        PlaySoundButton();
-        SceneManager.LoadScene("Levels");
-    }
-    //public void PlayLevel(int levelNumber)
-    //{
-    //    SceneManager.LoadScene(levelNumber);
-    //}
+        string jsonResponse = FetchJsonResponse(); // Implementa este método para obtener el JSON
 
+        // Asegúrate de que el JSON está bien formado
+        jsonResponse = "{\"levels\":" + jsonResponse + "}";
+        Debug.Log("LOAD: " + jsonResponse);
+
+        // Parsear el JSON a un objeto dinámico
+        var jsonObject = JObject.Parse(jsonResponse);
+
+        // Acceder al array de niveles
+        var levels = jsonObject["levels"] as JArray;
+
+        // Acceder a las propiedades del primer nivel
+        var firstLevel = levels[0];
+
+        if ((int)firstLevel["level_id"] == 1 && (int)firstLevel["completion_status"] == 0)
+        {
+            Debug.Log(firstLevel["level_id"] + " que pasa " + firstLevel["completion_status"]);
+            SceneManager.LoadScene("Opening");
+        }
+        else
+        {
+            PlaySoundButton();
+            SceneManager.LoadScene("Levels");
+        }
+    }
     public void ExitGame()
     {
         Application.Quit();
@@ -88,5 +107,12 @@ public class MainPanel : MonoBehaviour
     public void PlaySoundButton()
     {
         fxSource.PlayOneShot(clickSound);
+    }
+        // Ejemplo de cómo podrías obtener el JSON
+    private string FetchJsonResponse()
+    {
+        // Este método debe ser implementado para obtener el JSON de tu fuente de datos
+        // Por ejemplo, podrías cargarlo desde un archivo o una API web
+        return "[{\"level_id\":1,\"completion_status\":0},{\"level_id\":2,\"completion_status\":1}]";
     }
 }
