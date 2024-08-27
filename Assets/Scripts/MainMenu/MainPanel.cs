@@ -27,18 +27,16 @@ public class MainPanel : MonoBehaviour
     {
         volumeFX.onValueChanged.AddListener(ChangeVolumeFX);
         volumeMaster.onValueChanged.AddListener(ChangeVolumeMaster);
+        mute.onValueChanged.AddListener(delegate { SetMute(); });
     }
 
+    // Método para cambiar de escena con una transición (opcional)
     public void PlayTransition()
     {
         SceneManager.LoadScene("LevelTransition");
-        // SceneManager.LoadScene(levelName);
     }
-    // public void PlayLevel(string levelName)
-    // {
-    //     SceneManager.LoadScene(levelName);
-    //     PlaySoundButton();
-    // }
+
+    // Método para cargar los niveles según el JSON
     public void Levels()
     {
         string jsonResponse = FetchJsonResponse(); // Implementa este método para obtener el JSON
@@ -67,22 +65,29 @@ public class MainPanel : MonoBehaviour
             SceneManager.LoadScene("Levels");
         }
     }
+
+    // Método para salir del juego
     public void ExitGame()
     {
-        Application.Quit();
         PlaySoundButton();
-    }
-    public void SetMute()
-    {
-       if (mute.isOn)
-       {
-           mixer.GetFloat("VolMaster", out lastVolume);
-           mixer.SetFloat("VolMaster", -80);
-       }
-      else
-           mixer.SetFloat("VolMaster", lastVolume);
+        Application.Quit();
     }
 
+    // Método para manejar el mute
+    public void SetMute()
+    {
+        if (mute.isOn)
+        {
+            mixer.GetFloat("VolMaster", out lastVolume);
+            mixer.SetFloat("VolMaster", -80); // Reduce volumen al mínimo
+        }
+        else
+        {
+            mixer.SetFloat("VolMaster", lastVolume); // Restaura el volumen previo
+        }
+    }
+
+    // Método para abrir diferentes paneles
     public void OpenPanel(GameObject panel)
     {
         mainPanel.SetActive(false);
@@ -96,19 +101,24 @@ public class MainPanel : MonoBehaviour
         PlaySoundButton();
     }
 
+    // Métodos para cambiar el volumen
     public void ChangeVolumeMaster(float v)
     {
         mixer.SetFloat("VolMaster", v);
     }
+
     public void ChangeVolumeFX(float v)
     {
         mixer.SetFloat("VolFX", v);
     }
+
+    // Método para reproducir sonido al hacer clic en un botón
     public void PlaySoundButton()
     {
         fxSource.PlayOneShot(clickSound);
     }
-        // Ejemplo de cómo podrías obtener el JSON
+
+    // Ejemplo de cómo podrías obtener el JSON
     private string FetchJsonResponse()
     {
         // Este método debe ser implementado para obtener el JSON de tu fuente de datos
