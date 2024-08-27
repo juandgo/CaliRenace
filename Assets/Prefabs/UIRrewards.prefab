@@ -1642,7 +1642,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Daily Rewards
+  m_Text: Recompensas diarias
 --- !u!1 &6023923791760305151
 GameObject:
   m_ObjectHideFlags: 0
@@ -1721,9 +1721,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.42
-  m_Text: 'No more rewards
-
-    for today.'
+  m_Text: "No hay m\xE1s recompensas\r\npor hoy."
 --- !u!1 &6143157182328332951
 GameObject:
   m_ObjectHideFlags: 0
@@ -2509,7 +2507,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CLAIM
+  m_Text: AFIRMAR
 --- !u!114 &6827672653779427476
 MonoBehaviour:
   m_ObjectHideFlags: 0
