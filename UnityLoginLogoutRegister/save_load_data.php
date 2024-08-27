@@ -28,6 +28,7 @@ function getLastUnlockedLevel($connection, $userId)
 
 function saveData($connection, $userId, $levelId, $completionStatus, $score)
 {
+    // echo "completion: jose " . $completionStatus;
     // Verifica que el usuario exista
     $stmt = $connection->prepare("SELECT * FROM users WHERE user_id = :userId");
     $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
@@ -57,12 +58,13 @@ function saveData($connection, $userId, $levelId, $completionStatus, $score)
 
     if ($stmt->rowCount() > 0) {
         // Actualiza el registro existente
+        // echo "update";
         $query = $connection->prepare("UPDATE user_levels SET completion_status = :completionStatus, score = :score WHERE user_id = :userId AND level_id = :levelId");
     } else {
         // Inserta un nuevo registro
         $query = $connection->prepare("INSERT INTO user_levels (user_id, level_id, completion_status, score) VALUES (:userId, :levelId, :completionStatus, :score)");
+        // echo "insert";
     }
-
     // Asigna valores a los parámetros
     $query->bindParam(':userId', $userId, PDO::PARAM_INT);
     $query->bindParam(':levelId', $levelId, PDO::PARAM_INT);
@@ -89,7 +91,7 @@ function saveData($connection, $userId, $levelId, $completionStatus, $score)
 
             if ($stmt->rowCount() == 0) {
                 // Inserta un nuevo registro para el próximo nivel
-                $insert_next_level = $connection->prepare("INSERT INTO user_levels (user_id, level_id, completion_status, score) VALUES (:userId, :nextLevel, 0, 0)");
+                $insert_next_level = $connection->prepare("INSERT INTO user_levels (user_id, level_id, completion_status, score) VALUES (:userId, :nextLevel, 1, 0)");
                 $insert_next_level->bindParam(':userId', $userId, PDO::PARAM_INT);
                 $insert_next_level->bindParam(':nextLevel', $next_level, PDO::PARAM_INT);
                 $insert_next_level->execute();

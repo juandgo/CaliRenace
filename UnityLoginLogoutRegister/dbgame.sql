@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 06, 2024 at 08:03 PM
+-- Generation Time: Aug 27, 2024 at 05:34 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -45,7 +45,10 @@ INSERT INTO `levels` (`level_id`, `level_name`, `created_at`, `updated_at`) VALU
 (4, 'Level4', '2024-08-03 20:55:49', '2024-08-03 20:55:49'),
 (5, 'Level5', '2024-08-03 20:55:49', '2024-08-03 20:55:49'),
 (6, 'Level6', '2024-08-03 20:55:49', '2024-08-03 20:55:49'),
-(7, 'Level7', '2024-08-03 20:55:49', '2024-08-03 20:55:49');
+(7, 'Level7', '2024-08-03 20:55:49', '2024-08-03 20:55:49'),
+(8, 'Level8', '2024-08-07 04:34:16', '2024-08-07 04:34:16'),
+(9, 'Level9', '2024-08-07 04:34:16', '2024-08-07 04:34:16'),
+(10, 'Level1', '2024-08-07 04:34:16', '2024-08-07 04:34:16');
 
 -- --------------------------------------------------------
 
@@ -95,7 +98,21 @@ INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `created_at`, `
 (49, 'berserk', 'bers@gmai.com', '$2y$10$Qdxzd93GFl15hjsp9J2wWuTP2HJtWKkUJSP/24ACbCr7szOJqNjTi', '2024-08-06 17:16:48', '2024-08-06 17:16:48', 'Masculino'),
 (50, 'kyoga', 'kio@mail.com', '$2y$10$qCrSSvuFhjTTlDM8jqFdYO1sszQDHViBvrCT2c4wVepgIp6zD/E8u', '2024-08-06 17:46:13', '2024-08-06 17:46:13', 'Masculino'),
 (51, 'tom', 'tom@asd.com', '$2y$10$5dyr5DHkdPD/nfgc4pI2rOTLbfeqEnoy/VwRs3CN6C6nuzO0BiF/i', '2024-08-06 17:58:11', '2024-08-06 17:58:11', 'Masculino'),
-(52, 'billy', 'bill@mail.com', '$2y$10$NAAaAlFjFjOdk9ZtcgZPfuXjTmbKynFfHmUX6rlChE32G/rDwmd1.', '2024-08-06 18:00:17', '2024-08-06 18:00:17', 'Masculino');
+(52, 'billy', 'bill@mail.com', '$2y$10$NAAaAlFjFjOdk9ZtcgZPfuXjTmbKynFfHmUX6rlChE32G/rDwmd1.', '2024-08-06 18:00:17', '2024-08-06 18:00:17', 'Masculino'),
+(53, 'donatello', 'don@mail.com', '$2y$10$.QQsjOBo2jbtP.6BSlAo6.GtnCEUuyb37BtKIc3JoOT/ZIVP2ngVG', '2024-08-07 01:03:07', '2024-08-07 01:03:07', 'Masculino'),
+(54, 'kirby', 'kirby@mail.com', '$2y$10$XaedEsHuPM8xRskoxT18Oe0G7Po50WEIsj5HaRbgUSTumyNMpkQoW', '2024-08-07 01:08:06', '2024-08-07 01:08:06', 'Masculino'),
+(55, 'naruto', 'nar@mail.com', '$2y$10$APu/3JMhofulI1cdALY1TuVmFlNstCM1kokLl3e8bLt4g1Vxxh6tu', '2024-08-07 04:23:29', '2024-08-07 04:23:29', 'Masculino'),
+(56, 'sak', 'sak@gmail.com', '$2y$10$DeVNCJVNrI1QSqXmS6K.mOqwpnFPHgIIikGjfIqmb4ZmksYLiZruC', '2024-08-07 19:50:10', '2024-08-07 19:50:10', 'Masculino'),
+(57, 'sak', 'sak@gmail.com', '$2y$10$Rbrf4BkNgWEyLAVX6iKZbuv2.hKaoc/ydjYBjFsnpBS/pwjz3Fp1u', '2024-08-07 19:50:10', '2024-08-07 19:50:10', 'Masculino'),
+(58, 'martin', 'martin@mail.com', '$2y$10$gtI7.mgX9PaAyZPGtKq7QuBq3S.36dFQM40ppd9lhXQy5tA0XjVS2', '2024-08-07 19:51:09', '2024-08-07 19:51:09', 'Masculino'),
+(59, 'jack', 'jack@mail.com', '$2y$10$a3GKFc8jvHGeE9pumbEoquskTfl8qsR9VLrVc/qSpqPfCVp6ztpKO', '2024-08-07 19:52:22', '2024-08-07 19:52:22', 'Masculino'),
+(60, 'juan', 'juan@gmail.com', '$2y$10$n0N/Xxi7r89wmxxmW.4uTOx/O28iNBdmlGZcdUVZywsLxQugJtkEO', '2024-08-07 20:52:11', '2024-08-07 20:52:11', 'Masculino'),
+(61, 'bend', 'asd@asd.com', '$2y$10$CTs0DUMjQGb2pqo55533IeAMEIdWdJARWmfgYzdpTb/cuWUcePkOC', '2024-08-12 05:07:47', '2024-08-12 05:07:47', 'Masculino'),
+(62, 'francis', 'qwe@mail.com', '$2y$10$Pcwl1IYlTyIqNl60GRGEAOjHHLYaRRLDhrZG3psKHBzF9r/THdnca', '2024-08-12 21:29:15', '2024-08-12 21:29:15', 'Masculino'),
+(63, 'lady', 'lady@mail.com', '$2y$10$agSskPkGbC.0MQzEfjlTr.1gw/3vh6g46qxU6OpnE1JHwQllV0AUC', '2024-08-20 15:08:19', '2024-08-20 15:08:19', 'Femenino'),
+(64, 'dante', 'dante@mail.com', '$2y$10$hBeEIb1/dbEowze.TI2uy.OTmbkV9M9F8V6R/McUGGiePHynPw.dO', '2024-08-26 22:17:52', '2024-08-26 22:17:52', 'Masculino'),
+(65, 'lugi', 'lugi@mail.com', '$2y$10$1udYlLLan20/s0cdkBP2IO1K8PLB1dfTKYgVcCPkJ1/YI0/EOrwca', '2024-08-27 04:58:57', '2024-08-27 04:58:57', 'Masculino'),
+(66, 'vegeta', 'vegeta@mail.com', '$2y$10$gNuHQG9922v.ZjGV0UXyruDpPQzZ0VUUFpfHuweGWy9WBwSfnZDsG', '2024-08-27 05:32:41', '2024-08-27 05:32:41', 'Masculino');
 
 -- --------------------------------------------------------
 
@@ -117,42 +134,69 @@ CREATE TABLE `user_levels` (
 --
 
 INSERT INTO `user_levels` (`user_level_id`, `user_id`, `level_id`, `completion_status`, `score`, `completed_at`) VALUES
-(236, 36, 2, 0, 0, '2024-08-06 15:53:03'),
-(237, 36, 3, 1, 3, '2024-08-06 15:53:03'),
-(238, 36, 4, 1, 0, '2024-08-06 15:53:26'),
-(239, 40, 2, 1, 3, '2024-08-06 15:54:22'),
-(240, 40, 3, 1, 3, '2024-08-06 15:54:22'),
-(242, 42, 2, 1, 3, '2024-08-06 15:55:39'),
-(243, 42, 3, 1, 3, '2024-08-06 15:55:39'),
-(244, 42, 4, 1, 3, '2024-08-06 15:55:59'),
-(246, 42, 5, 1, 3, '2024-08-06 15:56:35'),
-(247, 42, 6, 1, 0, '2024-08-06 15:58:21'),
-(248, 43, 2, 0, 0, '2024-08-06 15:59:44'),
-(249, 43, 3, 1, 0, '2024-08-06 15:59:44'),
-(250, 44, 2, 0, 0, '2024-08-06 16:03:37'),
-(251, 44, 3, 1, 0, '2024-08-06 16:03:37'),
-(252, 45, 2, 1, 3, '2024-08-06 16:10:55'),
-(253, 45, 3, 0, 0, '2024-08-06 16:10:55'),
-(254, 40, 1, 1, 3, '2024-08-06 16:12:43'),
-(255, 40, 4, 0, 0, '2024-08-06 16:13:18'),
-(256, 46, 2, 0, 0, '2024-08-06 16:14:08'),
-(257, 46, 3, 1, 3, '2024-08-06 16:14:08'),
-(258, 46, 4, 0, 0, '2024-08-06 16:14:27'),
-(259, 46, 1, 1, 3, '2024-08-06 16:14:51'),
-(260, 47, 2, 1, 3, '2024-08-06 16:16:44'),
-(261, 47, 3, 1, 3, '2024-08-06 16:17:42'),
-(262, 47, 1, 1, 3, '2024-08-06 16:18:01'),
-(263, 47, 4, 1, 3, '2024-08-06 16:18:35'),
-(264, 47, 5, 1, 0, '2024-08-06 16:19:05'),
-(265, 48, 2, 1, 3, '2024-08-06 17:12:56'),
-(266, 48, 3, 1, 0, '2024-08-06 17:12:56'),
-(267, 50, 2, 1, 3, '2024-08-06 17:47:27'),
-(268, 50, 3, 1, 3, '2024-08-06 17:47:27'),
-(269, 50, 4, 1, 0, '2024-08-06 17:48:03'),
-(270, 51, 2, 1, 3, '2024-08-06 17:58:30'),
-(271, 51, 3, 0, 0, '2024-08-06 17:58:30'),
-(272, 52, 2, 0, 0, '2024-08-06 18:00:42'),
-(273, 52, 3, 0, 0, '2024-08-06 18:00:42');
+(500, 36, 1, 0, 0, '2024-08-23 04:05:34'),
+(501, 36, 2, 1, 3, '2024-08-23 04:05:34'),
+(502, 36, 3, 1, 3, '2024-08-23 04:05:54'),
+(503, 36, 4, 1, 3, '2024-08-23 04:06:11'),
+(504, 36, 5, 1, 3, '2024-08-23 04:12:14'),
+(505, 36, 6, 1, 1, '2024-08-23 04:12:24'),
+(506, 36, 7, 1, 3, '2024-08-23 04:13:15'),
+(507, 36, 8, 1, 3, '2024-08-23 04:13:50'),
+(508, 36, 9, 1, 0, '2024-08-23 04:17:53'),
+(535, 65, 1, 1, 3, '2024-08-27 04:59:45'),
+(536, 65, 2, 1, 0, '2024-08-27 04:59:45'),
+(537, 40, 1, 0, 0, '2024-08-27 05:10:51'),
+(538, 40, 2, 1, 3, '2024-08-27 05:10:51'),
+(539, 40, 3, 1, 0, '2024-08-27 05:11:11'),
+(540, 66, 1, 0, 0, '2024-08-27 05:33:44'),
+(541, 66, 2, 1, 0, '2024-08-27 05:33:44'),
+(542, 53, 1, 0, 0, '2024-08-27 05:38:39'),
+(543, 53, 2, 1, 0, '2024-08-27 05:38:39');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `usuario`
+--
+
+CREATE TABLE `usuario` (
+  `id_persona` int(11) NOT NULL,
+  `correo` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
+  `contrasena` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
+  `id_rol` int(20) NOT NULL,
+  `nombres` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `apellidos` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `codigo_recuperacion` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci DEFAULT NULL,
+  `imagen_usuario` varchar(244) CHARACTER SET utf8 COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `direccion` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `descripcion_persona` varchar(100) DEFAULT NULL,
+  `pais` varchar(100) DEFAULT NULL,
+  `celular` varchar(100) DEFAULT NULL,
+  `telefono` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_romanian_ci;
+
+--
+-- Dumping data for table `usuario`
+--
+
+INSERT INTO `usuario` (`id_persona`, `correo`, `contrasena`, `id_rol`, `nombres`, `apellidos`, `codigo_recuperacion`, `imagen_usuario`, `direccion`, `descripcion_persona`, `pais`, `celular`, `telefono`) VALUES
+(1, 'juandavidgo1997@gmail.com', '$2y$10$4a0c169015dc17569872buXTHlASsw3ol7WG5k9XT.6k2Y.pqBlPK', 2, 'Juan', 'Grijalba', NULL, 'JUAN-juandavidgo1997@gmail.com.jpg', 'Cra 7 t bis # 76-12', 'Aficionado por la informatica', 'Estados Unidos', '3147483647', NULL),
+(5, 'jose.jdgo97@gmail.com', '$2y$10$4a0c169015dc17569872buXTHlASsw3ol7WG5k9XT.6k2Y.pqBlPK', 2, 'Jose', 'Grijalba', '6957dd9f0602abfae41241248c603205', 'team-0-jose.jdgo97@gmail.com.jpg', 'Cra 7 t bis # 76-12', 'Aficionado por la informatica', 'Colombia', NULL, NULL),
+(7, 'cristhian@hotmail.com', '$2y$10$4a0c169015dc17569872buXTHlASsw3ol7WG5k9XT.6k2Y.pqBlPK', 2, 'Cristhian', 'Hernandez', NULL, 'cristhianhernadez-cristhian@hotmail.com.jpg', 'Cra 52A #5 Oeste-2 a 5 Oeste-78, Cali, Valle del Cauca', 'Estudiante de la universidad uniminuto de tecnologia en indformatica', 'Colombia', '3147483647', NULL),
+(15, 'psicologo@hotmail.com', '$2y$10$4a0c169015dc17569872buXTHlASsw3ol7WG5k9XT.6k2Y.pqBlPK', 1, 'Psicologo', 'Anonimo', NULL, 'team-0-psicologo@hotmail.com.jpg', NULL, NULL, 'Espana', NULL, NULL),
+(19, 'juan@gmail.com', '$2y$10$4a0c169015dc17569872buXTHlASsw3ol7WG5k9XT.6k2Y.pqBlPK', 2, 'Pablo', 'hernandez', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(20, 'toreto@hotmail.com', '$2y$10$4a0c169015dc17569872buXTHlASsw3ol7WG5k9XT.6k2Y.pqBlPK', 2, 'ivan', 'toreto', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(21, 'delia@hotmail.com', '$2y$10$4a0c169015dc17569872buXTHlASsw3ol7WG5k9XT.6k2Y.pqBlPK', 2, 'Delia', 'Hernandez', NULL, NULL, NULL, 'vterinarioa', NULL, NULL, NULL),
+(23, 'furiosoandres@hotmail.com', '$2y$10$4a0c169015dc17569872buXTHlASsw3ol7WG5k9XT.6k2Y.pqBlPK', 2, 'andres', 'furioso', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(24, 'victor@hotmail.com', '$2y$10$4a0c169015dc17569872buXTHlASsw3ol7WG5k9XT.6k2Y.pqBlPK', 2, 'victor ', 'andres', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(25, 'user3@hotmail.com', '$2y$10$4a0c169015dc17569872buXTHlASsw3ol7WG5k9XT.6k2Y.pqBlPK', 2, 'mario ', 'bros', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(26, 'alejo@hotmail.com', '$2y$10$4a0c169015dc17569872buXTHlASsw3ol7WG5k9XT.6k2Y.pqBlPK', 2, 'alejandro', 'grijalba', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(30, 'alejo1@hotmail.com', '$2y$10$4a0c169015dc17569872buXTHlASsw3ol7WG5k9XT.6k2Y.pqBlPK', 2, '123', '123', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(31, 'kl@hotmail.com', '$2y$10$4a0c169015dc17569872buXTHlASsw3ol7WG5k9XT.6k2Y.pqBlPK', 2, 'Kleiz', 'Stone', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(35, 'cluston@hotmail.com', '$2y$10$4a0c169015dc17569872buXTHlASsw3ol7WG5k9XT.6k2Y.pqBlPK', 2, 'Cluston', 'Carton', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(37, 'kento@hotmail.com', '$2y$10$4a0c169015dc17569872buXTHlASsw3ol7WG5k9XT.6k2Y.pqBlPK', 2, 'kento', 'hamaka', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(38, 'g@hotmail.com', '$2y$10$4a0c169015dc17569872buXTHlASsw3ol7WG5k9XT.6k2Y.pqBlPK', 2, 'gonde', 'amos', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(39, 'psicologo2@hotmail.com', '$2y$10$c271ef14556eb9b8f9eaae3bXrAp0U5v/zk0PsezSgl1cLe.MhHtK', 2, 'Jose', 'Grijalba', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -179,6 +223,13 @@ ALTER TABLE `user_levels`
   ADD KEY `level_id` (`level_id`);
 
 --
+-- Indexes for table `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`id_persona`),
+  ADD UNIQUE KEY `correo` (`correo`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -186,19 +237,25 @@ ALTER TABLE `user_levels`
 -- AUTO_INCREMENT for table `levels`
 --
 ALTER TABLE `levels`
-  MODIFY `level_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `level_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `user_levels`
 --
 ALTER TABLE `user_levels`
-  MODIFY `user_level_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=274;
+  MODIFY `user_level_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=544;
+
+--
+-- AUTO_INCREMENT for table `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- Constraints for dumped tables
