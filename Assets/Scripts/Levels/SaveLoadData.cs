@@ -35,7 +35,7 @@ namespace LevelUnlock
             }
             else
             {
-                SaveData(userId, 1, "0", 0); // Initialize with default values
+                SaveData(userId, 1, "1", 0); // Initialize with default values
                 PlayerPrefs.SetInt("GameStartFirstTime", 1);
             }
         }
