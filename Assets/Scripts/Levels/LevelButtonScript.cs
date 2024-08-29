@@ -52,7 +52,7 @@ namespace LevelUnlock
 
             if ((int)levelIndex == 1 && (string)completionStatus == "0")
             {
-                    Debug.Log("completion_status: Level0");
+                Debug.Log("completion_status: Level0");
 
                 SceneManager.LoadScene("Level0");
             } else {

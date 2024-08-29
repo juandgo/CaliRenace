@@ -54,7 +54,7 @@ namespace LevelUnlock
         {
             WWWForm form = new WWWForm();
             // levelId = levelId + 1;
-            // Debug.Log($"completionStatus: {completionStatus}");
+            Debug.Log($"completionStatus: {completionStatus}");
 
             Debug.Log("levelId:  " + levelId);
             form.AddField("action", "save");
