@@ -8,7 +8,7 @@ public class NextLevel : MonoBehaviour
 {
     [SerializeField] private GameObject panel;
     [SerializeField] private GameObject gameOverPanel;
-    [SerializeField] Animator transitionAnim;
+    [SerializeField] public Animator transitionAnim;
     // [SerializeField] private AudioSource winSound;
     public int levelId = 1;  // ID del nivel completado
     public int score;  // Puntaje obtenido en el nivel
@@ -41,8 +41,7 @@ public class NextLevel : MonoBehaviour
             {
                 Debug.Log("failure");
                 // StartCoroutine(LoadLevel());
-        SceneManager.LoadSceneAsync("Levels");
-
+                SceneManager.LoadSceneAsync("Levels");
             }
 
             panel.SetActive(true);
@@ -55,24 +54,9 @@ public class NextLevel : MonoBehaviour
     }
     // private IEnumerator LoadLevel()
     // {
-    //     transitionAnim.SetTrigger('End');
+    //     transitionAnim.SetTrigger("Start");
     //     yield return new WaitForSeconds(1);
     //     SceneManager.LoadSceneAsync("Levels");
-    //     transitionAnim.SetTrigger('End');
-    // }
-    // private IEnumerator WaitForSoundAndLoadLevel()
-    // {
-    //     AudioSource audioSource = GetComponent<AudioSource>();
-    //     if (audioSource != null)
-    //     {
-    //         audioSource.Play();
-    //         yield return new WaitForSeconds(audioSource.clip.length);
-    //     }
-
-    //     // Asegúrate de tener el nivel actual cargado
-    //     if (SaveLoadData.Instance != null)
-    //     {
-
-    //     }
+    //     transitionAnim.SetTrigger("End");
     // }
 }
