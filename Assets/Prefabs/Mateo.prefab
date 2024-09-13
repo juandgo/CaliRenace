@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8579376263163784689}
   - component: {fileID: 6877350150760574512}
   - component: {fileID: 5475720646468346433}
+  - component: {fileID: 6412057433637229495}
   - component: {fileID: 4840450916638288781}
   - component: {fileID: 650383039383564625}
-  - component: {fileID: 6412057433637229495}
   m_Layer: 0
   m_Name: Mateo
   m_TagString: Player
@@ -110,6 +110,35 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6412057433637229495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750590303025989294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 972d6366cda16524fbaab685b818b37d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedMovement: 400
+  smothMovement: 0.3
+  jumpForce: 400
+  whatGround:
+    serializedVersion: 2
+    m_Bits: 8
+  groundController: {fileID: 7147630119830122871}
+  boxDimensions: {x: 1, y: 0.25, z: 0}
+  onGround: 0
+  bounceSpeed: 0
+  jumpSound: {fileID: 0}
+  actualLife: 0
+  maxLife: 0
+  valorPrueba: 0
+  changeLife:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!50 &4840450916638288781
 Rigidbody2D:
   serializedVersion: 4
@@ -172,35 +201,6 @@ CapsuleCollider2D:
   m_Offset: {x: -0.022624254, y: 0.067872524}
   m_Size: {x: 1.0847516, y: 2.034255}
   m_Direction: 0
---- !u!114 &6412057433637229495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 750590303025989294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 972d6366cda16524fbaab685b818b37d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedMovement: 400
-  smothMovement: 0.3
-  jumpForce: 400
-  whatGround:
-    serializedVersion: 2
-    m_Bits: 8
-  groundController: {fileID: 7147630119830122871}
-  boxDimensions: {x: 1, y: 0.25, z: 0}
-  onGround: 0
-  bounceSpeed: 0
-  jumpSound: {fileID: 0}
-  actualLife: 0
-  maxLife: 0
-  valorPrueba: 0
-  changeLife:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &7059344410499444349
 GameObject:
   m_ObjectHideFlags: 0
