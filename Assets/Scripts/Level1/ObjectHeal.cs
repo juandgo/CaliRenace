@@ -5,12 +5,11 @@ using UnityEngine;
 public class ObjectHeal : MonoBehaviour
 {
     public int heal;
-
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.TryGetComponent(out PlayerLife playerLife))
+        if (collider.TryGetComponent(out PlayerMovement playerMovement))
         {
-            playerLife.HealLife(heal);
+            playerMovement.HealLife(heal);
         }
     }
 }
