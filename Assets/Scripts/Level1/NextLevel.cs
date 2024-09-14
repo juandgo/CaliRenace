@@ -8,10 +8,10 @@ public class NextLevel : MonoBehaviour
 {
     [SerializeField] private GameObject panel;
     [SerializeField] private GameObject gameOverPanel;
-    [SerializeField] Animator transitionAnim;
+    // [SerializeField] Animator transitionAnim;
     // [SerializeField] private AudioSource winSound;
     public int levelId = 1;  // ID del nivel completado
-    public int score;  // Puntaje obtenido en el nivel
+    // public int score=3;  // Puntaje obtenido en el nivel
     private int userId;  // ID del usuario
 
     private void Start()
@@ -34,17 +34,13 @@ public class NextLevel : MonoBehaviour
             if (SaveLoadData.Instance != null)
             {
                 SaveLoadData.Instance.SaveData(userId, levelId, "1", 3);
-                //WIN
+                //WIN                                               this.score
                 // winSound.Play();
             }
             else
             {
                 Debug.Log("failure");
-                // StartCoroutine(LoadLevel());
-        SceneManager.LoadSceneAsync("Levels");
-
             }
-
             panel.SetActive(true);
             Time.timeScale = 0f;
         }
@@ -52,6 +48,7 @@ public class NextLevel : MonoBehaviour
     public void OkBtn()
     {
         Time.timeScale = 1f;
+        SceneManager.LoadSceneAsync("Levels");
     }
     // private IEnumerator LoadLevel()
     // {
