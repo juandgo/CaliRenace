@@ -19,7 +19,7 @@ public class Level1 : MonoBehaviour
 
     [Header("Game Over Menu")]
     [SerializeField] private GameObject gameOverMenu;
-    private PlayerMovement playerLife;
+    private MainPlayer playerLife;
 
     public TextMeshProUGUI textMeshScore;
     public TextMeshProUGUI textMeshLevel;
@@ -29,7 +29,7 @@ public class Level1 : MonoBehaviour
     private void Start()
     {
         // username = unityLginRegisterInstance.GetName();
-        playerLife = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        playerLife = GameObject.FindGameObjectWithTag("Player").GetComponent<MainPlayer>();
         playerLife.deathPlayer += ActivateMenu;
         textMeshLevel.text = "Nivel: " + level;
 
