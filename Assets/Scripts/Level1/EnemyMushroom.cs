@@ -19,7 +19,7 @@ public class EnemyMushroom : MonoBehaviour
             if (other.GetContact(0).normal.y <= -0.9)
             {
                 animator.SetTrigger("Hit");
-                other.gameObject.GetComponent<PlayerMovement>().Bounce();
+                other.gameObject.GetComponent<MainPlayer>().Bounce();
             }
         }
     }

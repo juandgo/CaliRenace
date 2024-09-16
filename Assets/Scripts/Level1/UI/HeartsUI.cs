@@ -9,7 +9,7 @@ public class HeartsUI : MonoBehaviour
     public List<Image> heartList;
     public GameObject heartPrefab;
     // [SerializeField] public PlayerLife playerLife;
-    [SerializeField] public PlayerMovement playerLife;
+    [SerializeField] public MainPlayer playerLife;
     public int indexActual;
     public Sprite fullHeart, emptyHeart;
 
