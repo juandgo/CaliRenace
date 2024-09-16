@@ -23,9 +23,9 @@ public class ObjectDamage : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Verificar y aplicar daño al jugador si tiene el componente PlayerLife
-        if (collision.gameObject.TryGetComponent(out MainPlayer mainPlayer))
+        if (collision.gameObject.TryGetComponent(out PlayerMovement playerMovement))
         {
-            mainPlayer.Damage(damage);
+            playerMovement.Damage(damage);
         }
     }
 }

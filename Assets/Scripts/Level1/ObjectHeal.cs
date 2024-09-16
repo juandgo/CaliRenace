@@ -7,9 +7,9 @@ public class ObjectHeal : MonoBehaviour
     public int heal;
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.TryGetComponent(out MainPlayer mainPlayer))
+        if (collider.TryGetComponent(out PlayerMovement playerMovement))
         {
-            mainPlayer.HealLife(heal);
+            playerMovement.HealLife(heal);
         }
     }
 }

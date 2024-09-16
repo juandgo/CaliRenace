@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System;
 
-public class MainPlayer : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
 
     private Rigidbody2D rb2D;
@@ -66,7 +66,7 @@ public class MainPlayer : MonoBehaviour
         if (Input.GetButtonDown("Jump")) 
         {
             jump = true;
-            // jumpSound.Play();
+            jumpSound.Play();
         }
     }
 
