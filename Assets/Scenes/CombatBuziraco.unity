@@ -398,6 +398,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &909818615
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 909818616}
+  m_Layer: 0
+  m_Name: ShootingController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &909818616
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909818615}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.752, y: -0.412, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 283460273}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &946607694
 GameObject:
   m_ObjectHideFlags: 0
@@ -6898,7 +6929,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 283460273}
   detectionRadius: 5
-  speed: 10
+  speed: 7
+  life: 100
+  killingEfect: {fileID: 3799173144267144110, guid: 8cccfb73ee448954ba3b368c36d223ee, type: 3}
 --- !u!1 &1094679308
 GameObject:
   m_ObjectHideFlags: 0
@@ -7017,6 +7050,25 @@ Transform:
   - {fileID: 1663719126}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1279319437 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 750590303025989294, guid: 06660788690805f46bcdc828b8a7c693, type: 3}
+  m_PrefabInstance: {fileID: 1376768875}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1279319443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279319437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2072ca7d49153448a85e4cf052fd403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShootingContoller: {fileID: 909818616}
+  bullet: {fileID: 796197835312181371, guid: 34e590b56d06c4b4ab62f0313a2a9b4b, type: 3}
 --- !u!1001 &1376768875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7075,8 +7127,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8579376263163784689, guid: 06660788690805f46bcdc828b8a7c693, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 909818616}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 750590303025989294, guid: 06660788690805f46bcdc828b8a7c693, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1279319443}
   m_SourcePrefab: {fileID: 100100000, guid: 06660788690805f46bcdc828b8a7c693, type: 3}
 --- !u!1 &1459456597
 GameObject:
@@ -7135,7 +7193,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 6ceb205b8f3302d46864e435e963d13f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
