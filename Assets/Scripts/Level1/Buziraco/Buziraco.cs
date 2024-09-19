@@ -12,8 +12,10 @@ public class Buziraco : MonoBehaviour
     private Animator animator;
 
     private bool onTheMove;
-
-    // Start is called before the first frame update
+    
+    [SerializeField] private float life;
+    [SerializeField] private GameObject killingEfect;
+ 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>(); // Obtener Rigidbody2D
@@ -51,5 +53,17 @@ public class Buziraco : MonoBehaviour
     void OnDrawGizmosSelected(){
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
+    }
+
+    public void TakeDamage(float damage){
+        life -= damage;
+        if(life <= 0){
+            Death();
+        }
+    }
+
+    private void Death(){
+        Instantiate(killingEfect, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 }

@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump")) 
         {
             jump = true;
-            jumpSound.Play();
+            // jumpSound.Play();
         }
     }
 
@@ -105,9 +105,10 @@ public class PlayerMovement : MonoBehaviour
     private void Turn()
     {
         lookingRight = !lookingRight;
-        Vector3 scala = transform.localScale;
-        scala.x *= -1;
-        transform.localScale = scala;
+        // Vector3 scala = transform.localScale;
+        // scala.x *= -1;
+        // transform.localScale = scala;
+        transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y + 180, 0f);
     }
 
     private void OnDrawGizmos()
