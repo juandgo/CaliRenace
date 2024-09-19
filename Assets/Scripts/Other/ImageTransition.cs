@@ -6,14 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class ImageTransition : MonoBehaviour
 {
-    public float transitionTime = 2f; // Tiempo en segundos entre cada transición
-    public Transform parentTransform; // Transform del padre que contiene las imágenes
-    public Transform textParent;      // Transform del padre para los campos de texto
-    public string nextScene;          // Nombre de la siguiente escena a cargar
+    public float transitionTime = 2f;  // Tiempo entre cada transición
+    public float fadeDuration = 1f;    // Duración del desvanecimiento
+    public Transform parentTransform;  // Padre de las imágenes
+    public Transform textParent;       // Padre de los textos
+    public string nextScene;           // Nombre de la siguiente escena
 
-    private Image[] childImages; // Arreglo para almacenar las imágenes hijas del objeto padre
-    private TextMeshProUGUI[] messageTexts; // Arreglo para almacenar los textos hijos del objeto padre
-    private int currentIndex = 0; // Índice de la imagen actual
+    private Image[] childImages;           // Arreglo de imágenes hijas
+    private TextMeshProUGUI[] messageTexts; // Arreglo de textos hijos
+    private CanvasGroup[] imageCanvasGroups; // Transparencias de las imágenes
+    private CanvasGroup[] textCanvasGroups;  // Transparencias de los textos
+    private int currentIndex = 0;          // Índice actual
     private Coroutine transitionCoroutine; // Referencia a la rutina de transición
 
     void Start()
@@ -22,29 +25,25 @@ public class ImageTransition : MonoBehaviour
         childImages = GetChildImages();
         messageTexts = GetChildTexts();
 
-        // Si no se encuentran imágenes, mostrar un mensaje de error
-        if (childImages.Length == 0)
+        // Crear CanvasGroups para imágenes y textos
+        imageCanvasGroups = AddCanvasGroups(childImages);
+        textCanvasGroups = AddCanvasGroups(messageTexts);
+
+        if (childImages.Length == 0 || messageTexts.Length == 0)
         {
-            Debug.LogError("No se encontraron imágenes hijas en el objeto padre.");
-            return;
-        }
-        if (messageTexts.Length == 0)
-        {
-            Debug.LogError("No se encontraron textos hijos en el objeto padre.");
+            Debug.LogError("No se encontraron imágenes o textos.");
             return;
         }
 
-        // Ocultar todas las imágenes y textos al inicio
-        HideAllImagesTexts();
-        // Mostrar la primera imagen y texto inmediatamente
-        ShowCurrentImage();
+        // Iniciar la primera imagen y texto con desvanecimiento
+        StartCoroutine(FadeInCurrentImageText());
+
         // Iniciar la rutina de transición de imágenes y textos
         transitionCoroutine = StartCoroutine(TransitionImagesTexts());
     }
 
     private Image[] GetChildImages()
     {
-        // Usar una lista para manejar dinámicamente las imágenes encontradas
         var imagesList = new System.Collections.Generic.List<Image>();
         int childCount = parentTransform.childCount;
 
@@ -52,20 +51,16 @@ public class ImageTransition : MonoBehaviour
         {
             Transform child = parentTransform.GetChild(i);
             Image image = child.GetComponent<Image>();
-
-            // Si es una imagen, agregarla a la lista
             if (image != null)
             {
                 imagesList.Add(image);
             }
         }
-
         return imagesList.ToArray();
     }
 
     private TextMeshProUGUI[] GetChildTexts()
     {
-        // Usar una lista para manejar dinámicamente los textos encontrados
         var textsList = new System.Collections.Generic.List<TextMeshProUGUI>();
         int childCount = textParent.childCount;
 
@@ -73,15 +68,24 @@ public class ImageTransition : MonoBehaviour
         {
             Transform child = textParent.GetChild(i);
             TextMeshProUGUI text = child.GetComponent<TextMeshProUGUI>();
-
-            // Si es un texto, agregarla a la lista
             if (text != null)
             {
                 textsList.Add(text);
             }
         }
-
         return textsList.ToArray();
+    }
+
+    private CanvasGroup[] AddCanvasGroups(Graphic[] graphics)
+    {
+        var canvasGroups = new CanvasGroup[graphics.Length];
+        for (int i = 0; i < graphics.Length; i++)
+        {
+            CanvasGroup cg = graphics[i].gameObject.AddComponent<CanvasGroup>();
+            cg.alpha = 0; // Inicialmente invisibles
+            canvasGroups[i] = cg;
+        }
+        return canvasGroups;
     }
 
     IEnumerator TransitionImagesTexts()
@@ -90,44 +94,58 @@ public class ImageTransition : MonoBehaviour
         {
             yield return new WaitForSeconds(transitionTime);
 
-            // Avanzar al siguiente índice circularmente
             currentIndex = (currentIndex + 1) % childImages.Length;
 
-            // Mostrar solo la imagen y texto actual
-            ShowCurrentImage();
+            // Desvanecer la imagen y texto actual y mostrar el siguiente
+            StartCoroutine(FadeOutPreviousImageText());
+            StartCoroutine(FadeInCurrentImageText());
 
             // Si es la última imagen, cambiar de escena
             if (currentIndex == childImages.Length - 1)
             {
                 SceneManager.LoadScene(nextScene);
-                
             }
         }
     }
 
-    void ShowCurrentImage()
+    IEnumerator FadeInCurrentImageText()
     {
-        // Ocultar todas las imágenes y textos hijos
-        HideAllImagesTexts();
-        // Activar solo la imagen y texto actual
-        childImages[currentIndex].gameObject.SetActive(true);
-        messageTexts[currentIndex].gameObject.SetActive(true);
+        CanvasGroup currentImageGroup = imageCanvasGroups[currentIndex];
+        CanvasGroup currentTextGroup = textCanvasGroups[currentIndex];
+
+        float elapsedTime = 0f;
+        while (elapsedTime < fadeDuration)
+        {
+            float alpha = Mathf.Lerp(0f, 1f, elapsedTime / fadeDuration);
+            currentImageGroup.alpha = alpha;
+            currentTextGroup.alpha = alpha;
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        currentImageGroup.alpha = 1f;
+        currentTextGroup.alpha = 1f;
     }
 
-    void HideAllImagesTexts()
+    IEnumerator FadeOutPreviousImageText()
     {
-        foreach (var image in childImages)
-        {
-            if (image != null)
-                image.gameObject.SetActive(false);
-        }
+        int previousIndex = (currentIndex - 1 + childImages.Length) % childImages.Length;
 
-        foreach (var text in messageTexts)
+        CanvasGroup previousImageGroup = imageCanvasGroups[previousIndex];
+        CanvasGroup previousTextGroup = textCanvasGroups[previousIndex];
+
+        float elapsedTime = 0f;
+        while (elapsedTime < fadeDuration)
         {
-            if (text != null)
-                text.gameObject.SetActive(false);
+            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+            previousImageGroup.alpha = alpha;
+            previousTextGroup.alpha = alpha;
+            elapsedTime += Time.deltaTime;
+            yield return null;
         }
+        previousImageGroup.alpha = 0f;
+        previousTextGroup.alpha = 0f;
     }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -140,44 +158,29 @@ public class ImageTransition : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            // SceneManager.LoadScene("Level1");
             SceneManager.LoadScene(nextScene);
         }
     }
 
     public void NextImage()
     {
-        // Detener la rutina de transición actual
         if (transitionCoroutine != null)
         {
             StopCoroutine(transitionCoroutine);
         }
-
-        // Avanzar al siguiente índice circularmente
         currentIndex = (currentIndex + 1) % childImages.Length;
-
-        // Mostrar solo la imagen y texto actual
-        ShowCurrentImage();
-
-        // Reiniciar la rutina de transición
+        StartCoroutine(FadeInCurrentImageText());
         transitionCoroutine = StartCoroutine(TransitionImagesTexts());
     }
 
     public void PreviousImage()
     {
-        // Detener la rutina de transición actual
         if (transitionCoroutine != null)
         {
             StopCoroutine(transitionCoroutine);
         }
-
-        // Retroceder al índice anterior circularmente
         currentIndex = (currentIndex - 1 + childImages.Length) % childImages.Length;
-
-        // Mostrar solo la imagen y texto actual
-        ShowCurrentImage();
-
-        // Reiniciar la rutina de transición
+        StartCoroutine(FadeInCurrentImageText());
         transitionCoroutine = StartCoroutine(TransitionImagesTexts());
     }
 }
