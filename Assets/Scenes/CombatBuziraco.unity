@@ -6931,7 +6931,7 @@ MonoBehaviour:
   detectionRadius: 5
   speed: 7
   life: 100
-  killingEfect: {fileID: 3669623512913240672, guid: bc9649610631c5e409b0a3bbff62c0ae, type: 3}
+  killingEfect: {fileID: 3799173144267144110, guid: 8cccfb73ee448954ba3b368c36d223ee, type: 3}
 --- !u!1 &1094679308
 GameObject:
   m_ObjectHideFlags: 0
