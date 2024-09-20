@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump")) 
         {
             jump = true;
-            // jumpSound.Play();
+            jumpSound.Play();
         }
     }
 
@@ -133,7 +133,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-     public void Damage(int amountDamage){
+     public void TakeDamage(int amountDamage){
+        CinemachineCameraMovement.Instance.MoveCamera(5, 5, 0.5f);
         int temporalLife = actualLife - amountDamage;
 
         if(temporalLife < 0){

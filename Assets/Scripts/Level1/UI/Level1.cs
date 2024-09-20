@@ -17,6 +17,8 @@ public class Level1 : MonoBehaviour
     public AudioSource fxSource;
     public AudioClip clickSound;
 
+    [SerializeField] private AudioSource gameOverSound;
+
     [Header("Game Over Menu")]
     [SerializeField] private GameObject gameOverMenu;
     private PlayerMovement playerLife;
@@ -25,7 +27,7 @@ public class Level1 : MonoBehaviour
     public TextMeshProUGUI textMeshLevel;
     private float score;
     private string level = "1";
-    
+
     private void Start()
     {
         // username = unityLginRegisterInstance.GetName();
@@ -102,6 +104,7 @@ public class Level1 : MonoBehaviour
 
     private void ActivateMenu(object sender, EventArgs e)
     {
+        gameOverSound.Play();
         gameOverMenu.SetActive(true);
     }
 

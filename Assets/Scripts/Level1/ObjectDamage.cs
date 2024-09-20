@@ -25,7 +25,7 @@ public class ObjectDamage : MonoBehaviour
         // Verificar y aplicar daño al jugador si tiene el componente PlayerLife
         if (collision.gameObject.TryGetComponent(out PlayerMovement playerMovement))
         {
-            playerMovement.Damage(damage);
+            playerMovement.TakeDamage(damage);
         }
     }
 }
