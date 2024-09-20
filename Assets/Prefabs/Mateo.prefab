@@ -35,6 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7147630119830122871}
+  - {fileID: 6517058840180315012}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6877350150760574512
@@ -131,6 +132,12 @@ MonoBehaviour:
   groundController: {fileID: 7147630119830122871}
   boxDimensions: {x: 1, y: 0.25, z: 0}
   onGround: 0
+  wallController: {fileID: 6517058840180315012}
+  boxWallDimensions: {x: 0.4, y: 1.9, z: 0}
+  speedSlide: 1
+  jumpForceWallX: 6
+  jumpForceWallY: 12
+  jumpTimeWall: 0.2
   bounceSpeed: 0
   jumpSound: {fileID: 0}
   actualLife: 0
@@ -201,6 +208,37 @@ CapsuleCollider2D:
   m_Offset: {x: -0.022624254, y: 0.067872524}
   m_Size: {x: 1.0847516, y: 2.034255}
   m_Direction: 0
+--- !u!1 &4215007979994413567
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6517058840180315012}
+  m_Layer: 0
+  m_Name: WallController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6517058840180315012
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4215007979994413567}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.52, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8579376263163784689}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7059344410499444349
 GameObject:
   m_ObjectHideFlags: 0
