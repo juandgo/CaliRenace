@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System;
+// using System.Numerics;
 
 public class PlayerMovement : MonoBehaviour
 {
 
     private Rigidbody2D rb2D;
+    private float inputX;
 
     [Header("Movement")]
 
@@ -23,8 +25,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform groundController;
     [SerializeField] private Vector3 boxDimensions;
     [SerializeField] private bool onGround;
-    
+
     private bool jump = false;
+
+    [Header("JumpWall")]
+    [SerializeField] private Transform wallController;
+    [SerializeField] private Vector3 boxWallDimensions;
+    private bool onWall;
+    private bool sliding;
+    [SerializeField] private float speedSlide, jumpForceWallX, jumpForceWallY, jumpTimeWall;
+    private bool jumpingFromWall;
 
     [Header("Bounce")]
     [SerializeField] private float bounceSpeed;
@@ -46,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
     public event EventHandler deathPlayer;
 
 
-     float knockbackForce = 10f;
+    float knockbackForce = 10f;
 
     void Start()
     {
@@ -58,15 +68,27 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        horizontalMovement = Input.GetAxisRaw("Horizontal") * speedMovement;
+        inputX = Input.GetAxisRaw("Horizontal");
+        horizontalMovement = inputX * speedMovement;
 
         animator.SetFloat("Horizontal", Mathf.Abs(horizontalMovement));
         animator.SetFloat("SpeedY", rb2D.velocity.y);
 
-        if (Input.GetButtonDown("Jump")) 
+        animator.SetBool("Sliding", sliding);
+
+        if (Input.GetButtonDown("Jump"))
         {
             jump = true;
             jumpSound.Play();
+        }
+
+        if (!onGround && onWall && inputX != 0)
+        {
+            sliding = true;
+        }
+        else
+        {
+            sliding = false;
         }
     }
 
@@ -74,32 +96,63 @@ public class PlayerMovement : MonoBehaviour
     {
         onGround = Physics2D.OverlapBox(groundController.position, boxDimensions, 0f, whatGround);
         animator.SetBool("onGround", onGround);
+
+        onWall = Physics2D.OverlapBox(wallController.position, boxWallDimensions, 0f, whatGround);
+
         //Move   
         Move(horizontalMovement * Time.fixedDeltaTime, jump);
 
         jump = false;
+
+        if (sliding)
+        {
+            rb2D.velocity = new Vector2(rb2D.velocity.x, Mathf.Clamp(rb2D.velocity.y, -speedSlide, float.MaxValue));
+        }
     }
 
     private void Move(float move, bool jump)
     {
-        Vector3 speedObjective = new Vector2(move, rb2D.velocity.y);
-        rb2D.velocity = Vector3.SmoothDamp(rb2D.velocity, speedObjective, ref speed, smothMovement);
+        if (!jumpingFromWall)
+        {
+            Vector3 speedObjective = new Vector2(move, rb2D.velocity.y);
+            rb2D.velocity = Vector3.SmoothDamp(rb2D.velocity, speedObjective, ref speed, smothMovement);
+
+        }
 
         if (move > 0 && !lookingRight)
         {
             //Turn
             Turn();
-        }else if(move < 0 && lookingRight)
+        }
+        else if (move < 0 && lookingRight)
         {
             //Turn
             Turn();
         }
 
-        if (onGround && jump)
+        if (onGround && jump && !sliding)
         {
             onGround = false;
             rb2D.AddForce(new Vector2(0f, jumpForce));
         }
+
+        if (jump && onWall && sliding)
+        {
+            //JumpWall
+            JumpWall();
+        }
+    }
+
+    private void JumpWall(){
+        onWall = false;
+        rb2D.velocity = new Vector2(jumpForceWallX * -inputX, jumpForceWallY);
+        StartCoroutine(ChangeJumpWall());
+    }
+
+    IEnumerator ChangeJumpWall(){
+        jumpingFromWall = true;
+        yield return new WaitForSeconds(jumpTimeWall);
+        jumpingFromWall = false;
     }
 
     private void Turn()
@@ -115,9 +168,11 @@ public class PlayerMovement : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(groundController.position, boxDimensions);
+        Gizmos.DrawWireCube(wallController.position, boxWallDimensions);
     }
 
-    public void Bounce(){
+    public void Bounce()
+    {
         rb2D.velocity = new Vector2(rb2D.velocity.x, bounceSpeed);
     }
 
@@ -133,33 +188,43 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-     public void TakeDamage(int amountDamage){
+    public void TakeDamage(int amountDamage)
+    {
         CinemachineCameraMovement.Instance.MoveCamera(5, 5, 0.5f);
         int temporalLife = actualLife - amountDamage;
 
-        if(temporalLife < 0){
+        if (temporalLife < 0)
+        {
             actualLife = 0;
-        }else{
+        }
+        else
+        {
             actualLife = temporalLife;
         }
 
         changeLife.Invoke(actualLife);
 
-        if(actualLife <= 0){
+        if (actualLife <= 0)
+        {
             deathPlayer?.Invoke(this, EventArgs.Empty);
             Destroy(gameObject);
         }
 
     }
 
-    public void HealLife(int amountHeal){
+    public void HealLife(int amountHeal)
+    {
         int temporalLife = actualLife + amountHeal;
 
-        if(temporalLife > maxLife){
+        if (temporalLife > maxLife)
+        {
             actualLife = maxLife;
-        }else{
-             actualLife = temporalLife;
+        }
+        else
+        {
+            actualLife = temporalLife;
         }
         changeLife.Invoke(actualLife);
     }
+
 }
