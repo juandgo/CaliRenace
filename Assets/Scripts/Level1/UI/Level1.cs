@@ -27,7 +27,7 @@ public class Level1 : MonoBehaviour
     public TextMeshProUGUI textMeshLevel;
     private float score;
     private string level = "1";
-    
+
     private void Start()
     {
         // username = unityLginRegisterInstance.GetName();
