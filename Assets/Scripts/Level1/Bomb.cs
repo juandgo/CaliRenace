@@ -6,6 +6,7 @@ public class Bomb : MonoBehaviour
 {
     [SerializeField] private float radio;
     [SerializeField] private float explosiveForce;
+    [SerializeField] private GameObject explosiveEfect;
 
 
     private void Update(){
@@ -15,6 +16,18 @@ public class Bomb : MonoBehaviour
     }
 
     public void Explode(){
+        Instantiate(explosiveEfect, transform.position, Quaternion.identity);
+        // CinemachineMovimientoCamara.Instance.MoverCamara(10,10,1);
+        CinemachineCameraMovement.Instance.MoveCamera(10, 10, 1);
+        // Collider2D[] objetosIniciales = Physics2D.OverlapCircleAll(transform.position, radio);
+
+        // foreach(Collider2D colisionador in objetosIniciales){
+        //     Box box = colisionador.GetComponent<Box>();
+        //     if(box != null){
+        //         box.Destroy();
+        //     }
+        // }
+
         Collider2D[] objetos = Physics2D.OverlapCircleAll(transform.position, radio);
 
         foreach (Collider2D colisionador in objetos){
