@@ -27,6 +27,9 @@ public class ItemCollector : MonoBehaviour
             collectionSoundEffect.Play();
             Destroy(collision.gameObject);
             score.AddScore(pointsStrawberry);
+        }else if(collision.gameObject.CompareTag("Heart")){
+            collectionSoundEffect.Play();
+            Destroy(collision.gameObject);
         }
-    }
+    }  
 }
