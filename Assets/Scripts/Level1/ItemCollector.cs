@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ItemCollector : MonoBehaviour
 {
     [SerializeField] private AudioSource collectionSoundEffect;
+    [SerializeField] private AudioSource collectCoinSoundEffect;
     [SerializeField] private float pointsApple;
     [SerializeField] private float pointsOrange;
     [SerializeField] private float pointsStrawberry;
@@ -29,6 +30,9 @@ public class ItemCollector : MonoBehaviour
             score.AddScore(pointsStrawberry);
         }else if(collision.gameObject.CompareTag("Heart")){
             collectionSoundEffect.Play();
+            Destroy(collision.gameObject);
+        }else if(collision.gameObject.CompareTag("Coin")){
+            collectCoinSoundEffect.Play();
             Destroy(collision.gameObject);
         }
     }  
