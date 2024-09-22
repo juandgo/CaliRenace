@@ -9,7 +9,19 @@ public class ObjectHeal : MonoBehaviour
     {
         if (collider.TryGetComponent(out PlayerMovement playerMovement))
         {
+            // Destroy(collider.gameObject);
             playerMovement.HealLife(heal);
         }
     }
+
+    // private void OnTriggerEnter2D(Collider2D collision)
+    // {
+    //     if (collision.gameObject.CompareTag("Heart"))
+    //     {
+    //         // collectionSoundEffect.Play();
+    //         Destroy(collision.gameObject);
+    //         playerMovement.HealLife(heal);
+
+    //     }
+    // }
 }

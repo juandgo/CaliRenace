@@ -49,7 +49,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("PlayerLife")]
 
-    public int actualLife, maxLife, valorPrueba;
+    [SerializeField] private int actualLife, maxLife;
+    // valorPrueba;
 
     public UnityEvent<int> changeLife;
 
@@ -143,13 +144,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void JumpWall(){
+    private void JumpWall()
+    {
         onWall = false;
         rb2D.velocity = new Vector2(jumpForceWallX * -inputX, jumpForceWallY);
         StartCoroutine(ChangeJumpWall());
     }
 
-    IEnumerator ChangeJumpWall(){
+    IEnumerator ChangeJumpWall()
+    {
         jumpingFromWall = true;
         yield return new WaitForSeconds(jumpTimeWall);
         jumpingFromWall = false;
