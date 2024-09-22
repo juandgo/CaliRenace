@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 4840450916638288781}
   - component: {fileID: 650383039383564625}
   - component: {fileID: 3895532418403651831}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mateo
   m_TagString: Player
   m_Icon: {fileID: 0}
