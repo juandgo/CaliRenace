@@ -15,6 +15,7 @@ TagManager:
   - Audio
   - Heart
   - Coin
+  - Damage
   layers:
   - Default
   - TransparentFX

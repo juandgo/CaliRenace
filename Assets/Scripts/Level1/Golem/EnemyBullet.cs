@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public float speed;
+    public int damage;
+
+    private void Update() {
+        transform.Translate(Time.deltaTime * speed * Vector2.right);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private void OnTriggerEnter2D(Collider2D other){
+        if (other.TryGetComponent(out PlayerMovement playerLife))
+        {
+            playerLife.TakeDamage(damage);
+            Destroy(gameObject);
+        }
     }
 }

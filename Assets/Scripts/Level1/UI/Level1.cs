@@ -16,6 +16,7 @@ public class Level1 : MonoBehaviour
     public AudioMixer mixer;
     public AudioSource fxSource;
     public AudioClip clickSound;
+    private float lastVolume;
 
     [SerializeField] private AudioSource gameOverSound;
 
@@ -104,6 +105,10 @@ public class Level1 : MonoBehaviour
 
     private void ActivateMenu(object sender, EventArgs e)
     {
+        fxSource.Stop();
+        // mixer.GetFloat("VolMaster", out lastVolume);
+        // mixer.SetFloat("VolMaster", -80); // Reduce volumen al mínimo
+        // Destroy(gameObject);
         gameOverSound.Play();
         gameOverMenu.SetActive(true);
     }

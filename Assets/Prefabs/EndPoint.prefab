@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 7410458018461041933}
   - component: {fileID: 8898464004561135587}
   - component: {fileID: 7574219147787550892}
-  - component: {fileID: 5490839514047209320}
   - component: {fileID: 4623924792617336848}
+  - component: {fileID: 5490839514047209320}
   m_Layer: 0
   m_Name: EndPoint
   m_TagString: Untagged
@@ -154,6 +154,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6092949, y: 2.81839}
   m_EdgeRadius: 0
+--- !u!114 &4623924792617336848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470016376996229416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05dd7b85b240b59439caaff7a02f66da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panel: {fileID: 0}
+  gameOverPanel: {fileID: 0}
+  winSound: {fileID: 5490839514047209320}
+  levelId: 1
 --- !u!82 &5490839514047209320
 AudioSource:
   m_ObjectHideFlags: 0
@@ -250,19 +266,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &4623924792617336848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1470016376996229416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05dd7b85b240b59439caaff7a02f66da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panel: {fileID: 0}
-  gameOverPanel: {fileID: 0}
-  levelId: 1
-  score: 3

@@ -46,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sounds")]
 
     [SerializeField] private AudioSource jumpSound;
+    [SerializeField] private AudioSource collectDamageSoundEffect;
 
     [Header("PlayerLife")]
 
