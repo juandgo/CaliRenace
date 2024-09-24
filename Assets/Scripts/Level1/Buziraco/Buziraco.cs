@@ -74,6 +74,7 @@ public class Buziraco : MonoBehaviour
 
     private void Death()
     {
+        // animator.SetTrigger("Death");
         Instantiate(killingEfect, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

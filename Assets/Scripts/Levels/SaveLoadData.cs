@@ -35,7 +35,7 @@ namespace LevelUnlock
             }
             else
             {
-                SaveData(userId, 1, "1", 0); // Initialize with default values
+                // SaveData(userId, 1, "0", 0); // Initialize with default values
                 PlayerPrefs.SetInt("GameStartFirstTime", 1);
             }
         }
@@ -44,7 +44,7 @@ namespace LevelUnlock
         {
             ClearData();
         }
-
+        //completion status significa si esta activo
         public void SaveData(int userId, int levelId, string completionStatus, int score)
         {
             StartCoroutine(SaveDataCoroutine(userId, levelId, completionStatus, score));
@@ -123,7 +123,7 @@ namespace LevelUnlock
 
                 // Wrap the JSON array in an object if necessary
                 jsonResponse = "{\"levels\":" + jsonResponse + "}";
-                Debug.Log("LOAD: " + jsonResponse);
+                // Debug.Log("LOAD: " + jsonResponse);
 
                 LevelDataWrapper wrapper = JsonUtility.FromJson<LevelDataWrapper>(jsonResponse);
 
@@ -142,6 +142,7 @@ namespace LevelUnlock
                     // Enable the next level
                     int nextLevelToUnlock = lastCompletedLevel + 1;
                     LevelSystemManager.Instance.LevelData.lastUnlockedLevel = nextLevelToUnlock;
+                    Debug.Log("LOAD: " + jsonResponse);
 
                     // Debug.Log("Data Loaded and Updated. Next level to unlock: " + nextLevelToUnlock);
                 }

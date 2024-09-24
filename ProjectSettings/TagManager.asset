@@ -16,6 +16,7 @@ TagManager:
   - Heart
   - Coin
   - Damage
+  - EndPoint
   layers:
   - Default
   - TransparentFX

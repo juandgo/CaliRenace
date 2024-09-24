@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using TMPro;
-using UnityEngine.Networking;
 using System;
 using System.Threading;
 
@@ -26,7 +25,7 @@ public class Level1 : MonoBehaviour
 
     public TextMeshProUGUI textMeshScore;
     public TextMeshProUGUI textMeshLevel;
-    private float score;
+    private int score;
     private string level = "1";
 
     private void Start()
@@ -113,9 +112,15 @@ public class Level1 : MonoBehaviour
         gameOverMenu.SetActive(true);
     }
 
-    public void AddScore(float entryScore)
+    public void AddScore(int entryScore)
     {
         score += entryScore;
+    }
+
+    // Método para retornar el valor de score
+    public int GetScore()
+    {
+        return score;
     }
 
     public void RestartGameOver()
