@@ -7081,6 +7081,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mateo
       objectReference: {fileID: 0}
+    - target: {fileID: 898489520254022306, guid: 06660788690805f46bcdc828b8a7c693, type: 3}
+      propertyPath: hitRadio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 898489520254022306, guid: 06660788690805f46bcdc828b8a7c693, type: 3}
+      propertyPath: hitDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2263156719445925042, guid: 06660788690805f46bcdc828b8a7c693, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.12
+      objectReference: {fileID: 0}
     - target: {fileID: 6877350150760574512, guid: 06660788690805f46bcdc828b8a7c693, type: 3}
       propertyPath: m_SortingOrder
       value: 1

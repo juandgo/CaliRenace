@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class NextLevel : MonoBehaviour
 {
-    [SerializeField] private Level1 l1;
+    [SerializeField] private Level1 lv1;
     [SerializeField] private GameObject panel;
     // [SerializeField] Animator transitionAnim;
     [SerializeField] private AudioSource winSound;
@@ -28,13 +28,17 @@ public class NextLevel : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
+        // float score = lv1.GetScore();
+        // if (lv1.GetScore() > score){
+        //     score = lv1.GetScore();
+        // }
         if (collider.CompareTag("Player"))
         {
             // Guarda el nivel completado antes de cambiar de escena
             if (SaveLoadData.Instance != null)
             {
                 // SaveLoadData.Instance.SaveData(userId, levelId, "1", 2);
-                SaveLoadData.Instance.SaveData(userId, levelId, "1", l1.GetScore());
+                SaveLoadData.Instance.SaveData(userId, levelId, "1", lv1.GetScore());
                 //WIN                                               this.score
                 winSound.Play();
             }
