@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class NextLevel : MonoBehaviour
 {
+    [SerializeField] private Level1 l1;
     [SerializeField] private GameObject panel;
     // [SerializeField] Animator transitionAnim;
     [SerializeField] private AudioSource winSound;
@@ -32,7 +33,8 @@ public class NextLevel : MonoBehaviour
             // Guarda el nivel completado antes de cambiar de escena
             if (SaveLoadData.Instance != null)
             {
-                SaveLoadData.Instance.SaveData(userId, levelId, "1", 3);
+                // SaveLoadData.Instance.SaveData(userId, levelId, "1", 2);
+                SaveLoadData.Instance.SaveData(userId, levelId, "1", l1.GetScore());
                 //WIN                                               this.score
                 winSound.Play();
             }

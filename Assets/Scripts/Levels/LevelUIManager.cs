@@ -30,10 +30,10 @@ namespace LevelUnlock
         public void InitializeUI()
         {
             // Clear existing buttons
-            for (int i = levelBtnGridHolder.childCount - 1; i >= 0; i--)
-            {
-                Destroy(levelBtnGridHolder.GetChild(i).gameObject);
-            }
+            // for (int i = levelBtnGridHolder.childCount - 1; i >= 0; i--)
+            // {
+            //     Destroy(levelBtnGridHolder.GetChild(i).gameObject);
+            // }
 
             LevelItem[] levelItemsArray = LevelSystemManager.Instance.LevelData.levelItemArray; //get the level data array
 

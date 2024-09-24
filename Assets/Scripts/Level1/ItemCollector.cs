@@ -9,27 +9,27 @@ public class ItemCollector : MonoBehaviour
     [SerializeField] private AudioSource collectCoinSoundEffect;
     [SerializeField] private AudioSource collectHeartSoundEffect;
     [SerializeField] private AudioSource collectDamageSoundEffect;
-    [SerializeField] private float pointsApple;
-    [SerializeField] private float pointsOrange;
-    [SerializeField] private float pointsStrawberry;
+    [SerializeField] private int pointsApple;
+    [SerializeField] private int pointsOrange;
+    [SerializeField] private int pointsStrawberry;
     // [SerializeField] private Score score;
-    [SerializeField] private Level1 score;
+    [SerializeField] private Level1 l1;
 
     private void OnTriggerEnter2D(Collider2D collision){
         if(collision.gameObject.CompareTag("Apple")){
             collectionSoundEffect.Play();
             Destroy(collision.gameObject);
-            score.AddScore(pointsApple);
+            l1.AddScore(pointsApple);
 
         }else if(collision.gameObject.CompareTag("Orange")){
             collectionSoundEffect.Play();
             Destroy(collision.gameObject);
-            score.AddScore(pointsOrange);
+            l1.AddScore(pointsOrange);
 
         }else if(collision.gameObject.CompareTag("Strawberry")){
             collectionSoundEffect.Play();
             Destroy(collision.gameObject);
-            score.AddScore(pointsStrawberry);
+            l1.AddScore(pointsStrawberry);
         }else if(collision.gameObject.CompareTag("Heart")){
             collectHeartSoundEffect.Play();
             Destroy(collision.gameObject);
