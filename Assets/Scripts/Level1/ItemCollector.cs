@@ -13,23 +13,23 @@ public class ItemCollector : MonoBehaviour
     [SerializeField] private int pointsOrange;
     [SerializeField] private int pointsStrawberry;
     // [SerializeField] private Score score;
-    [SerializeField] private Level1 l1;
+    [SerializeField] private Level1 lv1;
 
     private void OnTriggerEnter2D(Collider2D collision){
         if(collision.gameObject.CompareTag("Apple")){
             collectionSoundEffect.Play();
             Destroy(collision.gameObject);
-            l1.AddScore(pointsApple);
+            lv1.AddScore(pointsApple);
 
         }else if(collision.gameObject.CompareTag("Orange")){
             collectionSoundEffect.Play();
             Destroy(collision.gameObject);
-            l1.AddScore(pointsOrange);
+            lv1.AddScore(pointsOrange);
 
         }else if(collision.gameObject.CompareTag("Strawberry")){
             collectionSoundEffect.Play();
             Destroy(collision.gameObject);
-            l1.AddScore(pointsStrawberry);
+            lv1.AddScore(pointsStrawberry);
         }else if(collision.gameObject.CompareTag("Heart")){
             collectHeartSoundEffect.Play();
             Destroy(collision.gameObject);
