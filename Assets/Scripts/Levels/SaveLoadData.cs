@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using System;
 using Newtonsoft.Json.Linq;
 
 namespace LevelUnlock
@@ -31,20 +32,19 @@ namespace LevelUnlock
         {
             if (PlayerPrefs.GetInt("GameStartFirstTime") == 1)
             {
-                LoadData(userId);
+                LoadData(userId, null); // Carga los datos si ya ha iniciado antes
             }
             else
             {
-                // SaveData(userId, 1, "0", 0); // Initialize with default values
-                PlayerPrefs.SetInt("GameStartFirstTime", 1);
+                PlayerPrefs.SetInt("GameStartFirstTime", 1); // Primera vez que se inicia el juego
             }
         }
 
         private void OnApplicationQuit()
         {
-            ClearData();
+            // ClearData();
         }
-        //completion status significa si esta activo
+
         public void SaveData(int userId, int levelId, string completionStatus, int score)
         {
             StartCoroutine(SaveDataCoroutine(userId, levelId, completionStatus, score));
@@ -53,10 +53,6 @@ namespace LevelUnlock
         private IEnumerator SaveDataCoroutine(int userId, int levelId, string completionStatus, int score)
         {
             WWWForm form = new WWWForm();
-            // levelId = levelId + 1;
-            Debug.Log($"completionStatus: {completionStatus}");
-
-            Debug.Log("levelId:  " + levelId);
             form.AddField("action", "save");
             form.AddField("userId", userId);
             form.AddField("levelId", levelId);
@@ -90,7 +86,10 @@ namespace LevelUnlock
                     int nextLevelToUnlock = lastCompletedLevel + 1;
                     LevelSystemManager.Instance.LevelData.lastUnlockedLevel = nextLevelToUnlock;
 
-                    // Debug.Log("Data Loaded and Updated. Next level to unlock: " + nextLevelToUnlock);
+                    // Actualizar la UI
+                    // LevelUIManager.Instance.UpdateUI(wrap.levels, nextLevelToUnlock);
+                    LevelUIManager.Instance.InitializeUI();
+                    
                 }
                 else
                 {
@@ -99,12 +98,12 @@ namespace LevelUnlock
             }
         }
 
-        public void LoadData(int userId)
+        public void LoadData(int userId, Action<int> onScoreLoaded)
         {
-            StartCoroutine(LoadDataCoroutine(userId));
+            StartCoroutine(LoadDataCoroutine(userId, onScoreLoaded));
         }
 
-        private IEnumerator LoadDataCoroutine(int userId)
+        private IEnumerator LoadDataCoroutine(int userId, Action<int> onScoreLoaded)
         {
             WWWForm form = new WWWForm();
             form.AddField("action", "load");
@@ -120,31 +119,41 @@ namespace LevelUnlock
             else
             {
                 string jsonResponse = www.downloadHandler.text;
-
-                // Wrap the JSON array in an object if necessary
                 jsonResponse = "{\"levels\":" + jsonResponse + "}";
-                // Debug.Log("LOAD: " + jsonResponse);
-
                 LevelDataWrapper wrapper = JsonUtility.FromJson<LevelDataWrapper>(jsonResponse);
 
                 if (wrapper != null && wrapper.levels != null)
                 {
-                    // Assuming LevelSystemManager expects a different structure
+                    // Actualiza los datos del sistema de niveles
                     LevelSystemManager.Instance.LevelData.levelItemArray = wrapper.levels;
 
-                    // Find the highest completed level
                     int lastCompletedLevel = wrapper.levels
-                        .Where(level => level.completion_status == "1") // Comparison as string
+                        .Where(level => level.completion_status == "1")
                         .Select(level => int.Parse(level.level_id))
                         .DefaultIfEmpty(0)
                         .Max();
 
-                    // Enable the next level
                     int nextLevelToUnlock = lastCompletedLevel + 1;
                     LevelSystemManager.Instance.LevelData.lastUnlockedLevel = nextLevelToUnlock;
-                    Debug.Log("LOAD: " + jsonResponse);
 
-                    // Debug.Log("Data Loaded and Updated. Next level to unlock: " + nextLevelToUnlock);
+                    // Actualizar la UI
+                    // LevelUIManager.Instance.UpdateUI(wrapper.levels, nextLevelToUnlock);
+
+                    // Devuelve el puntaje si se requiere
+                    if (onScoreLoaded != null)
+                    {
+                        LevelItem currentLevel = wrapper.levels.FirstOrDefault(level => level.level_id == "1");
+                        int score = 0;
+
+                        if (currentLevel != null && int.TryParse(currentLevel.score, out score))
+                        {
+                            onScoreLoaded.Invoke(score);
+                        }
+                        else
+                        {
+                            onScoreLoaded.Invoke(0);  // Puntaje 0 si no se encuentra
+                        }
+                    }
                 }
                 else
                 {
@@ -172,7 +181,7 @@ namespace LevelUnlock
             }
 
             PlayerPrefs.SetInt("GameStartFirstTime", 0);
-            PlayerPrefs.DeleteKey("accountUserId"); // Optional: Clear the user ID if session is tied to the user
+            PlayerPrefs.DeleteKey("accountUserId");
         }
 
         public int GetCurrentLevel()
@@ -189,8 +198,8 @@ namespace LevelUnlock
     [System.Serializable]
     public class LevelData
     {
-        public int lastUnlockedLevel;           // Reference to lastUnlockedLevel
-        public LevelItem[] levelItemArray;    // Reference to level data
+        public int lastUnlockedLevel;
+        public LevelItem[] levelItemArray;
     }
 
     [System.Serializable]
