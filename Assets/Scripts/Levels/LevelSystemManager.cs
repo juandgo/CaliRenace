@@ -32,8 +32,8 @@ namespace LevelUnlock
             int userId = PlayerPrefs.GetInt("accountUserId", -1);
             if (userId != -1)
             {
-                SaveLoadData.Instance.LoadData(userId);
-                StartCoroutine(WaitForDataAndUpdateUI());
+                SaveLoadData.Instance.LoadData(userId, OnScoreLoaded);
+                StartCoroutine(WaitForDataAndUpdateUI()); // Llamada al método definido correctamente
             }
             else
             {
@@ -41,17 +41,25 @@ namespace LevelUnlock
             }
         }
 
+        // Callback para manejar el puntaje cargado
+        private void OnScoreLoaded(int score)
+        {
+            Debug.Log("Score loaded: " + score);
+            // Aquí puedes hacer algo con el puntaje cargado, si es necesario
+        }
+
         public void ReloadDataForNewUser(int userId)
         {
-            SaveLoadData.Instance.LoadData(userId);
+            SaveLoadData.Instance.LoadData(userId, OnScoreLoaded);
             StartCoroutine(WaitForDataAndUpdateUI());
         }
 
+        // Método que espera la carga de datos y actualiza la interfaz de usuario
         private IEnumerator WaitForDataAndUpdateUI()
         {
-            yield return new WaitForSeconds(2f); // Adjust this wait time as needed
+            yield return new WaitForSeconds(2f); // Ajusta este tiempo de espera según sea necesario
             Debug.Log("Updating UI with loaded data.");
-            LevelUIManager.Instance.InitializeUI();
+            LevelUIManager.Instance.InitializeUI(); // Asegúrate de que LevelUIManager esté correctamente implementado
         }
     }
 }
