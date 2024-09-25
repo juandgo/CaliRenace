@@ -44,13 +44,11 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
 
     [Header("Sounds")]
-
     [SerializeField] private AudioSource jumpSound;
-    [SerializeField] private AudioSource collectDamageSoundEffect;
-
     [Header("PlayerLife")]
-
-    [SerializeField] private int actualLife, maxLife;
+    [SerializeField] private int actualLife; 
+    [SerializeField] private int maxLife; 
+    
     // valorPrueba;
 
     public UnityEvent<int> changeLife;

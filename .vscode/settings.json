@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "CaliRenace.sln"
+    "dotnet.defaultSolution": "CaliRenace8.sln"
 }

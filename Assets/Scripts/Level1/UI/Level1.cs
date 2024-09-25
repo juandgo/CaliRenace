@@ -86,6 +86,17 @@ public class Level1 : MonoBehaviour
         Debug.Log("Ir al menu de inicio");
         SceneManager.LoadSceneAsync("MainMenu");
     }
+    public void LevelMenu()
+    {
+        PlaySoundButton();
+        Time.timeScale = 1f;
+        SceneManager.LoadSceneAsync("Levels");
+    }
+    public void NextLv()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadSceneAsync("Level2");
+    }
 
     public void ChangeVolumeMaster(float v)
     {
