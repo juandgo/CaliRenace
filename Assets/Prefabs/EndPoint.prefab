@@ -166,8 +166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05dd7b85b240b59439caaff7a02f66da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 0}
-  gameOverPanel: {fileID: 0}
+  lv1: {fileID: 0}
+  panel: {fileID: 511913115183380606, guid: 48e6300df87056a4c940216cf9a635f4, type: 3}
   winSound: {fileID: 5490839514047209320}
   levelId: 1
 --- !u!82 &5490839514047209320

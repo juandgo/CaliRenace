@@ -51,6 +51,15 @@ public class Level1 : MonoBehaviour
                 Pause();
             }
         }
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            if (pausedGame)
+            {
+                Restart();
+            }
+        }
+
+
     }
 
     public void Pause()
@@ -59,6 +68,7 @@ public class Level1 : MonoBehaviour
         pausedGame = true;
         Time.timeScale = 0f;
         pauseMenu.SetActive(true);
+        
     }
 
     public void Resume()
@@ -85,6 +95,17 @@ public class Level1 : MonoBehaviour
         Time.timeScale = 1f;
         Debug.Log("Ir al menu de inicio");
         SceneManager.LoadSceneAsync("MainMenu");
+    }
+    public void LevelMenu()
+    {
+        PlaySoundButton();
+        Time.timeScale = 1f;
+        SceneManager.LoadSceneAsync("Levels");
+    }
+    public void NextLv()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadSceneAsync("Level2");
     }
 
     public void ChangeVolumeMaster(float v)

@@ -62,9 +62,9 @@ public class NextLevel : MonoBehaviour
         }
     }
 
-    public void OkBtn()
+    public void NextLv()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadSceneAsync("Levels");
+        SceneManager.LoadSceneAsync("Level2");
     }
 }

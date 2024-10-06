@@ -7,7 +7,17 @@ function registerUser($username, $password, $email, $sex) {
 
     // Validar el correo electrónico
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo 4;
+        echo 4; // Email inválido
+        return;
+    }
+
+    // Validar la seguridad de la contraseña
+    if (strlen($password) < 8 || 
+        !preg_match('/[A-Z]/', $password) ||    // Al menos una letra mayúscula
+        !preg_match('/[a-z]/', $password) ||    // Al menos una letra minúscula
+        !preg_match('/[0-9]/', $password) ||    // Al menos un número
+        !preg_match('/[\W]/', $password)) {     // Al menos un carácter especial
+        echo 5;
         return;
     }
 
@@ -19,6 +29,7 @@ function registerUser($username, $password, $email, $sex) {
     if ($stmt->rowCount() == 0) {
         // Encriptar la contraseña
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
         // Insertar el usuario con la contraseña encriptada
         $stmt = $connection->prepare("INSERT INTO users (username, email, password, sex) VALUES (:username, :email, :password, :sex)");
         $stmt->bindParam(':username', $username);
@@ -35,6 +46,7 @@ function registerUser($username, $password, $email, $sex) {
         echo 3; // Usuario ya existe
     }
 }
+
 
 function loginUser($username, $password) {
     global $connection;

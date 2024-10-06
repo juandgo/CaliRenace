@@ -169,6 +169,10 @@ public class UnityLoginRegister : MonoBehaviour
                 {
                     UpdateInfoTexts("Correo electrónico no válido.");
                 }
+                else if (responseText == "5")
+                {
+                    UpdateInfoTexts("La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.");
+                }
                 else
                 {
                     UpdateInfoTexts("Error desconocido.");
