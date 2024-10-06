@@ -51,6 +51,15 @@ public class Level1 : MonoBehaviour
                 Pause();
             }
         }
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            if (pausedGame)
+            {
+                Restart();
+            }
+        }
+
+
     }
 
     public void Pause()
@@ -59,6 +68,7 @@ public class Level1 : MonoBehaviour
         pausedGame = true;
         Time.timeScale = 0f;
         pauseMenu.SetActive(true);
+        
     }
 
     public void Resume()
