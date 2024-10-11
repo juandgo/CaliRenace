@@ -17,6 +17,7 @@ TagManager:
   - Coin
   - Damage
   - EndPoint
+  - Timer
   layers:
   - Default
   - TransparentFX

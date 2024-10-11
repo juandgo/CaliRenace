@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,6 +36,9 @@ public class ItemCollector : MonoBehaviour
         }else if(collision.gameObject.CompareTag("Enemy")){
             collectDamageSoundEffect.Play();
         }else if(collision.gameObject.CompareTag("Coin")){
+            collectCoinSoundEffect.Play();
+            Destroy(collision.gameObject);
+        }else if(collision.gameObject.CompareTag("Timer")){
             collectCoinSoundEffect.Play();
             Destroy(collision.gameObject);
         }
