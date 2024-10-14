@@ -10,19 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe1e3773ddaa9ce48835846fb8e11c7f, type: 3}
-  m_Name: KM
+  m_Name: 4
   m_EditorClassIdentifier: 
-  _info: "\xBFQu\xE9 representa el votar en una elecci\xF3n democr\xE1tica?"
+  _info: "\xBFPor qu\xE9 se erigieron las Tres Cruces en 1937?"
   _answers:
-  - _info: "Una p\xE9rdida de tiempo."
+  - _info: Para conmemorar la independencia de Colombia.
     _isCorrect: 0
-  - _info: ' Un derecho y deber ciudadano.'
+  - _info: "Como s\xEDmbolo de protecci\xF3n espiritual para la ciudad."
     _isCorrect: 1
-  - _info: Una actividad irrelevante.
+  - _info: 'Para marcar la entrada a un parque.
+
+'
     _isCorrect: 0
-  - _info: "Una acci\xF3n opcional sin importancia.\n"
+  - _info: Para celebrar un evento religioso.
     _isCorrect: 0
   _useTimer: 1
-  _timer: 8
+  _timer: 10
   _answerType: 1
-  _addScore: 10
+  _addScore: 25

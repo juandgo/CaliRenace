@@ -10,20 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe1e3773ddaa9ce48835846fb8e11c7f, type: 3}
-  m_Name: SunTemperature
+  m_Name: 2
   m_EditorClassIdentifier: 
-  _info: "\xBFCu\xE1l es el s\xEDmbolo de la ciudad de Cali, visible desde muchos
-    puntos de la ciudad?"
+  _info: "\xBFEn qu\xE9 a\xF1o fue construida la capilla de San Antonio?"
   _answers:
-  - _info: " El Gato del R\xEDo"
-    _isCorrect: 0
-  - _info: ' El Monumento a Cristo Rey'
+  - _info: 1747
     _isCorrect: 1
-  - _info: El Puente Ortiz
+  - _info: 1832
     _isCorrect: 0
-  - _info: El Edificio Coltabaco
+  - _info: 1953
+    _isCorrect: 0
+  - _info: '1937
+
+'
     _isCorrect: 0
   _useTimer: 1
-  _timer: 10
+  _timer: 8
   _answerType: 1
-  _addScore: 20
+  _addScore: 10

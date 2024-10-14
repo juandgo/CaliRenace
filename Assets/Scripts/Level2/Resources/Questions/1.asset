@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe1e3773ddaa9ce48835846fb8e11c7f, type: 3}
-  m_Name: MORE MATH
+  m_Name: 1
   m_EditorClassIdentifier: 
-  _info: "\xBFCu\xE1l es el nombre del fundador de la ciudad de Cali?"
+  _info: "\xBFCu\xE1l es uno de los principales hitos del barrio San Antonio en Cali?"
   _answers:
-  - _info: "Sebasti\xE1n de Belalc\xE1zar"
+  - _info: La Catedral de Cali primero.
+    _isCorrect: 0
+  - _info: ' La capilla de San Antonio personas mayores o con discapacidad.'
     _isCorrect: 1
-  - _info: "Sim\xF3n Bol\xEDvar"
+  - _info: El Parque del Perro
     _isCorrect: 0
-  - _info: Francisco de Paula Santander
-    _isCorrect: 0
-  - _info: "Antonio Nari\xF1o"
+  - _info: El Teatro Municipal
     _isCorrect: 0
   _useTimer: 1
-  _timer: 4
-  _answerType: 0
+  _timer: 8
+  _answerType: 1
   _addScore: 10
