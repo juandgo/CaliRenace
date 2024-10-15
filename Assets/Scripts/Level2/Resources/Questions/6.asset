@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe1e3773ddaa9ce48835846fb8e11c7f, type: 3}
-  m_Name: New Question
+  m_Name: 6
   m_EditorClassIdentifier: 
-  _info: "\xBFQuien es Jairo Barela?"
+  _info: "\xBFQui\xE9n fue el escultor de la estatua de Cristo Rey?"
   _answers:
-  - _info: Un cantante
+  - _info: Fernando Botero
+    _isCorrect: 0
+  - _info: Alfonso C. Fagioli
     _isCorrect: 1
-  - _info: Un futbolista
+  - _info: Edgar Negret
     _isCorrect: 0
-  - _info: Un pintor
-    _isCorrect: 0
-  - _info: Niki Jam
+  - _info: "Alejandro Obreg\xF3n"
     _isCorrect: 0
   _useTimer: 1
   _timer: 8
-  _answerType: 0
+  _answerType: 1
   _addScore: 10

@@ -10,17 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe1e3773ddaa9ce48835846fb8e11c7f, type: 3}
-  m_Name: Math
+  m_Name: 3
   m_EditorClassIdentifier: 
-  _info: "\xBFCu\xE1l es la capital de Colombia?"
+  _info: "\xBFQu\xE9 transformaci\xF3n experiment\xF3 el barrio San Antonio a finales
+    del siglo XX?"
   _answers:
-  - _info: "Medell\xEDn."
+  - _info: "Se convirti\xF3 en un barrio residencial exclusivo."
     _isCorrect: 0
-  - _info: Cali.
-    _isCorrect: 0
-  - _info: "Bogot\xE1."
+  - _info: Fue descubierto por artistas. intelectuales  intelectuales y turistas.
+      intelectuales y turistas. artistas,intelectuales y turistas. intelectuales
+      y turistas.
     _isCorrect: 1
-  - _info: Cartagena.
+  - _info: "Se transform\xF3 en un \xE1rea industrial."
+    _isCorrect: 0
+  - _info: "Se convirti\xF3 en un centro comercial."
     _isCorrect: 0
   _useTimer: 1
   _timer: 6
