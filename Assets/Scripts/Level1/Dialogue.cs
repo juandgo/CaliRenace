@@ -13,7 +13,9 @@ public class Dialogue : MonoBehaviour{
     private int lineIndex;
 
     void Update() {
-        if(isPlayerInRange && Input.GetButtonDown("Submit")){
+        // if(isPlayerInRange && Input.GetButtonDown("Submit")){
+        if(isPlayerInRange && Input.GetKeyDown(KeyCode.G)){
+
             if(!didDialogueStart){
                 StartDialogue();
             }else if(dialogueText.text == dialogueLines[lineIndex] ){
