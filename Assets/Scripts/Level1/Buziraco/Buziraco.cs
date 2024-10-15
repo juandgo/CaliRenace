@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Buziraco : MonoBehaviour
 {
     public Transform player; // Se añade la referencia al jugador
@@ -14,6 +14,7 @@ public class Buziraco : MonoBehaviour
     private bool onTheMove;
 
     [SerializeField] private float life;
+    [SerializeField] AudioSource damageSound;
     [SerializeField] private GameObject killingEfect;
 
     void Start()
@@ -65,6 +66,7 @@ public class Buziraco : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        damageSound.Play();
         life -= damage;
         if (life <= 0)
         {
