@@ -1,4 +1,4 @@
-    using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,32 +15,46 @@ public class ItemCollector : MonoBehaviour
     // [SerializeField] private Score score;
     [SerializeField] private Level1 lv1;
 
-    private void OnTriggerEnter2D(Collider2D collision){
-        if(collision.gameObject.CompareTag("Apple")){
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Apple"))
+        {
             collectionSoundEffect.Play();
             Destroy(collision.gameObject);
             lv1.AddScore(pointsApple);
 
-        }else if(collision.gameObject.CompareTag("Orange")){
+        }
+        else if (collision.gameObject.CompareTag("Orange"))
+        {
             collectionSoundEffect.Play();
             Destroy(collision.gameObject);
             lv1.AddScore(pointsOrange);
 
-        }else if(collision.gameObject.CompareTag("Strawberry")){
+        }
+        else if (collision.gameObject.CompareTag("Strawberry"))
+        {
             collectionSoundEffect.Play();
             Destroy(collision.gameObject);
             lv1.AddScore(pointsStrawberry);
-        }else if(collision.gameObject.CompareTag("Heart")){
+        }
+        else if (collision.gameObject.CompareTag("Heart"))
+        {
             collectHeartSoundEffect.Play();
             Destroy(collision.gameObject);
-        }else if(collision.gameObject.CompareTag("Enemy")){
+        }
+        else if (collision.gameObject.CompareTag("Enemy"))
+        {
             collectDamageSoundEffect.Play();
-        }else if(collision.gameObject.CompareTag("Coin")){
-            collectCoinSoundEffect.Play();
-            Destroy(collision.gameObject);
-        }else if(collision.gameObject.CompareTag("Timer")){
+        }
+        else if (collision.gameObject.CompareTag("Coin"))
+        {
             collectCoinSoundEffect.Play();
             Destroy(collision.gameObject);
         }
-    }  
+        // else if (collision.gameObject.CompareTag("Timer"))
+        // {
+        //     collectCoinSoundEffect.Play();
+        //     Destroy(collision.gameObject);
+        // }
+    }
 }

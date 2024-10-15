@@ -7,6 +7,7 @@ public class Dialogue : MonoBehaviour{
     [SerializeField] private GameObject dialogueMark, dialoguePanel;
     [SerializeField] private TMP_Text dialogueText;
     [SerializeField, TextArea(4, 6)] private string[] dialogueLines;
+    //   [SerializeField] private AudioSource exclamationSound;
 
     private bool isPlayerInRange, didDialogueStart;
     private float typingTime = 0.05f;
@@ -61,6 +62,7 @@ public class Dialogue : MonoBehaviour{
         if (collision.gameObject.CompareTag("Player")){
             isPlayerInRange = true;
             dialogueMark.SetActive(true);
+            // exclamationSound.Play();
             // Debug.Log("Se puede iniciar un dialogo");
         }
     }
