@@ -5,12 +5,13 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using TMPro;
 using UnityEngine.EventSystems;
-using System.Linq;
-using LevelUnlock; // Asegúrate de incluir el namespace correcto
+using LevelUnlock;
 
 public class UnityLoginRegister : MonoBehaviour
 {
-    private string baseUrl = "http://localhost/www/UnityLoginLogoutRegister/";
+    private const string baseUrl = "http://localhost/www/UnityLoginLogoutRegister/";
+    private const string ukey = "accountUsername";
+    private const string userIdKey = "accountUserId";
 
     [Header("Crear Cuenta")]
     public TMP_InputField username;
@@ -30,103 +31,86 @@ public class UnityLoginRegister : MonoBehaviour
     public GameObject createAcount;
     public GameObject title;
 
-    private string ukey = "accountUsername";
-    private string userIdKey = "accountUserId"; // Añadido para el ID del usuario
-
-    private LevelSystemManager levelSystemManager; // Referencia a LevelSystemManager
+    private LevelSystemManager levelSystemManager;
 
     void Start()
     {
-        if (sexDropdown == null)
-        {
-            sexDropdown = GameObject.Find("SexDropdown").GetComponent<TMP_Dropdown>();
-        }
-
-        // Registra un listener para cuando el valor del dropdown cambie
-        sexDropdown.onValueChanged.AddListener(delegate
-        {
-            DropdownValueChanged(sexDropdown);
-        });
-
-        // Buscar el objeto LevelSystemManager en la escena
+        sexDropdown ??= GameObject.Find("SexDropdown").GetComponent<TMP_Dropdown>();
+        sexDropdown.onValueChanged.AddListener(DropdownValueChanged);
         levelSystemManager = FindObjectOfType<LevelSystemManager>();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        HandleTabNavigation();
+        HandleEnterKey();
+    }
+
+    private void HandleTabNavigation()
+    {
+        if (!Input.GetKeyDown(KeyCode.Tab)) return;
+
+        var current = EventSystem.current.currentSelectedGameObject?.GetComponent<Selectable>();
+        var next = current?.FindSelectableOnDown();
+        if (next != null)
         {
-            Selectable next = null;
-            if (EventSystem.current.currentSelectedGameObject != null)
-            {
-                Selectable current = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>();
-                if (current != null)
-                {
-                    next = current.FindSelectableOnDown();
-                }
-            }
-
-            if (next != null)
-            {
-                InputField inputField = next.GetComponent<InputField>();
-                if (inputField != null) inputField.OnPointerClick(new PointerEventData(EventSystem.current));  // If it's an input field, also set the text caret
-
-                EventSystem.current.SetSelectedGameObject(next.gameObject, new BaseEventData(EventSystem.current));
-            }
+            var inputField = next.GetComponent<InputField>();
+            inputField?.OnPointerClick(new PointerEventData(EventSystem.current));
+            EventSystem.current.SetSelectedGameObject(next.gameObject, new BaseEventData(EventSystem.current));
         }
+    }
 
+    private void HandleEnterKey()
+    {
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
-            AccountLogin();
+            if (loginPanel.activeSelf)
+                AccountLogin();
+            else
+                AccountRegister();
         }
     }
 
-    void DropdownValueChanged(TMP_Dropdown dropdown)
+    private void DropdownValueChanged(int index)
+{
+    if (index != 0)
     {
-        int index = dropdown.value;
-        if (index != 0)
-        {
-            string selectedText = dropdown.options[dropdown.value].text;
-            Debug.Log("Selected: " + selectedText);
-        }
+        string selectedText = sexDropdown.options[index].text;
+        Debug.Log("Selected: " + selectedText);
+    }
+}
+
+    private void UpdateInfoTexts(string message)
+    {
+        info.text = message;
+        info2.text = message;
     }
 
-    private void UpdateInfoTexts(string newText)
+    private void TogglePanels(GameObject panelToActivate, GameObject panelToDeactivate)
     {
-        info.text = newText;
-        info2.text = newText;
+        panelToActivate.SetActive(true);
+        panelToDeactivate.SetActive(false);
+        title.SetActive(!title.activeSelf);
     }
 
     public void AccountRegister()
     {
-        string user = username.text;
-        string em = email.text;
-        string sex = sexDropdown.options[sexDropdown.value].text;
-        Debug.Log(sex);
-        string pass = password.text;
-        string confirmPass = confirmPassword.text;
+        string user = username.text, em = email.text, sex = sexDropdown.options[sexDropdown.value].text;
+        string pass = password.text, confirmPass = confirmPassword.text;
 
+        if (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(em) || string.IsNullOrEmpty(pass) || string.IsNullOrEmpty(confirmPass) || sex == "Seleccione")
+        {
+            UpdateInfoTexts("Todos los campos son obligatorios.");
+            return;
+        }
         if (pass != confirmPass)
         {
             UpdateInfoTexts("Las contraseñas no coinciden.");
             return;
         }
-        if (sex == "Seleccione")
-        {
-            UpdateInfoTexts("¿Cúal es su sexo?");
-            return;
-        }
 
         StartCoroutine(RegisterNewAccount(user, pass, em, sex));
     }
-
-    public void AccountLogin()
-    {
-        string user = usernameLog.text;
-        string pass = passwordLog.text;
-        StartCoroutine(LoginAccount(user, pass));
-    }
-
 
     IEnumerator RegisterNewAccount(string user, string pass, string em, string sex)
     {
@@ -145,52 +129,64 @@ public class UnityLoginRegister : MonoBehaviour
             {
                 Debug.LogError("Error de conexión: " + www.error);
                 UpdateInfoTexts("Error de conexión. Intenta de nuevo.");
+                yield break;
             }
-            else
-            {
-                string responseText = www.downloadHandler.text;
-                UpdateInfoTexts(responseText);
 
-                if (responseText == "1")
-                {
-                    UpdateInfoTexts("Usuario " + user + " registrado exitosamente.");
-                    loginPanel.SetActive(true);
-                    createAcount.SetActive(false);
-                    title.SetActive(!title.activeSelf);
-                    username.text = "";
-                    password.text = "";
-                    email.text = "";
-                    confirmPassword.text = "";
-                }
-                else if (responseText == "2")
-                {
-                    UpdateInfoTexts("Error al registrar la cuenta.");
-                }
-                else if (responseText == "3")
-                {
-                    UpdateInfoTexts("Este usuario no está disponible. Por favor cree otro usuario.");
-                }
-                else if (responseText == "4")
-                {
-                    UpdateInfoTexts("Correo electrónico no válido.");
-                }
-                else if (responseText == "5")
-                {
-                    UpdateInfoTexts("La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.");
-                }
-                else
-                {
-                    UpdateInfoTexts("Error desconocido.");
-                }
-            }
+            ProcessRegisterResponse(www.downloadHandler.text, user);
         }
     }
 
-    IEnumerator LoginAccount(string username, string password)
+    private void ProcessRegisterResponse(string responseText, string user)
+    {
+        switch (responseText)
+        {
+            case "1":
+                UpdateInfoTexts("Usuario " + user + " registrado exitosamente.");
+                ClearRegistrationFields();
+                TogglePanels(loginPanel, createAcount);
+                break;
+            case "2":
+                UpdateInfoTexts("Error al registrar la cuenta.");
+                break;
+            case "3":
+                UpdateInfoTexts("Este usuario no está disponible. Por favor elige otro.");
+                break;
+            case "4":
+                UpdateInfoTexts("Correo electrónico no válido.");
+                break;
+            case "5":
+                UpdateInfoTexts("La contraseña debe tener al menos 8 caracteres, incluyendo una letra mayúscula, una minúscula, un número y un carácter especial.");
+                break;
+            default:
+                UpdateInfoTexts("Error desconocido.");
+                break;
+        }
+    }
+
+    private void ClearRegistrationFields()
+    {
+        username.text = email.text = password.text = confirmPassword.text = "";
+        sexDropdown.value = 0;
+    }
+
+    public void AccountLogin()
+    {
+        string user = usernameLog.text, pass = passwordLog.text;
+
+        if (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(pass))
+        {
+            UpdateInfoTexts("Todos los campos son obligatorios.");
+            return;
+        }
+
+        StartCoroutine(LoginAccount(user, pass));
+    }
+
+    IEnumerator LoginAccount(string user, string pass)
     {
         WWWForm form = new WWWForm();
-        form.AddField("loginUsername", username);
-        form.AddField("loginPassword", password);
+        form.AddField("loginUsername", user);
+        form.AddField("loginPassword", pass);
 
         using (UnityWebRequest www = UnityWebRequest.Post(baseUrl + "index.php", form))
         {
@@ -201,42 +197,29 @@ public class UnityLoginRegister : MonoBehaviour
             {
                 Debug.LogError("Error de conexión: " + www.error);
                 UpdateInfoTexts("Error de conexión. Intenta de nuevo.");
+                yield break;
             }
-            else
-            {
-                string responseText = www.downloadHandler.text;
-                Debug.Log("Response: " + responseText);
 
-                if (responseText.StartsWith("{")) // Asumir respuesta JSON si es exitosa
-                {
-                    User user = JsonUtility.FromJson<User>(responseText);
-                    PlayerPrefs.SetString(ukey, username);
-                    PlayerPrefs.SetInt(userIdKey, user.userId);
-                    PlayerPrefs.Save();
+            ProcessLoginResponse(www.downloadHandler.text, user);
+        }
+    }
 
-                    UpdateInfoTexts("Inicio de sesión exitoso del usuario " + username);
+    private void ProcessLoginResponse(string responseText, string user)
+    {
+        if (responseText.StartsWith("{"))
+        {
+            User loggedUser = JsonUtility.FromJson<User>(responseText);
+            PlayerPrefs.SetString(ukey, user);
+            PlayerPrefs.SetInt(userIdKey, loggedUser.userId);
+            PlayerPrefs.Save();
 
-                    // Llamar al método para cargar los datos del usuario
-                    if (levelSystemManager != null)
-                    {
-                        levelSystemManager.ReloadDataForNewUser(user.userId);
-                    }
-
-                    SceneManager.LoadScene("MainMenu");
-                }
-                else if (responseText == "2")
-                {
-                    UpdateInfoTexts("Contraseña incorrecta para el usuario " + username);
-                }
-                else if (responseText == "3")
-                {
-                    UpdateInfoTexts("Usuario " + username + " no encontrado.");
-                }
-                else
-                {
-                    UpdateInfoTexts("Error desconocido.");
-                }
-            }
+            UpdateInfoTexts("Inicio de sesión exitoso.");
+            levelSystemManager?.ReloadDataForNewUser(loggedUser.userId);
+            SceneManager.LoadScene("MainMenu");
+        }
+        else
+        {
+            UpdateInfoTexts(responseText == "3" ? "Contraseña incorrecta para el usuario." : "Usuario no encontrado.");
         }
     }
 

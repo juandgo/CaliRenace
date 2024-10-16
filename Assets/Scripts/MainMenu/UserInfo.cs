@@ -11,6 +11,7 @@ public class UserInfo : MonoBehaviour
     public TextMeshProUGUI usernameText;
     public TextMeshProUGUI emailText;
     public TextMeshProUGUI sexText;
+    public TextMeshProUGUI level1ScoreText;
 
     [Header("Update User")]
     public TMP_InputField newUsernameInput;
@@ -38,43 +39,45 @@ public class UserInfo : MonoBehaviour
     }
 
     IEnumerator GetUserInfo(int userId)
+{
+    string url = urlData + "?user_id=" + userId;
+
+    using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
     {
-        string url = urlData + "?user_id=" + userId;
+        yield return webRequest.SendWebRequest();
 
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
+        if (webRequest.isNetworkError || webRequest.isHttpError)
         {
-            yield return webRequest.SendWebRequest();
+            Debug.LogError(webRequest.error);
+        }
+        else
+        {
+            string jsonResult = webRequest.downloadHandler.text;
+            User user = JsonUtility.FromJson<User>(jsonResult);
 
-            if (webRequest.isNetworkError || webRequest.isHttpError)
+            if (user != null)
             {
-                Debug.LogError(webRequest.error);
+                username = user.username;
+                emailText.text = "Correo: " + user.email;
+                sexText.text = "Sexo: " + user.sex;
+                usernameText.text = "Usuario: " + user.username;
+
+                // Mostrar puntajes
+                Debug.Log("Nivel 1 Score: " + user.level1_score);
+                Debug.Log("Nivel 2 Score: " + user.level2_score);
+
+                // Puedes también actualizar el UI con los puntajes si tienes los elementos creados
+                level1ScoreText.text = "Puntaje Nivel 1: " + user.level1_score;
+                // level2ScoreText.text = "Puntaje Nivel 2: " + user.level2_score;
             }
             else
             {
-                string jsonResult = webRequest.downloadHandler.text;
-                User user = JsonUtility.FromJson<User>(jsonResult);
-
-                if (user != null)
-                {
-                    username = user.username;
-                    emailText.text = "Correo: " + user.email;
-                    sexText.text = "Sexo: " + user.sex;
-                    usernameText.text = "Usuario: " + user.username;
-
-                    // Asignar valores actuales a los InputField
-                    newUsernameInput.text = user.username;
-                    newEmailInput.text = user.email;
-                    sexDropdown.value = sexDropdown.options.FindIndex(option => option.text == user.sex);
-
-                    // Debug.Log("id: " + userId + " username: " + username);
-                }
-                else
-                {
-                    Debug.LogError("User not found");
-                }
+                Debug.LogError("User not found");
             }
         }
     }
+}
+
 
     public void OnUpdateButtonClick()
     {
@@ -150,5 +153,8 @@ public class UserInfo : MonoBehaviour
         public string username;
         public string email;
         public string sex;
+        public int level1_score; // Puntaje del nivel 1
+        public int level2_score; // Puntaje del nivel 2, puedes agregar más niveles
     }
+
 }
