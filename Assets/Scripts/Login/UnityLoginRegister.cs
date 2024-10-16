@@ -51,7 +51,7 @@ public class UnityLoginRegister : MonoBehaviour
         // Buscar el objeto LevelSystemManager en la escena
         levelSystemManager = FindObjectOfType<LevelSystemManager>();
     }
-    
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
@@ -73,6 +73,11 @@ public class UnityLoginRegister : MonoBehaviour
 
                 EventSystem.current.SetSelectedGameObject(next.gameObject, new BaseEventData(EventSystem.current));
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            AccountLogin();
         }
     }
 
@@ -121,7 +126,7 @@ public class UnityLoginRegister : MonoBehaviour
         string pass = passwordLog.text;
         StartCoroutine(LoginAccount(user, pass));
     }
-    
+
 
     IEnumerator RegisterNewAccount(string user, string pass, string em, string sex)
     {
@@ -210,7 +215,7 @@ public class UnityLoginRegister : MonoBehaviour
                     PlayerPrefs.Save();
 
                     UpdateInfoTexts("Inicio de sesión exitoso del usuario " + username);
-                    
+
                     // Llamar al método para cargar los datos del usuario
                     if (levelSystemManager != null)
                     {

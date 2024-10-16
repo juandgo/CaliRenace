@@ -7,7 +7,7 @@ public class ObjectHeal : MonoBehaviour
     public int heal;
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.TryGetComponent(out PlayerMovement playerMovement))
+        if (collider.TryGetComponent(out MateoPlayer playerMovement))
         {
             // Destroy(collider.gameObject);
             playerMovement.HealLife(heal);

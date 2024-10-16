@@ -38,7 +38,7 @@ public class FallingTrap : MonoBehaviour
             }
         }
 
-        if (other.gameObject.TryGetComponent(out PlayerMovement playerMovement)){
+        if (other.gameObject.TryGetComponent(out MateoPlayer playerMovement)){
             playerMovement.TakeDamage(damage);
         }
     }

@@ -10,7 +10,7 @@ public class ObjectDamage : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Verificar y aplicar daño al jugador si tiene el componente PlayerLife
-        if (collision.gameObject.TryGetComponent(out PlayerMovement playerMovement))
+        if (collision.gameObject.TryGetComponent(out MateoPlayer playerMovement))
         {
             collectDamageSoundEffect.Play();
             playerMovement.TakeDamage(damage);

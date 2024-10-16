@@ -5,9 +5,8 @@ using UnityEngine.Events;
 using System;
 // using System.Numerics;
 
-public class PlayerMovement : MonoBehaviour
+public class MateoPlayer : MonoBehaviour
 {
-
     private Rigidbody2D rb2D;
     private float inputX;
 
@@ -46,9 +45,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sounds")]
     [SerializeField] private AudioSource jumpSound;
     [Header("PlayerLife")]
-    [SerializeField] private int actualLife; 
-    [SerializeField] private int maxLife; 
-    
+    [SerializeField] private int actualLife;
+    [SerializeField] private int maxLife;
+
     // valorPrueba;
 
     public UnityEvent<int> changeLife;

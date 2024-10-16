@@ -8,7 +8,7 @@ public class HeartsUI : MonoBehaviour
 {
     public List<Image> heartList;
     public GameObject heartPrefab;
-    [SerializeField] public PlayerMovement playerLife;
+    [SerializeField] public MateoPlayer playerLife;
     public int indexActual;
     public Sprite fullHeart, emptyHeart;
 
