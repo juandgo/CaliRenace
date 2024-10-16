@@ -182,9 +182,9 @@ MonoBehaviour:
   jumpForceWallY: 12
   jumpTimeWall: 0.2
   bounceSpeed: 0
-  jumpSound: {fileID: 0}
-  actualLife: 0
-  maxLife: 0
+  jumpSound: {fileID: 2013768457519320496}
+  actualLife: 6
+  maxLife: 6
   changeLife:
     m_PersistentCalls:
       m_Calls: []
@@ -218,7 +218,6 @@ MonoBehaviour:
   collectCoinSoundEffect: {fileID: 3895532418403651831}
   collectHeartSoundEffect: {fileID: 5929866796370516598}
   collectDamageSoundEffect: {fileID: 3895532418403651831}
-  timerSound: {fileID: 5057643701300432346}
   pointsApple: 500
   pointsOrange: 50
   pointsStrawberry: 100
