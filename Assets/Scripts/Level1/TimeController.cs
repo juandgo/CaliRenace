@@ -12,7 +12,6 @@ public class TimeController : MonoBehaviour
     [SerializeField] private Level1 lv1;
     public GameObject winCup;
 
-
     private float actualTime;
 
     private bool activatedTime = false;
@@ -59,8 +58,6 @@ public class TimeController : MonoBehaviour
         ChangeTimer(true);
         timerSound.Play();
         lv1.fxSource.Stop();
-        // winCup.SetActive(true);
-
     }
 
 public void deactivateTimer()
