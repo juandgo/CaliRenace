@@ -76,7 +76,8 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetBool("Sliding", sliding);
 
-        if (Input.GetButtonDown("Jump"))
+        // if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Vertical"))
         {
             jump = true;
             jumpSound.Play();
