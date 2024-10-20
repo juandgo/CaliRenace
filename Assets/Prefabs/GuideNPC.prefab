@@ -194,7 +194,8 @@ GameObject:
   - component: {fileID: 8247124747424725436}
   - component: {fileID: 7208522975964471799}
   - component: {fileID: 4987866759147866411}
-  - component: {fileID: 561205865268358335}
+  - component: {fileID: 6522172654716877997}
+  - component: {fileID: 4013579989640993961}
   m_Layer: 0
   m_Name: GuideNPC
   m_TagString: Untagged
@@ -377,7 +378,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &561205865268358335
+--- !u!114 &6522172654716877997
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -386,12 +387,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 5703918079790760001}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25383ea502ede0946b242c09c4f6772f, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f9a146595a722f4f810b2dcb033a869, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueMark: {fileID: 3155680272576062055}
-  dialoguePanel: {fileID: 5916395865665321274, guid: 124bd2a60321abb4d9bf7751703301a0, type: 3}
+  dialogueMark: {fileID: 0}
+  dialoguePanel: {fileID: 0}
   dialogueText: {fileID: 0}
-  dialogueLines:
-  - Ten cuidado, estan callendo rocas...
-  - voy a tener que devolverme :(
+  dialogueLines: []
+--- !u!95 &4013579989640993961
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5703918079790760001}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 109ec0f7b29cdb34e9f7e9f9fe6ca1cc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
