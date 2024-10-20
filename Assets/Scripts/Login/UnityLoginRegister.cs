@@ -9,7 +9,9 @@ using LevelUnlock;
 
 public class UnityLoginRegister : MonoBehaviour
 {
-    private const string baseUrl = "http://localhost/www/UnityLoginLogoutRegister/";
+    // private const string baseUrl = "http://localhost/www/UnityLoginLogoutRegister/";
+    // private const string baseUrl = "http://localhost/www/GameBuiltedWeb/UnityLoginLogoutRegister/";
+    private const string baseUrl = "http://GameBuiltedWeb/UnityLoginLogoutRegister/";
     private const string ukey = "accountUsername";
     private const string userIdKey = "accountUserId";
 
