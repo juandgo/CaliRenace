@@ -7,6 +7,7 @@ public class ItemCollector : MonoBehaviour
 {
     [SerializeField] private AudioSource collectionSoundEffect;
     [SerializeField] private AudioSource collectCoinSoundEffect;
+    [SerializeField] private AudioSource trophySoundEffect;
     [SerializeField] private AudioSource collectHeartSoundEffect;
     [SerializeField] private AudioSource collectDamageSoundEffect;
     [SerializeField] private int pointsApple;
@@ -14,6 +15,12 @@ public class ItemCollector : MonoBehaviour
     [SerializeField] private int pointsStrawberry;
     [SerializeField] private Level1 lv1;
        public GameObject endTimer;
+       public GameObject door;
+       private Animator doorAnimation;
+
+    void Start(){
+        doorAnimation = door.GetComponent<Animator>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -49,6 +56,12 @@ public class ItemCollector : MonoBehaviour
         else if (collision.gameObject.CompareTag("Coin"))
         {
             collectCoinSoundEffect.Play();
+            Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Trophy"))
+        {
+            doorAnimation.SetBool("isOpen", true);
+            trophySoundEffect.Play();
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("StartTimer"))
