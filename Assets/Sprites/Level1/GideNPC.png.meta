@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 50
+  spritePixelsToUnits: 60
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Gide - Copy_0
+      name: GideNPC_0
       rect:
         serializedVersion: 2
         x: 14
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2059b97571cdaef41b55fa856795d3e4
-      internalID: 1826724302
+      spriteID: 062f14baec0a23a4b88bf3de7e290675
+      internalID: 308770142
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Gide - Copy_1
+      name: GideNPC_1
       rect:
         serializedVersion: 2
         x: 128
@@ -158,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5e60d84c34115dc40981af6f9234a9b1
-      internalID: 1118192715
+      spriteID: 0b036dc45a33b09408ae65562dec7a37
+      internalID: 535126863
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Gide - Copy_2
+      name: GideNPC_2
       rect:
         serializedVersion: 2
         x: 244
@@ -179,119 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b846764e00173c84981d2ff60776e4c2
-      internalID: -1153187918
+      spriteID: de6b980504410d943abe45e99e1a8b1e
+      internalID: 429624567
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Gide - Copy_4
-      rect:
-        serializedVersion: 2
-        x: 463
-        y: 195
-        width: 67
-        height: 163
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b2f04c054809f634aae73d9761f62ab6
-      internalID: -1914355753
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Gide - Copy_5
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 11
-        width: 68
-        height: 163
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d4fa5776e32c38d4db844b1fb29ca473
-      internalID: -1612920203
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Gide - Copy_6
-      rect:
-        serializedVersion: 2
-        x: 118
-        y: 11
-        width: 94
-        height: 163
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8618fb872fa27df49bfbccacc2331ea7
-      internalID: -154592541
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Gide - Copy_7
-      rect:
-        serializedVersion: 2
-        x: 232
-        y: 9
-        width: 96
-        height: 163
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f03c16567167e254d8df8b1d576e5630
-      internalID: -1535114048
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Gide - Copy_8
-      rect:
-        serializedVersion: 2
-        x: 334
-        y: 9
-        width: 102
-        height: 163
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e273e1963040dba4195392147929f4d3
-      internalID: 1275786711
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Gide - Copy_3
+      name: GideNPC_3
       rect:
         serializedVersion: 2
         x: 360
@@ -305,8 +200,113 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c4de33ba47b49114aa78075fe2e26682
-      internalID: -1847279245
+      spriteID: ecd4a23824585974d814c2a5bcf8e06e
+      internalID: -966313890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GideNPC_4
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 195
+        width: 67
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9b475303a48b94488514a6242ee9bc7
+      internalID: -2034054251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GideNPC_5
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 11
+        width: 68
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f131cd2f93733e6479dac00d72655eed
+      internalID: -891129194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GideNPC_6
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 11
+        width: 94
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3181129c33b11094780ed57f57ccf191
+      internalID: 908945314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GideNPC_7
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 9
+        width: 96
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 325b30c44abe28147a9ca8dfddcd1521
+      internalID: 1880159741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GideNPC_8
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 9
+        width: 102
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6712b25d16605e4b852b524ada442c2
+      internalID: -1438757694
       vertices: []
       indices: 
       edges: []
@@ -322,15 +322,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Gide - Copy_0: 1826724302
-      Gide - Copy_1: 1118192715
-      Gide - Copy_2: -1153187918
-      Gide - Copy_3: -1847279245
-      Gide - Copy_4: -1914355753
-      Gide - Copy_5: -1612920203
-      Gide - Copy_6: -154592541
-      Gide - Copy_7: -1535114048
-      Gide - Copy_8: 1275786711
+      GideNPC_0: 308770142
+      GideNPC_1: 535126863
+      GideNPC_2: 429624567
+      GideNPC_3: -966313890
+      GideNPC_4: -2034054251
+      GideNPC_5: -891129194
+      GideNPC_6: 908945314
+      GideNPC_7: 1880159741
+      GideNPC_8: -1438757694
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

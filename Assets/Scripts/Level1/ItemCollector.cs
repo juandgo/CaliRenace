@@ -53,13 +53,13 @@ public class ItemCollector : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("StartTimer"))
         {
-            collectCoinSoundEffect.Play();
+            // collectCoinSoundEffect.Play();
             endTimer.SetActive(true);
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("EndTimer"))
         {
-            collectCoinSoundEffect.Play();
+            // collectCoinSoundEffect.Play();
             Destroy(collision.gameObject);
         }
     }

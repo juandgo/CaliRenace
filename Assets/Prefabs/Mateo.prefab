@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 6877350150760574512}
   - component: {fileID: 5475720646468346433}
   - component: {fileID: 6412057433637229495}
+  - component: {fileID: 898489520254022306}
   - component: {fileID: 6865832377221195113}
   - component: {fileID: 3906413902763395656}
   - component: {fileID: 4840450916638288781}
@@ -51,7 +52,6 @@ GameObject:
   - component: {fileID: 5929866796370516598}
   - component: {fileID: 1172822249381644341}
   - component: {fileID: 429942224806916824}
-  - component: {fileID: 898489520254022306}
   - component: {fileID: 2301513262631614738}
   - component: {fileID: 2013768457519320496}
   - component: {fileID: 5057643701300432346}
@@ -188,6 +188,24 @@ MonoBehaviour:
   changeLife:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &898489520254022306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750590303025989294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab95300131a07b44089d06dcf941733a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fightSoundEffect: {fileID: 2301513262631614738}
+  hitController: {fileID: 2263156719445925042}
+  hitRadio: 1
+  hitDamage: 0
+  timeBetweenAttack: 0
+  timeNextAttack: 0
 --- !u!114 &6865832377221195113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,13 +233,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectionSoundEffect: {fileID: 429942224806916824}
-  collectCoinSoundEffect: {fileID: 3895532418403651831}
+  collectCoinSoundEffect: {fileID: 1172822249381644341}
   collectHeartSoundEffect: {fileID: 5929866796370516598}
   collectDamageSoundEffect: {fileID: 3895532418403651831}
   pointsApple: 500
   pointsOrange: 50
   pointsStrawberry: 100
   lv1: {fileID: 0}
+  endTimer: {fileID: 0}
 --- !u!50 &4840450916638288781
 Rigidbody2D:
   serializedVersion: 4
@@ -668,24 +687,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &898489520254022306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 750590303025989294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab95300131a07b44089d06dcf941733a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fightSoundEffect: {fileID: 2301513262631614738}
-  hitController: {fileID: 2263156719445925042}
-  hitRadio: 1
-  hitDamage: 0
-  timeBetweenAttack: 0
-  timeNextAttack: 0
 --- !u!82 &2301513262631614738
 AudioSource:
   m_ObjectHideFlags: 0

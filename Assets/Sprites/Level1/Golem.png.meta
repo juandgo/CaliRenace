@@ -106,6 +106,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -114,9 +127,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 21
-        y: 752
+        y: 742
         width: 270
-        height: 219
+        height: 229
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -135,9 +148,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 326
-        y: 750
+        y: 752
         width: 270
-        height: 229
+        height: 227
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,6 +160,27 @@ TextureImporter:
       bones: []
       spriteID: af74fd07461d67c4690784dce0abd3da
       internalID: -550522970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Golem_2
+      rect:
+        serializedVersion: 2
+        x: 636
+        y: 756
+        width: 257
+        height: 227
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 193f1914ee9b39f42b5bfaddd4f11bf9
+      internalID: -1403457364
       vertices: []
       indices: 
       edges: []
@@ -164,6 +198,7 @@ TextureImporter:
     nameFileIdTable:
       Golem_0: 1397487032
       Golem_1: -550522970
+      Golem_2: -1403457364
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

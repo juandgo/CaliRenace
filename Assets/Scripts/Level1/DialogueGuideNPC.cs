@@ -8,6 +8,8 @@ public class DialogueGuideNPC : MonoBehaviour
     [SerializeField] private GameObject dialogueMark, dialoguePanel;
     [SerializeField] private TMP_Text dialogueText;
     [SerializeField, TextArea(4, 6)] private string[] dialogueLines;
+    [SerializeField] private GameObject player;
+    public MateoPlayer mateoPlayer;
     // [SerializeField] private GameObject ExplaningEfect;
     //   [SerializeField] private AudioSource exclamationSound;
 
@@ -16,17 +18,20 @@ public class DialogueGuideNPC : MonoBehaviour
     private Animator animator;
     private float typingTime = 0.05f;
     private int lineIndex;
-
+    public Rigidbody2D playerRigidbody;
     void Start()
     {
         animator = GetComponent<Animator>();
+        mateoPlayer = player.GetComponent<MateoPlayer>();
     }
 
     void Update()
     {
+        // FlipTowardsMateoPlayer();
         // if(isPlayerInRange && Input.GetButtonDown("Submit")){
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.G))
         {
+            FlipTowardsMateoPlayer();
 
             if (!didDialogueStart)
             {
@@ -51,8 +56,30 @@ public class DialogueGuideNPC : MonoBehaviour
         dialoguePanel.SetActive(true);
         dialogueMark.SetActive(false);
         lineIndex = 0;
+        mateoPlayer.enabled = false;
+        // mateoPlayer.GetComponent<Animator>().enabled = false;
+        mateoPlayer.GetComponent<Animator>().Play("MateoRun");
+        // mateoPlayer.GetComponent<Animator>().Play("MateoFight");
+        // Congelar movimiento
+        playerRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
         // Time.timeScale = 0f;
         StartCoroutine(ShowLine());
+    }
+
+    private void FlipTowardsMateoPlayer()
+    {
+        // Obtener la dirección hacia el mateoPlayer
+        Vector2 direction = mateoPlayer.transform.position - transform.position;
+
+        // Voltear el NPC según la dirección del mateoPlayer
+        if (direction.x > 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1); // Mirar a la derecha
+        }
+        else
+        {
+            transform.localScale = new Vector3(-1, 1, 1); // Mirar a la izquierda
+        }
     }
 
     private void NextDialogueLine()
@@ -66,6 +93,13 @@ public class DialogueGuideNPC : MonoBehaviour
         {
             didDialogueStart = false;
             animator.SetBool("isExplaning", didDialogueStart);
+            mateoPlayer.enabled = true;
+            // Descongelar movimiento
+            playerRigidbody.constraints = RigidbodyConstraints2D.None;
+            playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+            // Time.timeScale = 0f;
+
             dialoguePanel.SetActive(false);
             dialogueMark.SetActive(true);
             Time.timeScale = 1f;
