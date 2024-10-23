@@ -21,9 +21,9 @@ public class UserInfo : MonoBehaviour
     public TMP_InputField confirmNewPasswordInput;
     public TextMeshProUGUI textInfo;
 
-    // private string urlData = "http://localhost/www/UnityLoginLogoutRegister/index.php";
+    private string urlData = "http://localhost/www/UnityLoginLogoutRegister/";
     // private string urlData = "http://localhost/www/GameBuiltedWeb/UnityLoginLogoutRegister/index.php";
-    private string urlData = "http://GameBuiltedWeb/UnityLoginLogoutRegister/index.php";
+    // private string urlData = "http://GameBuiltedWeb/UnityLoginLogoutRegister/index.php";
 
 
     void Start()
